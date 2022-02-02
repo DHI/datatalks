@@ -12,7 +12,7 @@ Notebooks and scripts associated with Data Talks
 
 * [MIKE IO](https://github.com/DHI/mikeio)
 * [FMskill](https://github.com/DHI/fmskill)
-* [Altimetry](https://altimetry.dhigroup.com)
+* [altimetry.dhigroup.com](https://altimetry.dhigroup.com)
 * Book: [getting-started-with-mikeio](https://dhi.github.io/getting-started-with-mikeio/intro.html)
 * Book: [book-learn-mikeio-fmskill](https://dhi.github.io/book-learn-mikeio-fmskill/intro.html)
 
