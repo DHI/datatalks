@@ -13,12 +13,12 @@ Some design principles:
 A lot of inspiration have come from the [xarray](https://docs.xarray.dev/en/stable/) library, which is great for multidimensional gridded data, but less so for flexible mesh data.
 
 ## I want to try it!
-1. Install the [preview version](https://github.com/DHI/datatalks/raw/main/talk_2_mikeio/mikeio-1.0.dev20220221-py3-none-any.whl) in this folder
+1. Install the [preview version](https://github.com/DHI/datatalks/raw/main/talk_2_mikeio/mikeio-1.0.dev20220221-py3-none-any.whl) available here in this folder
 ```
-$ pip install [mikeio-1.0.dev20220221-py3-none-any.whl]()
+$ pip install mikeio-1.0.dev20220221-py3-none-any.whl
 ```
 
-2. Try it in a Google Colab [notebook](https://colab.research.google.com/drive/1Nevw-nhZKwHR4FYZmGSWoZuLfyaDQYn4#scrollTo=MWrpgIGUY70Q) (require a Google account)
+2. Try it in a Google Colab [notebook](https://colab.research.google.com/drive/1Nevw-nhZKwHR4FYZmGSWoZuLfyaDQYn4#scrollTo=MWrpgIGUY70Q) (requires a Google account)
 
 ## Examples
 
@@ -55,3 +55,7 @@ Time: 2018-03-07 00:00:00 (time-invariant)
 >>> ds.Surface_elevation.max(axis="time").plot(title="Max Water level (2017)")
 ```
 ![](mikeio_plot.png)
+
+## Links
+
+You can follow the work in this [Pull Request](https://github.com/DHI/mikeio/pull/272) and in this [Discussion](https://github.com/DHI/mikeio/discussions/279)
