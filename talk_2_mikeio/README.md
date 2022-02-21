@@ -2,19 +2,20 @@
 
 Two years have passed since the first release of MIKE IO and where focus have been on getting things to work smoothly.
 
-Now it is time to revisit the API in order to avoid future breakning changes.
+Now time has come to revisit the API.
 
 Some design principles:
 
 * Common operations should be possible in very few lines of code
-* It should be clear from the code, what processing is made. 
+* Readable code, also for project managers :eyes:
+* Trivial to save processed data as a new dfs file
 
 A lot of inspiration have come from the [xarray](https://docs.xarray.dev/en/stable/) library, which is great for multidimensional gridded data, but less so for flexible mesh data.
 
 ## I want to try it!
-1. Install the preview version in this folder
+1. Install the [preview version](https://github.com/DHI/datatalks/raw/main/talk_2_mikeio/mikeio-1.0.dev20220221-py3-none-any.whl) in this folder
 ```
-$ pip install mikeio-1.0.dev20220221-py3-none-any.whl
+$ pip install [mikeio-1.0.dev20220221-py3-none-any.whl]()
 ```
 
 2. Try it in a Google Colab [notebook](https://colab.research.google.com/drive/1Nevw-nhZKwHR4FYZmGSWoZuLfyaDQYn4#scrollTo=MWrpgIGUY70Q) (require a Google account)
