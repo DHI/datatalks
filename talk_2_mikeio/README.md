@@ -13,9 +13,9 @@ Some design principles:
 A lot of inspiration have come from the [xarray](https://docs.xarray.dev/en/stable/) library, which is great for multidimensional gridded data, but less so for flexible mesh data.
 
 ## I want to try it!
-1. Install the [preview version](https://github.com/DHI/datatalks/raw/main/talk_2_mikeio/mikeio-1.0.dev20220221-py3-none-any.whl) available here in this folder
+1. Install the [preview version](https://github.com/DHI/datatalks/raw/main/talk_2_mikeio/mikeio-1.0.dev20220223-py3-none-any.whl) available here in this folder
 ```
-$ pip install mikeio-1.0.dev20220221-py3-none-any.whl
+$ pip install mikeio-1.0.dev20220223-py3-none-any.whl
 ```
 
 2. Try it in a Google Colab [notebook](https://colab.research.google.com/drive/1Nevw-nhZKwHR4FYZmGSWoZuLfyaDQYn4#scrollTo=MWrpgIGUY70Q) (requires a Google account)
