@@ -1,1 +1,1 @@
-# Notebooks for interactive discussions with clients
+# Notebooks for organizing your project work
