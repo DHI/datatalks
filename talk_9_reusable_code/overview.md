@@ -31,12 +31,12 @@ There are several advantages to modularizing code in a large application:
 
 ## From messy notebook to library
 
-* Step 0: [v0_messy_notebook.ipynb](v0_messy_notebook.ipynb)
-* Step 1: [v1_notebook_with_loops_and_variables.ipynb](v1_notebook_with_loops_and_variables.ipynb)
-* Step 2: [v2_notebook_with_functions.ipynb](v2_notebook_with_functions.ipynb)
-* Step 3: [v3_notebook_using_module.ipynb](v3_notebook_using_module.ipynb)
-* Step 4: [v4_notebook_using_module_other_folder.ipynb](v4_notebook_using_module_other_folder.ipynb)
-* Step 5: [v5_notebook_using_package.ipynb](v5_notebook_using_package.ipynb)
+* Step 0: [v0_messy_notebook.ipynb](notebooks/v0_messy_notebook.ipynb)
+* Step 1: [v1_notebook_with_loops_and_variables.ipynb](notebooks/v1_notebook_with_loops_and_variables.ipynb)
+* Step 2: [v2_notebook_with_functions.ipynb](notebooks/v2_notebook_with_functions.ipynb)
+* Step 3: [v3_notebook_using_module.ipynb](notebooks/v3_notebook_using_module.ipynb)
+* Step 4: [v4_notebook_using_module_other_folder.ipynb](notebooks/v4_notebook_using_module_other_folder.ipynb)
+* Step 5: [v5_notebook_using_package.ipynb](notebooks/v5_notebook_using_package.ipynb)
 
 ## General advice
 
