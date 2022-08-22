@@ -32,11 +32,11 @@ There are several advantages to modularizing code in a large application:
 ## From messy notebook to library
 
 * Step 0: [v0_messy_notebook.ipynb](v0_messy_notebook.ipynb)
-* Step 1: v1_notebook_with_loops_and_variables.ipynb
-* Step 2: v2_notebook_with_functions.ipynb
-* Step 3: v3_notebook_using_module.ipynb
-* Step 4: v4_notebook_using_module_other_folder.ipynb
-* Step 5: v5_notebook_using_package.ipynb
+* Step 1: [v1_notebook_with_loops_and_variables.ipynb](v1_notebook_with_loops_and_variables.ipynb)
+* Step 2: [v2_notebook_with_functions.ipynb](v2_notebook_with_functions.ipynb)
+* Step 3: [v3_notebook_using_module.ipynb](v3_notebook_using_module.ipynb)
+* Step 4: [v4_notebook_using_module_other_folder.ipynb](v4_notebook_using_module_other_folder.ipynb)
+* Step 5: [v5_notebook_using_package.ipynb](v5_notebook_using_package.ipynb)
 
 ## General advice
 
@@ -59,8 +59,6 @@ Below goes for *both* notebooks and scripts:
     * should have a **docstring** 
     
 
-
-
 ## Modules and packages
 
 * Module = a Python .py file (namespace)
@@ -68,12 +66,23 @@ Below goes for *both* notebooks and scripts:
 
 ### Where does Python look for modules? 
 
-`sys.path`
+The import order is:
+
+* Built-in python modules. You can see the list in the variable `sys.modules`.
+* The `sys.path` entries.
+* The installation-dependent default locations.
+
+The `sys.path` contains: 
+
+* The first entry is the FULL PATH TO THE DIRECTORY of the file which python (or current working directory if run in interactive mode)
+* The other entries in `sys.path` are populated from the `PYTHONPATH` environment variable. Basically your global pip folders where your third-party python packages are installed. 
+
+You can append to `sys.path` if you have a specific folder you would like to import modules from. But... consider if it would be better to create a package instead and install with pip. 
 
 
 ### What is the `__init__.py` for?
 
-`__init__.py` can be empty, as long as it exists. It indicates that the directory should be regarded as a package. Of course, `__init__.py` can also set the appropriate content. 
+In a Python package, the file `__init__.py` can be empty, as long as it exists. It indicates that the directory should be regarded as a package. Of course, `__init__.py` can also set the appropriate content. 
 
 If you have `setup.py` in your project and you use `find_packages()` within it, it is necessary to have an `__init__.py` file in every directory for packages to be automatically found.
 
