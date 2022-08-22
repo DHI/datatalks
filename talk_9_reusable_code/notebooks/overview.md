@@ -32,7 +32,7 @@ There are several advantages to modularizing code in a large application:
 ## From messy notebook to library
 
 * Step 0: [v0_messy_notebook.ipynb](v0_messy_notebook.ipynb)
-* Step 1: v1_notebook_with_variables.ipynb
+* Step 1: v1_notebook_with_loops_and_variables.ipynb
 * Step 2: v2_notebook_with_functions.ipynb
 * Step 3: v3_notebook_using_module.ipynb
 * Step 4: v4_notebook_using_module_other_folder.ipynb
@@ -43,17 +43,21 @@ There are several advantages to modularizing code in a large application:
 Below goes for *both* notebooks and scripts:
 
 * Keep your notebook short 
-* Give your notebook descriptive and searchable name (possibly with a number indicating workflow order)
+* Give your notebook a descriptive and searchable name (possibly with a number indicating workflow order)
 * Keep all import statements at the top of the notebook
+* Organize your notebook in sections with headlines and text
 * Avoid using absolute paths (if necessary then define a variable with the folder path at top of your notebook)
 * Variables should be lower case (use underscore for long names)
+* Use keyword arguments when calling function
 * Replace magic numbers with constants
+* Don't copy-paste lots of code (make a loop instead)
 * Functions... 
     * should **do one thing only** 
     * should be small
     * should have few arguments
     * should have **no side effects**
     * should have a **docstring** 
+    
 
 
 
