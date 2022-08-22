@@ -84,9 +84,7 @@ def detect_and_remove_outliers(
     return df
 
 
-def _compare_single_obs_mr(
-    fldr, observations, sim="sim1", stn="F16"
-) -> fmskill.comparison.ComparerCollection:
+def _compare_single_obs_mr(fldr, observations, sim="sim1", stn="F16"):
     fn = str(fldr / sim / "ts_significant_wave_height.dfs0")
     mr = fmskill.ModelResult(fn, item=f"{stn}: Sign. Wave Height", name=f"{sim}")
     obs = fmskill.PointObservation(observations[stn], name=f"{stn}")
