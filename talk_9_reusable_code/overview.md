@@ -11,9 +11,11 @@ Why would you want to improve your messy notebooks/scripts?
 * Easier to understand for yourself later
 * Easier to understand for others (better collaboration)
 * Extract common functionality and avoid re-doing the same basic processing every time
-* From experiments to production
+* Going from experiments to production
 
 ## Modular programming
+
+From [realpython.com/python-modules-packages/](https://realpython.com/python-modules-packages/)
 
 Modular programming refers to the process of breaking a large, unwieldy programming task into separate, smaller, more manageable subtasks or **modules**. Individual modules can then be cobbled together like building blocks to create a larger application.
 
@@ -29,7 +31,7 @@ There are several advantages to modularizing code in a large application:
 
 **Functions**, **modules** and **packages** are all constructs in Python that promote code modularization.
 
-## From messy notebook to library
+## From messy notebook to library in five steps
 
 * Step 0: [v0_messy_notebook.ipynb](notebooks/v0_messy_notebook.ipynb)
 * Step 1: [v1_notebook_with_loops_and_variables.ipynb](notebooks/v1_notebook_with_loops_and_variables.ipynb)
@@ -61,8 +63,8 @@ Below goes for *both* notebooks and scripts:
 
 ## Modules and packages
 
-* Module = a Python .py file (namespace)
-* Package = a Python module which can contain submodules or recursively, subpackages. (Technically, a package is a Python module with an `__path__` attribute.)
+* Module = a Python .py file (defines a namespace)
+* Package = a Python module which can contain submodules or subpackages. (You would typically *install* a package)
 
 ### Where does Python look for modules? 
 
