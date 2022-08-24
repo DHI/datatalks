@@ -10,6 +10,7 @@ Why would you want to improve your messy notebooks/scripts?
 
 * Easier to understand for yourself later
 * Easier to understand for others (better collaboration)
+* Minimize risk of making errors
 * Extract common functionality and avoid re-doing the same basic processing every time
 * Going from experiments to production
 
@@ -40,7 +41,7 @@ There are several advantages to modularizing code in a large application:
 * Step 4: [v4_notebook_using_module_other_folder.ipynb](notebooks/v4_notebook_using_module_other_folder.ipynb)
 * Step 5: [v5_notebook_using_package.ipynb](notebooks/v5_notebook_using_package.ipynb)
 
-## General advice
+## General clean code advice
 
 Below goes for *both* notebooks and scripts:
 
