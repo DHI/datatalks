@@ -11,6 +11,10 @@ Notebooks and scripts associated with Data Talks
 * Data Talk 6: xarray
 * Data Talk 7: MIKE 1D API and mikeio1d
 * Data Talk 8: MIKE Cloud Python API
+* Data Talk 9: Reusable Python Code
+* Data Talk 10: Python library from GitHub template
+* Data Talk 11: Sentinel-2 satellite imagery
+* Data Talk 12: ?
 
 
 ## Resources 
