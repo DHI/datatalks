@@ -35,8 +35,10 @@ Streamilt apps can be deployed in many ways for example
 
 * Streamlit Cloud
 * Azure WebApps
+* ...
 
 ## Useful resources 
 
 1. [Turn Python Scripts into Beautiful ML Tools](https://towardsdatascience.com/coding-ml-tools-like-you-code-ml-models-ddba3357eace)
-2. [Streamlit gallery](https://streamlit.io/gallery)
+2. [Useful features in streamlit](https://towardsdatascience.com/10-features-your-streamlit-ml-app-cant-do-without-implemented-f6b4f0d66d36)
+3. [Streamlit gallery](https://streamlit.io/gallery)
