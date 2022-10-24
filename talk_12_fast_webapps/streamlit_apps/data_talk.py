@@ -53,7 +53,7 @@ if selected == "introduction":
                     - share your vision, 
                         - e.g. quickly prototype a tool to discuss and narrow down requirements and do **fast iterations in development** or 
                         - **convince people** of tools usefulness 
-                    - to provide access to your tools for non-python users?>  
+                    - to provide access to your tools for non-python users?  
                     
                     -----                  
                     """)
