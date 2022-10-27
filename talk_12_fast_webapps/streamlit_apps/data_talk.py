@@ -1,5 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
+import pandas as pd
 
 
 st.set_page_config(page_title="Data Talk 12",
@@ -24,7 +25,7 @@ with st.sidebar:
 
 
 if selected == "title":
-    st.title("Data Talk 12: Quickly create webapps wit Streamlit")
+    st.title("Data Talk 12: Quickly create webapps with Streamlit")
     st.subheader("Paul Daniel & Clemens Cremer")
     
     st.write("DHI T&I - Data & Analytics")
@@ -50,6 +51,7 @@ if selected == "introduction":
         st.markdown("""
                     For instance to:             
                     - create (easily reusable) data exploration 
+                    - parameterize your model
                     - share your vision, 
                         - e.g. quickly prototype a tool to discuss and narrow down requirements and do **fast iterations in development** or 
                         - **convince people** of tools usefulness 
@@ -73,7 +75,9 @@ if selected == "introduction":
                     
                     -----
                     """)
-    
+    if st.session_state.page == 2:
+        st.balloons()
+        
     c1, c2, c3, c4 = st.columns([4,.3,.3,4])        
     c2.button('<', on_click=decrease_page)
     c3.button('>', on_click=increase_page)
@@ -152,17 +156,15 @@ if selected == "benefits":
   
  
 if selected == "example":
-    st.title("Basic example")
+    st.title("Nothing to see here")
+    st.title("My first app 👍")
+    st.markdown("some further **explanation**")
+
+    output = st.selectbox("this is a slider",["a", "b", "x"])
+    st.write(output)
     
-    st.markdown("""
-                In this example we will:\n
-                0. import streamlit
-                1. write header
-                2. make interactive element
-                3. get output from interactive element
-                4. write output 
-                5. modify: e.g. change to slider to selectbox and put in sidebar
-                """)
+    
+    
 
 
 if selected == "what else":
@@ -181,21 +183,24 @@ if selected == "what else":
     
     st.subheader("advanced benefits")
     st.markdown("""
+            - super easy deployment
             - dynamic scaling, working well on phones etc.    
             - customizable themes
-            - opengl plotting
-            - caching, session states and callback functions
-            - audio (player) support
-            - video (player) support
+            - audio (player), video (player) support
+            - tons of plotting libraries
+            - caching and session states
+            - extensions via streamlit components (can be written in JavaScript, React, Vue,...)
             -----
             """)
 
     st.subheader("What's next?")            
     st.markdown("""
             get started
-            - by browsing [gallery](https://streamlit.io/gallery)
+            - by browsing for ideas in the [gallery](https://streamlit.io/gallery)
+            - by checking this very nice and comprehensive [article](https://auth0.com/blog/introduction-to-streamlit-and-streamlit-components/)
             - by using [cheat sheet](https://daniellewisdl-streamlit-cheat-sheet-app-ytm9sg.streamlitapp.com/)
             - looking at talks e.g. [Snowflake Build virtual conference](https://www.snowflake.com/build/)
+            - if you are interested in Pauls outlier detection and machine learning app you can currently find it in a [tsod branch on github](https://github.com/DHI/tsod/tree/active_learning).
             
             """)
 

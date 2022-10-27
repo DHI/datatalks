@@ -37,8 +37,10 @@ Streamilt apps can be deployed in many ways for example
 * Azure WebApps
 * ...
 
-## Useful resources 
+## Useful resources / How do i get started?
 
-1. [Turn Python Scripts into Beautiful ML Tools](https://towardsdatascience.com/coding-ml-tools-like-you-code-ml-models-ddba3357eace)
-2. [Useful features in streamlit](https://towardsdatascience.com/10-features-your-streamlit-ml-app-cant-do-without-implemented-f6b4f0d66d36)
-3. [Streamlit gallery](https://streamlit.io/gallery)
+- by browsing for ideas in the [gallery](https://streamlit.io/gallery)
+- by checking this very nice and comprehensive [article](https://auth0.com/blog/introduction-to-streamlit-and-streamlit-components/)
+- by using [cheat sheet](https://daniellewisdl-streamlit-cheat-sheet-app-ytm9sg.streamlitapp.com/)
+- looking at talks e.g. [Snowflake Build virtual conference](https://www.snowflake.com/build/)
+- if you are interested in Pauls outlier detection and machine learning app you can currently find it in a [tsod branch on github](https://github.com/DHI/tsod/tree/active_learning).
