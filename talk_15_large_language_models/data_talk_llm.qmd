@@ -1,0 +1,40 @@
+---
+title: Data Talk - Large Language Models
+author: Jesper Mariegaard and Clemens Cremer
+date: 2023-02-07
+date-format: long
+slide-number: c/t
+transition: slide
+format: revealjs
+width: 1980
+height: 1080
+jupyter: python3
+execute: 
+  freeze: auto
+  enable: true
+---
+
+
+
+# agenda
+
+- general introduction LLM  
+- examples chatgpt (record some in case it doesn't work)  
+	- reformatting table  
+	- explain code
+    - quick insight into some area (CAREFUL)    
+- example copilot  
+	- quick functions
+    - plotting and formatting (e.g. annotations) 
+- what does it mean for us?  
+    - prohibitive cost to train LLM from scratch
+	- some variety in LLMs will exist   
+- where is this going   
+	- criticism  
+		- privacy  
+		- data security  
+		- intellectual property  
+		- citing "written in cooperation with chatGPT"  
+	- adoption  
+    	- domain knowledge infused LLMs
+
