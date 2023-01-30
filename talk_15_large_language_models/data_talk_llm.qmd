@@ -38,3 +38,16 @@ execute:
 	- adoption  
     	- domain knowledge infused LLMs
 
+
+## notes on using ChatGPT for code
+
+- Explain code
+- Improved existing code
+- Rewrite code using correct style (refactor code made by non-native Python devs)
+- Rewrite code using ideomatic constructs (make code Pythonic)
+- Simplify code
+- Exploring alternatives
+- Writing documentation
+- Writing tests
+- Tracking down bugs
+
