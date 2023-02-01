@@ -6,7 +6,7 @@ date-format: long
 slide-number: c/t
 transition: slide
 format: revealjs
-width: 1980
+width: 1920
 height: 1080
 jupyter: python3
 execute: 
@@ -19,26 +19,33 @@ execute:
 # agenda
 
 - general introduction LLM  
+- history from Johan
 - examples chatgpt (record some in case it doesn't work)  
+    - quick insight into some area (CAREFUL)  
 	- reformatting table  
 	- explain code
-    - quick insight into some area (CAREFUL)    
 - example copilot  
 	- quick functions
     - plotting and formatting (e.g. annotations) 
-- where is this going   
 
+- where is this going   
 - what does it mean for us?   
+
+
 
 # general introduction LLM
 
 - large language models = LLM
 - LLMs are trained on large amounts of text
-- 
+- chatGPT is a LLM, but not the only one
+- keeping track of state (conversational)
+- working memory is limited 10-40k characters (you can't write a book with it in a go )
+
 
 ::: footer
 https://www.youtube.com/watch?v=lnA9DMvHtfI
 :::
+
 
 
 # notes on using ChatGPT for code
@@ -54,8 +61,10 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 - Tracking down bugs
 
 
+
 # github copilot
 
+- more context aware in your environment
 - https://copilot.github.com/
 - https://copilot.github.com/blog/introducing-copilot
 
@@ -86,16 +95,24 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 - if you haven't tried --> try!
 - adapt to leverage higher productivity  
 
-- if everyone can use it, everyone can do it --> basic programming skills no longer USP  
+- if everyone can use it, everyone can do it --> basic programming skills no longer required?
+- new skillsets needed?
+	- new workflows and ways of working --> adopt workflows including LLMs 
+	- unlearning old habits
+	- critical mindset more important than ever --> bullshit does scale now
+	- abitlity to review is important
+- discussion...  
 
 
 ## For DHI engineers... 
 
 - Text
     - Background information (be careful)  
-    - Proposal writing
-    - Report writing
+    - Proposal and Report writing (insert application for job image here)
+		- Differ in tone of voice,...
     - Presentations (slides)
+		- try quarto
+		- try chatBCG
 - Code
     - Documentation    
     - Tests
