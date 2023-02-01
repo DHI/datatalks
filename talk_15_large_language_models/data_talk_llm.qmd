@@ -26,20 +26,22 @@ execute:
 - example copilot  
 	- quick functions
     - plotting and formatting (e.g. annotations) 
-- what does it mean for us?  
-    - prohibitive cost to train LLM from scratch
-	- some variety in LLMs will exist   
 - where is this going   
-	- criticism  
-		- privacy  
-		- data security  
-		- intellectual property  
-		- citing "written in cooperation with chatGPT"  
-	- adoption  
-    	- domain knowledge infused LLMs
+
+- what does it mean for us?   
+
+# general introduction LLM
+
+- large language models = LLM
+- LLMs are trained on large amounts of text
+- 
+
+::: footer
+https://www.youtube.com/watch?v=lnA9DMvHtfI
+:::
 
 
-## notes on using ChatGPT for code
+# notes on using ChatGPT for code
 
 - Explain code
 - Improved existing code
@@ -51,3 +53,31 @@ execute:
 - Writing tests
 - Tracking down bugs
 
+
+# github copilot
+
+- https://copilot.github.com/
+- https://copilot.github.com/blog/introducing-copilot
+
+
+# where is it going 
+- many things still unclear
+
+
+## criticism
+- privacy  
+- data security  
+- intellectual property  
+- citing "written in cooperation with chatGPT"  
+
+
+- prohibitive cost to train LLM from scratch
+- some variety in LLMs will exist 
+
+- adoption  
+    	- domain knowledge infused LLMs
+
+# what does it mean for us?
+
+- if everyone can use it, everyone can do it --> basic programming skills no longer USP  
+- adapt to leverage higher productivity  
