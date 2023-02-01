@@ -87,3 +87,15 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 - adapt to leverage higher productivity  
 
 - if everyone can use it, everyone can do it --> basic programming skills no longer USP  
+
+
+## For DHI engineers... 
+
+- Text
+    - Background information (be careful)  
+    - Proposal writing
+    - Report writing
+    - Presentations (slides)
+- Code
+    - Documentation    
+    - Tests
