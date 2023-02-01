@@ -62,22 +62,28 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 
 # where is it going 
 - many things still unclear
+- some good some bad sides to it
 
 
 ## criticism
+- sophisticated bullshit
 - privacy  
 - data security  
 - intellectual property  
-- citing "written in cooperation with chatGPT"  
+- citations could be handled with "written in cooperation with chatGPT"  
 
 
+
+## potential (longer term)
 - prohibitive cost to train LLM from scratch
-- some variety in LLMs will exist 
+- limited variety in LLMs will exist
+- domain knowledge infused LLMs
+- even this predictions might be false (e.g. transformer killer)
 
-- adoption  
-    	- domain knowledge infused LLMs
 
-# what does it mean for us?
+## what does it mean for me? (short term)
+
+- if you haven't tried --> try!
+- adapt to leverage higher productivity  
 
 - if everyone can use it, everyone can do it --> basic programming skills no longer USP  
-- adapt to leverage higher productivity  
