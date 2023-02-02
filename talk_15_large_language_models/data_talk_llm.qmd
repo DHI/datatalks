@@ -37,6 +37,7 @@ execute:
 
 - large language models (LLM)
 - process and generate natural language (e.g. text)
+- also capable of text to image or other formats
 - keeping track of state (conversational)
 - working memory is limited 10-40k characters (you can't write a book with it in a go )
 
@@ -54,20 +55,27 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 
 ## examples for applications
 
-- typing on your smartphone
-- google search
+- typing on your smartphone (autocomplete)
+- search accuracy and relevance (google, bing,...)
 - language translation (deepL, google translate,...)
 - chatbots for customer service and support
 - content creation (e.g. marketing material, product descriptions, blog posts,...)
 - data analysis (extract insights from large amounts of text data)
 
+
+
+
 ## broad overview 
 
 :::: columns
 ::: {.column width=50%}
-- **GPT**-like (Generative Pretrained Transformer) GPT-3.x or GPT-Neo (e.g. chatGPT, chatBCG) by **OpenAI**, >175 Billion parameters
+- **GPT**-like (Generative Pretrained Transformer) GPT-3.x or GPT-Neo, Dall-E (e.g. chatGPT, chatBCG) by **OpenAI**, >175 Billion parameters (GPT-4 expected to be >100x)
 - **BERT** (Bidirectional Encoder Representations from Transformers) by **Google**, ~340 Million parameters
 - **BART/T5**-like (Bidirectional Encoder Representations from Transformers, T5: Text-to-Text Transfer Transformer) by **Facebook**, ~400 Million parameters
+- LaMDA (Language Model for Dialogue Applications) **Google** >135 bn parameters
+
+**why are parameters important?**
+- parameters related to sophistication of the model incl. handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)
 :::
 ::: {.column width=50%}
 ![Briefest history of transformers](figures/transformers_chrono_huggingface.svg)
@@ -76,7 +84,7 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 ::::
 
 ::: footer
-Links and sources: [intro 1](https://www.omegavp.com/articles/introduction-to-large-language-models/), [intro 2](https://huggingface.co/course/chapter1/4?fw=pt)
+Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-language-models/), [2](https://huggingface.co/course/chapter1/4?fw=pt), [3](https://ai.googleblog.com/2022/01/lamda-towards-safe-grounded-and-high.html)
 :::
 
 
@@ -97,6 +105,7 @@ Links and sources: [intro 1](https://www.omegavp.com/articles/introduction-to-la
 
 # github copilot (GPT-Codex)
 
+- Codex: GPT3 fine tuned for programming tasks 
 - translating natural language to code
 - trained on GitHub codebase
 - more context aware in your environment
@@ -127,10 +136,14 @@ Links and sources: [intro 1](https://www.omegavp.com/articles/introduction-to-la
 - paid services in the works (e.g. ChatGPT Plus 20$/mo and ChatGPT API) [[1]](https://openai.com/blog/chatgpt-plus/)
 
 - Chat GPT started a focused efford to improve code [[2]](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+- learning from other sources (images, audio recodings, videos, etc.)
 
 - domain knowledge infused LLMs
 - even this predictions might be false (e.g. transformer killer)
 
+::: footer
+[further reading](https://hai.stanford.edu/news/how-large-language-models-will-transform-science-society-and-ai)
+:::
 
 ## what does it mean for me? (short term)
 

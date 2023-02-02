@@ -368,6 +368,7 @@ Jesper Mariegaard and Clemens Cremer
 <ul>
 <li>large language models (LLM)</li>
 <li>process and generate natural language (e.g.&nbsp;text)</li>
+<li>also capable of text to image or other formats</li>
 <li>keeping track of state (conversational)</li>
 <li>working memory is limited 10-40k characters (you can’t write a book with it in a go )</li>
 </ul>
@@ -386,8 +387,8 @@ Jesper Mariegaard and Clemens Cremer
 <section id="examples-for-applications" class="slide level2">
 <h2>examples for applications</h2>
 <ul>
-<li>typing on your smartphone</li>
-<li>google search</li>
+<li>typing on your smartphone (autocomplete)</li>
+<li>search accuracy and relevance (google, bing,…)</li>
 <li>language translation (deepL, google translate,…)</li>
 <li>chatbots for customer service and support</li>
 <li>content creation (e.g.&nbsp;marketing material, product descriptions, blog posts,…)</li>
@@ -399,16 +400,18 @@ Jesper Mariegaard and Clemens Cremer
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li><strong>GPT</strong>-like (Generative Pretrained Transformer) GPT-3.x or GPT-Neo (e.g.&nbsp;chatGPT, chatBCG) by <strong>OpenAI</strong>, &gt;175 Billion parameters</li>
+<li><strong>GPT</strong>-like (Generative Pretrained Transformer) GPT-3.x or GPT-Neo, Dall-E (e.g.&nbsp;chatGPT, chatBCG) by <strong>OpenAI</strong>, &gt;175 Billion parameters (GPT-4 expected to be &gt;100x)</li>
 <li><strong>BERT</strong> (Bidirectional Encoder Representations from Transformers) by <strong>Google</strong>, ~340 Million parameters</li>
 <li><strong>BART/T5</strong>-like (Bidirectional Encoder Representations from Transformers, T5: Text-to-Text Transfer Transformer) by <strong>Facebook</strong>, ~400 Million parameters</li>
+<li>LaMDA (Language Model for Dialogue Applications) <strong>Google</strong> &gt;135 bn parameters</li>
 </ul>
+<p><strong>why are parameters important?</strong> - parameters related to sophistication of the model incl.&nbsp;handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)</p>
 </div><div class="column" style="width:50%;">
 <p><img data-src="figures/transformers_chrono_huggingface.svg" alt="Briefest history of transformers"> <img data-src="figures/model_parameters.png" alt="Parameters"></p>
 </div>
 </div>
 <div class="footer">
-<p>Links and sources: <a href="https://www.omegavp.com/articles/introduction-to-large-language-models/">intro 1</a>, <a href="https://huggingface.co/course/chapter1/4?fw=pt">intro 2</a></p>
+<p>Links and sources: <a href="https://www.omegavp.com/articles/introduction-to-large-language-models/">1</a>, <a href="https://huggingface.co/course/chapter1/4?fw=pt">2</a>, <a href="https://ai.googleblog.com/2022/01/lamda-towards-safe-grounded-and-high.html">3</a></p>
 </div>
 </section></section>
 <section id="notes-on-using-chatgpt-for-code" class="title-slide slide level1 center">
@@ -429,6 +432,7 @@ Jesper Mariegaard and Clemens Cremer
 <section id="github-copilot-gpt-codex" class="title-slide slide level1 center">
 <h1>github copilot (GPT-Codex)</h1>
 <ul>
+<li>Codex: GPT3 fine tuned for programming tasks</li>
 <li>translating natural language to code</li>
 <li>trained on GitHub codebase</li>
 <li>more context aware in your environment</li>
@@ -472,15 +476,21 @@ Jesper Mariegaard and Clemens Cremer
 <li><p>limited variety in LLMs will exist</p></li>
 <li><p>paid services in the works (e.g.&nbsp;ChatGPT Plus 20$/mo and ChatGPT API) <a href="https://openai.com/blog/chatgpt-plus/">[1]</a></p></li>
 <li><p>Chat GPT started a focused efford to improve code <a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">[2]</a></p></li>
+<li><p>learning from other sources (images, audio recodings, videos, etc.)</p></li>
 <li><p>domain knowledge infused LLMs</p></li>
 <li><p>even this predictions might be false (e.g.&nbsp;transformer killer)</p></li>
 </ul>
+<div class="footer">
+<p><a href="https://hai.stanford.edu/news/how-large-language-models-will-transform-science-society-and-ai">further reading</a></p>
+</div>
 </section>
 <section id="what-does-it-mean-for-me-short-term" class="slide level2">
 <h2>what does it mean for me? (short term)</h2>
 <ul>
 <li><p>if you haven’t tried –&gt; try! It is free</p></li>
-<li><p>adapt to leverage higher productivity</p></li>
+<li><p>adapt to leverage higher productivity<br>
+</p></li>
+<li><p>options apart from ChatGPT and copilot (YouChat, Jasper, and Chatsonic)</p></li>
 <li><p>prompt crafting: learn to ask the right questions or questions right</p></li>
 <li><p>if everyone can use it, everyone can do it –&gt; basic programming skills no longer required?</p></li>
 <li><p>new skillsets needed?</p>
