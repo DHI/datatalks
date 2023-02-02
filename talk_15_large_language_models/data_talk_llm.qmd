@@ -76,7 +76,7 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 ::::
 
 ::: footer
-Links and sources: (1)[https://www.omegavp.com/articles/introduction-to-large-language-models/], (2)[https://huggingface.co/course/chapter1/4?fw=pt]
+Links and sources: [intro 1](https://www.omegavp.com/articles/introduction-to-large-language-models/), [intro 2](https://huggingface.co/course/chapter1/4?fw=pt)
 :::
 
 
@@ -95,8 +95,10 @@ Links and sources: (1)[https://www.omegavp.com/articles/introduction-to-large-la
 
 
 
-# github copilot
+# github copilot (GPT-Codex)
 
+- translating natural language to code
+- trained on GitHub codebase
 - more context aware in your environment
 - https://copilot.github.com/
 - https://copilot.github.com/blog/introducing-copilot
@@ -108,25 +110,35 @@ Links and sources: (1)[https://www.omegavp.com/articles/introduction-to-large-la
 
 
 ## criticism
-- sophisticated bullshit
-- privacy  
-- data security  
+- sophisticated bullshit and misinformation on steroids
+	- "Stack Overflow, the Q&A site for programmers, has banned ChatGPT-generated answers because even its low-quality answers can be plausible-sounding." [1](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+	- "(Yann) LeCun (META Chief AI Scientist and Touring Award Winner) recently likened coding assistants such as Copilot to cruise control in cars. "Your hands need to remain on the wheel at all times," because Copilot can generate errors in code with no awareness of the error." [2](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+- security and privacy
+	- ChatGPT to build hacking tools [3](https://www.hackread.com/hackers-openai-chatgpt-malware/)  
 - intellectual property  
-- citations could be handled with "written in cooperation with chatGPT"  
+	- some not very accurate tools to identify AI-generated content exist [4](https://www.zdnet.com/article/what-is-chatgpt-and-why-does-it-matter-heres-everything-you-need-to-know/)
+	- citations could be handled with "written in cooperation with chatGPT"  
 
 
 
 ## potential (longer term)
-- prohibitive cost to train LLM from scratch
+- prohibitive cost (and environmental impact) to train LLM from scratch
 - limited variety in LLMs will exist
+- paid services in the works (e.g. ChatGPT Plus 20$/mo and ChatGPT API) [[1]](https://openai.com/blog/chatgpt-plus/)
+
+- Chat GPT started a focused efford to improve code [[2]](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+
 - domain knowledge infused LLMs
 - even this predictions might be false (e.g. transformer killer)
 
 
 ## what does it mean for me? (short term)
 
-- if you haven't tried --> try!
+- if you haven't tried --> try! It is free 
 - adapt to leverage higher productivity  
+- options apart from ChatGPT and copilot (YouChat, Jasper, and Chatsonic)
+
+- prompt crafting: learn to ask the right questions or questions right
 
 - if everyone can use it, everyone can do it --> basic programming skills no longer required?
 - new skillsets needed?
