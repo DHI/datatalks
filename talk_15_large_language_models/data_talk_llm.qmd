@@ -36,6 +36,8 @@ execute:
 # general introduction LLM
 
 - large language models (LLM)
+- A type of generative AI model 
+- Examples: GPT-3, BERT, T5, LaMDA, GPT-Neo, Dall-E, GPT-Codex
 - process and generate natural language (e.g. text)
 - also capable of text to image or other formats
 - keeping track of state (conversational)
