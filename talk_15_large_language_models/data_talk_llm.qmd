@@ -35,15 +35,48 @@ execute:
 
 # general introduction LLM
 
-- large language models = LLM
-- LLMs are trained on large amounts of text
-- chatGPT is a LLM, but not the only one
+- large language models (LLM)
+- process and generate natural language (e.g. text)
 - keeping track of state (conversational)
 - working memory is limited 10-40k characters (you can't write a book with it in a go )
 
 
 ::: footer
 https://www.youtube.com/watch?v=lnA9DMvHtfI
+:::
+
+
+## history
+- are not new but originated 1950s - 1960s (e.g. ELIZA 1966 at MIT)
+- got a boost with introduction of deep learning in 1990s and particularly
+- unsupervised learning (no labels for unstructured data)
+
+
+## examples for applications
+
+- typing on your smartphone
+- google search
+- language translation (deepL, google translate,...)
+- chatbots for customer service and support
+- content creation (e.g. marketing material, product descriptions, blog posts,...)
+- data analysis (extract insights from large amounts of text data)
+
+## broad overview 
+
+:::: columns
+::: {.column width=50%}
+- **GPT**-like (Generative Pretrained Transformer) GPT-3.x or GPT-Neo (e.g. chatGPT, chatBCG) by **OpenAI**, >175 Billion parameters
+- **BERT** (Bidirectional Encoder Representations from Transformers) by **Google**, ~340 Million parameters
+- **BART/T5**-like (Bidirectional Encoder Representations from Transformers, T5: Text-to-Text Transfer Transformer) by **Facebook**, ~400 Million parameters
+:::
+::: {.column width=50%}
+![Briefest history of transformers](figures/transformers_chrono_huggingface.svg)
+![Parameters](figures/model_parameters.png)
+:::
+::::
+
+::: footer
+Links and sources: (1)[https://www.omegavp.com/articles/introduction-to-large-language-models/], (2)[https://huggingface.co/course/chapter1/4?fw=pt]
 :::
 
 

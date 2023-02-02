@@ -340,32 +340,34 @@ Jesper Mariegaard and Clemens Cremer
 <section id="agenda" class="title-slide slide level1 center">
 <h1>agenda</h1>
 <ul>
-<li><p>general introduction LLM<br>
-</p></li>
-<li><p>examples chatgpt (record some in case it doesn’t work)</p>
+<li>general introduction LLM<br>
+</li>
+<li>history from Johan</li>
+<li>examples chatgpt (record some in case it doesn’t work)
 <ul>
+<li>quick insight into some area (CAREFUL)<br>
+</li>
 <li>reformatting table<br>
 </li>
 <li>explain code</li>
-<li>quick insight into some area (CAREFUL)<br>
-</li>
 </ul></li>
-<li><p>example copilot</p>
+<li>example copilot
 <ul>
 <li>quick functions</li>
 <li>plotting and formatting (e.g.&nbsp;annotations)</li>
 </ul></li>
-<li><p>where is this going</p></li>
-<li><p>what does it mean for us?</p></li>
+<li>where is this going<br>
+</li>
+<li>what does it mean for us?</li>
 </ul>
 </section>
 
+<section>
 <section id="general-introduction-llm" class="title-slide slide level1 center">
 <h1>general introduction LLM</h1>
 <ul>
-<li>large language models = LLM</li>
-<li>LLMs are trained on large amounts of text</li>
-<li>chatGPT is a LLM, but not the only one</li>
+<li>large language models (LLM)</li>
+<li>process and generate natural language (e.g.&nbsp;text)</li>
 <li>keeping track of state (conversational)</li>
 <li>working memory is limited 10-40k characters (you can’t write a book with it in a go )</li>
 </ul>
@@ -373,7 +375,42 @@ Jesper Mariegaard and Clemens Cremer
 <p>https://www.youtube.com/watch?v=lnA9DMvHtfI</p>
 </div>
 </section>
-
+<section id="history" class="slide level2">
+<h2>history</h2>
+<ul>
+<li>are not new but originated 1950s - 1960s (e.g.&nbsp;ELIZA 1966 at MIT)</li>
+<li>got a boost with introduction of deep learning in 1990s and particularly</li>
+<li>unsupervised learning (no labels for unstructured data)</li>
+</ul>
+</section>
+<section id="examples-for-applications" class="slide level2">
+<h2>examples for applications</h2>
+<ul>
+<li>typing on your smartphone</li>
+<li>google search</li>
+<li>language translation (deepL, google translate,…)</li>
+<li>chatbots for customer service and support</li>
+<li>content creation (e.g.&nbsp;marketing material, product descriptions, blog posts,…)</li>
+<li>data analysis (extract insights from large amounts of text data)</li>
+</ul>
+</section>
+<section id="broad-overview" class="slide level2">
+<h2>broad overview</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li><strong>GPT</strong>-like (Generative Pretrained Transformer) GPT-3.x or GPT-Neo (e.g.&nbsp;chatGPT, chatBCG) by <strong>OpenAI</strong>, &gt;175 Billion parameters</li>
+<li><strong>BERT</strong> (Bidirectional Encoder Representations from Transformers) by <strong>Google</strong>, ~340 Million parameters</li>
+<li><strong>BART/T5</strong>-like (Bidirectional Encoder Representations from Transformers, T5: Text-to-Text Transfer Transformer) by <strong>Facebook</strong>, ~400 Million parameters</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="figures/transformers_chrono_huggingface.svg" alt="Briefest history of transformers"> <img data-src="figures/model_parameters.png" alt="Parameters"></p>
+</div>
+</div>
+<div class="footer">
+<p>Links and sources: (1)[https://www.omegavp.com/articles/introduction-to-large-language-models/], (2)[https://huggingface.co/course/chapter1/4?fw=pt]</p>
+</div>
+</section></section>
 <section id="notes-on-using-chatgpt-for-code" class="title-slide slide level1 center">
 <h1>notes on using ChatGPT for code</h1>
 <ul>
@@ -433,7 +470,15 @@ Jesper Mariegaard and Clemens Cremer
 <ul>
 <li><p>if you haven’t tried –&gt; try!</p></li>
 <li><p>adapt to leverage higher productivity</p></li>
-<li><p>if everyone can use it, everyone can do it –&gt; basic programming skills no longer USP</p></li>
+<li><p>if everyone can use it, everyone can do it –&gt; basic programming skills no longer required?</p></li>
+<li><p>new skillsets needed?</p>
+<ul>
+<li>new workflows and ways of working –&gt; adopt workflows including LLMs</li>
+<li>unlearning old habits</li>
+<li>critical mindset more important than ever –&gt; bullshit does scale now</li>
+<li>abitlity to review is important</li>
+</ul></li>
+<li><p>discussion…</p></li>
 </ul>
 </section>
 <section id="for-dhi-engineers" class="slide level2">
@@ -443,9 +488,15 @@ Jesper Mariegaard and Clemens Cremer
 <ul>
 <li>Background information (be careful)<br>
 </li>
-<li>Proposal writing</li>
-<li>Report writing</li>
-<li>Presentations (slides)</li>
+<li>Proposal and Report writing (insert application for job image here)
+<ul>
+<li>Differ in tone of voice,…</li>
+</ul></li>
+<li>Presentations (slides)
+<ul>
+<li>try quarto</li>
+<li>try chatBCG</li>
+</ul></li>
 </ul></li>
 <li>Code
 <ul>
@@ -635,7 +686,7 @@ Jesper Mariegaard and Clemens Cremer
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1980,
+        width: 1920,
 
         height: 1080,
 
