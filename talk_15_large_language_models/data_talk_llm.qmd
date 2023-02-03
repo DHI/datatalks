@@ -16,6 +16,8 @@ execute:
 ---
 
 
+# poll
+have you used an AI assistant before? (e.g. chatbot, autocomplete, translation, ...)
 
 # agenda
 
@@ -32,6 +34,8 @@ execute:
 
 - where is this going   
 - what does it mean for us?   
+
+
 
 
 # AI Assistants
@@ -125,6 +129,8 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 - translating natural language to code
 - trained on GitHub codebase
 - more context aware in your environment
+- <font color=red> shortcuts (distinguish between namespace and copilot autocomplete)
+- look in copilot vs plugin description for bits to use </font>
 - https://copilot.github.com/
 - https://copilot.github.com/blog/introducing-copilot
 
@@ -225,6 +231,7 @@ ChatGPT is already used to build hacking tools at scale
 
 - should it be banned or restricted from education and elsewhere?
 - can we cite or acknowledge sources „Written in Cooperation with AI?“
+- identify bullshit (from CV)
 
 
 ## positive perspectives by critical people 
@@ -280,6 +287,7 @@ ChatGPT is already used to build hacking tools at scale
 	- critical mindset more important than ever --> bullshit does scale now
 	- abitlity to review is important
 - discussion...  
+	- how do you see this being used in your day to day work? 
 
 
 ## For DHI engineers... 
