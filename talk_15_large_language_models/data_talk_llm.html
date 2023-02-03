@@ -340,13 +340,14 @@ Jesper Mariegaard and Clemens Cremer
 <section id="agenda" class="title-slide slide level1 center">
 <h1>agenda</h1>
 <ul>
+<li>start with chatGPT example (resume summary)</li>
 <li>general introduction LLM<br>
 </li>
-<li>history from Johan</li>
 <li>examples chatgpt (record some in case it doesn’t work)
 <ul>
 <li>quick insight into some area (CAREFUL)<br>
 </li>
+<li>assisted writing</li>
 <li>reformatting table<br>
 </li>
 <li>explain code</li>
@@ -362,15 +363,37 @@ Jesper Mariegaard and Clemens Cremer
 </ul>
 </section>
 
+<section id="ai-assistants" class="title-slide slide level1 center">
+<h1>AI Assistants</h1>
+<p>you probably use them every day</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>typing on your smartphone (autocomplete)</li>
+<li>search accuracy and relevance (google, bing,…)</li>
+<li>language translation (deepL, google translate,…)</li>
+<li>chatbots for customer service and support</li>
+<li>content creation (e.g.&nbsp;marketing material, product descriptions, blog posts,…)</li>
+<li>data analysis (extract insights from large amounts of text data) <font color="red"> TRY WITH WATER LEVEL DATA! </font></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="figures/autocomplete.png" style="width:100.0%"></p>
+</div>
+</div>
+</section>
+
 <section>
-<section id="general-introduction-llm" class="title-slide slide level1 center">
-<h1>general introduction LLM</h1>
+<section id="ai-assistants-foundations" class="title-slide slide level1 center">
+<h1>AI Assistants: Foundations</h1>
 <ul>
 <li>large language models (LLM)</li>
+<li>A type of generative AI model</li>
+<li>Examples: GPT-3, BERT, T5, LaMDA, GPT-Neo, GPT-Codex</li>
 <li>process and generate natural language (e.g.&nbsp;text)</li>
 <li>also capable of text to image or other formats</li>
 <li>keeping track of state (conversational)</li>
 <li>working memory is limited 10-40k characters (you can’t write a book with it in a go )</li>
+<li>can be very expensive to train</li>
 </ul>
 <div class="footer">
 <p>https://www.youtube.com/watch?v=lnA9DMvHtfI</p>
@@ -384,17 +407,6 @@ Jesper Mariegaard and Clemens Cremer
 <li>unsupervised learning (no labels for unstructured data)</li>
 </ul>
 </section>
-<section id="examples-for-applications" class="slide level2">
-<h2>examples for applications</h2>
-<ul>
-<li>typing on your smartphone (autocomplete)</li>
-<li>search accuracy and relevance (google, bing,…)</li>
-<li>language translation (deepL, google translate,…)</li>
-<li>chatbots for customer service and support</li>
-<li>content creation (e.g.&nbsp;marketing material, product descriptions, blog posts,…)</li>
-<li>data analysis (extract insights from large amounts of text data)</li>
-</ul>
-</section>
 <section id="broad-overview" class="slide level2">
 <h2>broad overview</h2>
 <div class="columns">
@@ -404,6 +416,7 @@ Jesper Mariegaard and Clemens Cremer
 <li><strong>BERT</strong> (Bidirectional Encoder Representations from Transformers) by <strong>Google</strong>, ~340 Million parameters</li>
 <li><strong>BART/T5</strong>-like (Bidirectional Encoder Representations from Transformers, T5: Text-to-Text Transfer Transformer) by <strong>Facebook</strong>, ~400 Million parameters</li>
 <li>LaMDA (Language Model for Dialogue Applications) <strong>Google</strong> &gt;135 bn parameters</li>
+<li>PaLM (Pretrained Autoregressive Language Model) <strong>Google</strong> &gt; 540 bn parameters</li>
 </ul>
 <p><strong>why are parameters important?</strong> - parameters related to sophistication of the model incl.&nbsp;handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)</p>
 </div><div class="column" style="width:50%;">
@@ -443,31 +456,104 @@ Jesper Mariegaard and Clemens Cremer
 
 <section>
 <section id="where-is-it-going" class="title-slide slide level1 center">
-<h1>where is it going</h1>
+<h1>Where is it going?</h1>
 <ul>
+<li>Wild west</li>
 <li>many things still unclear</li>
-<li>some good some bad sides to it</li>
+<li>pros and cons as with every new technology</li>
 </ul>
 </section>
-<section id="criticism" class="slide level2">
-<h2>criticism</h2>
+<section id="should-we-have-legal-and-ethical-concerns" class="slide level2">
+<h2>Should we have <strong>legal and ethical concerns</strong>?</h2>
+<p>no, it can sort those out itself</p>
+<p><img data-src="figures/bar_exam.png" style="width:70.0%"></p>
+<div class="fragment">
+<p>…with a B to C grade though</p>
+</div>
+<div class="footer">
+<p><a href="https://www.reuters.com/legal/transactional/chatgpt-passes-law-school-exams-despite-mediocre-performance-2023-01-25/">source</a></p>
+</div>
+</section>
+<section id="ok-probably-we-should-consider-some-open-questions" class="slide level2">
+<h2>Ok, probably we should consider some <strong>open questions</strong></h2>
+<h3 id="copyright">Copyright</h3>
+<p><strong>Art</strong>: “If you train the AI to make Picasso-like works, or Mondrian-like works, and it makes one that is sufficiently similar, that could be a copyright infringement claim,” Mark Lemley, director of Stanford Law School’s Program in Law, Science and Technology</p>
+<p><img data-src="figures/dalle_picasso.png" data-origin="center"></p>
+<div class="footer">
+<p><a href="https://news.bloomberglaw.com/ip-law/wild-west-of-generative-ai-raises-novel-copyright-questions">source</a></p>
+</div>
+</section>
+<section id="open-questions" class="slide level2">
+<h2>Open questions</h2>
+<h3 id="copyright-1">Copyright</h3>
+<p><strong>Music</strong>: “If you train the AI to make music that sounds like a particular artist, and it makes a song that is sufficiently similar, that could be a copyright infringement claim,” Mark Lemley, director of Stanford Law School’s Program in Law, Science and Technology</p>
+<div class="footer">
+<p><font color="red"> this quote came from Copilot and cannot be found on the internet </font></p>
+</div>
+</section>
+<section id="open-questions-1" class="slide level2">
+<h2>Open questions</h2>
+<h3 id="copyright-2">Copyright</h3>
+<p><strong>Code and Open Source</strong>: „Those duplications fail to include author attribution and licensing details, key elements of most open source software agreements, the plaintiffs said.“ from ongoing lawsuit against Copilot and OpenAI</p>
+<p><img data-src="figures/code.png" style="width:50.0%"></p>
+<div class="footer">
+<p><a href="https://news.bloomberglaw.com/ip-law/wild-west-of-generative-ai-raises-novel-copyright-questions">source</a></p>
+</div>
+</section>
+<section id="open-questions-2" class="slide level2">
+<h2>Open questions</h2>
+<h3 id="security-and-privacy">Security and privacy</h3>
+<p>ChatGPT is already used to build hacking tools at scale</p>
+<p><img data-src="figures/hacking.png"></p>
+<div class="footer">
+<p><a href="https://www.hackread.com/hackers-openai-chatgpt-malware/">source</a>, <a href="https://interestingengineering.com/culture/russian-hackers-chatgpt-malicious-code">image</a></p>
+</div>
+</section>
+<section id="open-questions-3" class="slide level2">
+<h2>Open questions</h2>
+<h3 id="ethical-aspects-and-code-of-conduct">Ethical aspects and code of conduct</h3>
+<p><strong>Sophisticated bullshit and misinformation on steroids</strong></p>
+<p>“Stack Overflow, the Q&amp;A site for programmers, has banned ChatGPT-generated answers because <strong>even its low-quality answers can be plausible-sounding.</strong>”</p>
+<p><img data-src="figures/guardian_misinformation.png" style="width:50.0%"></p>
+<div class="footer">
+<p><a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">source</a></p>
+</div>
+</section>
+<section id="open-questions-4" class="slide level2">
+<h2>Open questions</h2>
+<h3 id="ethical-aspects-and-code-of-conduct-1">Ethical aspects and code of conduct</h3>
+<p><strong>Hippocratic Oath</strong>: Do no harm, respect privacy of patients</p>
+<p><img data-src="figures/doctor.png" style="width:30.0%"></p>
+<div class="footer">
+<p><a href="https://stanford-cs324.github.io/winter2022/lectures/legality/">source</a></p>
+</div>
+</section></section>
+<section>
+<section id="ways-forward" class="title-slide slide level1 center">
+<h1>Ways forward</h1>
 <ul>
-<li>sophisticated bullshit and misinformation on steroids
-<ul>
-<li>“Stack Overflow, the Q&amp;A site for programmers, has banned ChatGPT-generated answers because even its low-quality answers can be plausible-sounding.” <a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">1</a></li>
-<li>“(Yann) LeCun (META Chief AI Scientist and Touring Award Winner) recently likened coding assistants such as Copilot to cruise control in cars.”Your hands need to remain on the wheel at all times,” because Copilot can generate errors in code with no awareness of the error.” <a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">2</a></li>
-</ul></li>
-<li>security and privacy
-<ul>
-<li>ChatGPT to build hacking tools <a href="https://www.hackread.com/hackers-openai-chatgpt-malware/">3</a><br>
-</li>
-</ul></li>
-<li>intellectual property
-<ul>
-<li>some not very accurate tools to identify AI-generated content exist <a href="https://www.zdnet.com/article/what-is-chatgpt-and-why-does-it-matter-heres-everything-you-need-to-know/">4</a></li>
-<li>citations could be handled with “written in cooperation with chatGPT”</li>
-</ul></li>
+<li>should it be banned or restricted from education and elsewhere?</li>
+<li>can we cite or acknowledge sources „Written in Cooperation with AI?“</li>
 </ul>
+</section>
+<section id="positive-perspectives-by-critical-people" class="slide level2">
+<h2>positive perspectives by critical people</h2>
+<ul>
+<li><p>“I learned also learned writing by looking at other peoples work and getting inspired.” Corey Doctorow</p></li>
+<li><p>“Everybody loved Napster, but we all kind of knew it was illegal,” Butterick said. The digital <strong>music streaming industry</strong> that emerged later <strong>did a better job at bringing artists and creators into the conversation, he added, and the AI industry should follow that model.</strong>“ Butterick (filed a copilot lawsuit)</p></li>
+<li><p>“The bigger <strong>potential for the profession here is that a lawyer could use ChatGPT to produce a rough first draft and just make their practice that much more effective</strong>” Jonathan Choi (Prof.&nbsp;at Minnesota Law School, Evaluating ChatGPT performance on Bar exam)</p></li>
+</ul>
+<div class="footer">
+<p><a href="https://podcasts.voxmedia.com/show/pivot">source</a>, <a href="https://www.reuters.com/legal/transactional/chatgpt-passes-law-school-exams-despite-mediocre-performance-2023-01-25/">source 2</a></p>
+</div>
+</section></section>
+<section>
+<section id="am-i-useless-now-and-what-can-i-do" class="title-slide slide level1 center">
+<h1>Am I useless now and what can I do?</h1>
+<pre><code>- "(Yann) LeCun (META Chief AI Scientist and Touring Award Winner) recently 
+    - likened coding assistants such as Copilot to cruise control in cars. 
+    - "Your hands need to remain on the wheel at all times," 
+    - because **Copilot can generate errors in code with no awareness of the error**." [2](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)</code></pre>
 </section>
 <section id="potential-longer-term" class="slide level2">
 <h2>potential (longer term)</h2>
@@ -477,7 +563,7 @@ Jesper Mariegaard and Clemens Cremer
 <li><p>paid services in the works (e.g.&nbsp;ChatGPT Plus 20$/mo and ChatGPT API) <a href="https://openai.com/blog/chatgpt-plus/">[1]</a></p></li>
 <li><p>Chat GPT started a focused efford to improve code <a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">[2]</a></p></li>
 <li><p>learning from other sources (images, audio recodings, videos, etc.)</p></li>
-<li><p>domain knowledge infused LLMs</p></li>
+<li><p>domain knowledge infused LLMs (build on pretrained LLMs)</p></li>
 <li><p>even this predictions might be false (e.g.&nbsp;transformer killer)</p></li>
 </ul>
 <div class="footer">
@@ -487,7 +573,7 @@ Jesper Mariegaard and Clemens Cremer
 <section id="what-does-it-mean-for-me-short-term" class="slide level2">
 <h2>what does it mean for me? (short term)</h2>
 <ul>
-<li><p>if you haven’t tried –&gt; try! It is free</p></li>
+<li><p>you are using Assistants anyway. But if you haven’t tried ChatGPT and Copilot –&gt; try! It is free</p></li>
 <li><p>adapt to leverage higher productivity<br>
 </p></li>
 <li><p>options apart from ChatGPT and copilot (YouChat, Jasper, and Chatsonic)</p></li>

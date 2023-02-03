@@ -6,9 +6,10 @@ date-format: long
 slide-number: c/t
 transition: slide
 format: revealjs
+auto-stretch: false # do not resize figures to fit the slide
+jupyter: python3
 width: 1920
 height: 1080
-jupyter: python3
 execute: 
   freeze: auto
   enable: true
@@ -18,10 +19,11 @@ execute:
 
 # agenda
 
+- start with chatGPT example (resume summary)
 - general introduction LLM  
-- history from Johan
 - examples chatgpt (record some in case it doesn't work)  
     - quick insight into some area (CAREFUL)  
+	- assisted writing
 	- reformatting table  
 	- explain code
 - example copilot  
@@ -32,8 +34,25 @@ execute:
 - what does it mean for us?   
 
 
+# AI Assistants
+you probably use them every day
 
-# general introduction LLM
+:::: columns
+::: {.column width=50%}
+- typing on your smartphone (autocomplete)
+- search accuracy and relevance (google, bing,...)
+- language translation (deepL, google translate,...)
+- chatbots for customer service and support
+- content creation (e.g. marketing material, product descriptions, blog posts,...)
+- data analysis (extract insights from large amounts of text data) <font color=red> TRY WITH WATER LEVEL DATA! </font>
+:::
+::: {.column width=50%}
+![](figures/autocomplete.png){width=100%}
+:::
+::::
+
+
+# AI Assistants: Foundations  
 
 - large language models (LLM)
 - A type of generative AI model 
@@ -42,6 +61,7 @@ execute:
 - also capable of text to image or other formats
 - keeping track of state (conversational)
 - working memory is limited 10-40k characters (you can't write a book with it in a go )
+- can be very expensive to train
 
 
 ::: footer
@@ -55,14 +75,7 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 - unsupervised learning (no labels for unstructured data)
 
 
-## examples for applications
 
-- typing on your smartphone (autocomplete)
-- search accuracy and relevance (google, bing,...)
-- language translation (deepL, google translate,...)
-- chatbots for customer service and support
-- content creation (e.g. marketing material, product descriptions, blog posts,...)
-- data analysis (extract insights from large amounts of text data)
 
 
 
@@ -75,6 +88,7 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 - **BERT** (Bidirectional Encoder Representations from Transformers) by **Google**, ~340 Million parameters
 - **BART/T5**-like (Bidirectional Encoder Representations from Transformers, T5: Text-to-Text Transfer Transformer) by **Facebook**, ~400 Million parameters
 - LaMDA (Language Model for Dialogue Applications) **Google** >135 bn parameters
+- PaLM (Pretrained Autoregressive Language Model) **Google** > 540 bn parameters
 
 **why are parameters important?**
 - parameters related to sophistication of the model incl. handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)
@@ -115,21 +129,123 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 - https://copilot.github.com/blog/introducing-copilot
 
 
-# where is it going 
+
+# Where is it going?
+- Wild west
 - many things still unclear
-- some good some bad sides to it
+- pros and cons as with every new technology
 
 
-## criticism
-- sophisticated bullshit and misinformation on steroids
-	- "Stack Overflow, the Q&A site for programmers, has banned ChatGPT-generated answers because even its low-quality answers can be plausible-sounding." [1](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
-	- "(Yann) LeCun (META Chief AI Scientist and Touring Award Winner) recently likened coding assistants such as Copilot to cruise control in cars. "Your hands need to remain on the wheel at all times," because Copilot can generate errors in code with no awareness of the error." [2](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
-- security and privacy
-	- ChatGPT to build hacking tools [3](https://www.hackread.com/hackers-openai-chatgpt-malware/)  
-- intellectual property  
-	- some not very accurate tools to identify AI-generated content exist [4](https://www.zdnet.com/article/what-is-chatgpt-and-why-does-it-matter-heres-everything-you-need-to-know/)
-	- citations could be handled with "written in cooperation with chatGPT"  
+## Should we have **legal and ethical concerns**? 
+ no, it can sort those out itself
 
+![](figures/bar_exam.png){width=70%}
+
+::: {.fragment}
+...with a B to C grade though
+:::
+
+::: footer
+[source](https://www.reuters.com/legal/transactional/chatgpt-passes-law-school-exams-despite-mediocre-performance-2023-01-25/)
+:::
+
+## Ok, probably we should consider some **open questions**
+
+### Copyright  
+**Art**: “If you train the AI to make Picasso-like works, or Mondrian-like works, and it makes one that is sufficiently similar, that could be a copyright infringement claim,” Mark Lemley, director of Stanford Law School’s Program in Law, Science and Technology
+
+![](figures/dalle_picasso.png){height=70%, origin=center}
+
+::: footer
+[source](https://news.bloomberglaw.com/ip-law/wild-west-of-generative-ai-raises-novel-copyright-questions)
+:::
+
+## Open questions
+
+### Copyright
+**Music**: “If you train the AI to make music that sounds like a particular artist, and it makes a song that is sufficiently similar, that could be a copyright infringement claim,” Mark Lemley, director of Stanford Law School’s Program in Law, Science and Technology
+
+::: footer
+<font color="red"> this quote came from Copilot and cannot be found on the internet
+</font>
+:::
+
+## Open questions
+
+### Copyright
+**Code and Open Source**: „Those duplications fail to include author attribution and licensing details, key elements of most open source software agreements, the plaintiffs said.“ from ongoing lawsuit against Copilot and OpenAI
+
+![](figures/code.png){width=50%}
+
+::: footer
+[source](https://news.bloomberglaw.com/ip-law/wild-west-of-generative-ai-raises-novel-copyright-questions)
+:::
+
+## Open questions
+
+### Security and privacy
+ChatGPT is already used to build hacking tools at scale 
+
+![](figures/hacking.png)
+
+::: footer
+[source](https://www.hackread.com/hackers-openai-chatgpt-malware/), [image](https://interestingengineering.com/culture/russian-hackers-chatgpt-malicious-code)
+:::
+
+
+## Open questions
+
+### Ethical aspects and code of conduct
+
+**Sophisticated bullshit and misinformation on steroids**
+
+"Stack Overflow, the Q&A site for programmers, has banned ChatGPT-generated answers because **even its low-quality answers can be plausible-sounding.**" 
+
+![](figures/guardian_misinformation.png){width="50%"}
+
+
+::: footer
+[source](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+:::
+
+## Open questions
+### Ethical aspects and code of conduct
+
+**Hippocratic Oath**: Do no harm, respect privacy of patients
+
+![](figures/doctor.png){width="30%"}
+
+
+::: footer
+[source](https://stanford-cs324.github.io/winter2022/lectures/legality/)
+:::
+
+
+# Ways forward
+
+- should it be banned or restricted from education and elsewhere?
+- can we cite or acknowledge sources „Written in Cooperation with AI?“
+
+
+## positive perspectives by critical people 
+- "I learned also learned writing by looking at other peoples work and getting inspired." Corey Doctorow     
+
+- “Everybody loved Napster, but we all kind of knew it was illegal,” Butterick said. The digital **music streaming industry** that emerged later **did a better job at bringing artists and creators into the conversation, he added, and the AI industry should follow that model.**“ Butterick (filed a copilot lawsuit)
+
+- "The bigger **potential for the profession here is that a lawyer could use ChatGPT to produce a rough first draft and just make their practice that much more effective**" Jonathan Choi (Prof. at Minnesota Law School, Evaluating ChatGPT performance on Bar exam)
+
+::: footer
+[source](https://podcasts.voxmedia.com/show/pivot), [source 2](https://www.reuters.com/legal/transactional/chatgpt-passes-law-school-exams-despite-mediocre-performance-2023-01-25/)
+:::
+
+
+# Am I useless now and what can I do?
+
+	- "(Yann) LeCun (META Chief AI Scientist and Touring Award Winner) recently 
+		- likened coding assistants such as Copilot to cruise control in cars. 
+		- "Your hands need to remain on the wheel at all times," 
+		- because **Copilot can generate errors in code with no awareness of the error**." [2](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+ 
 
 
 ## potential (longer term)
@@ -140,7 +256,8 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 - Chat GPT started a focused efford to improve code [[2]](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
 - learning from other sources (images, audio recodings, videos, etc.)
 
-- domain knowledge infused LLMs
+
+- domain knowledge infused LLMs (build on pretrained LLMs)
 - even this predictions might be false (e.g. transformer killer)
 
 ::: footer
@@ -149,7 +266,8 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 
 ## what does it mean for me? (short term)
 
-- if you haven't tried --> try! It is free 
+
+- you are using Assistants anyway. But if you haven't tried ChatGPT and Copilot --> try! It is free 
 - adapt to leverage higher productivity  
 - options apart from ChatGPT and copilot (YouChat, Jasper, and Chatsonic)
 
