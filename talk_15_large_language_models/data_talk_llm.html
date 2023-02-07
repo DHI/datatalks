@@ -337,49 +337,23 @@ Jesper Mariegaard and Clemens Cremer
 
   <p class="date">February 7, 2023</p>
 </section>
-<section id="poll" class="title-slide slide level1 center">
-<h1>poll</h1>
-<p>have you used an AI assistant before? (e.g.&nbsp;chatbot, autocomplete, translation, …)</p>
+<section id="poll-have-you-used-an-ai-assistant-before" class="title-slide slide level1 center">
+<h1><strong>Poll</strong>: have you used an AI assistant before?</h1>
+
 </section>
 
-<section id="agenda" class="title-slide slide level1 center">
-<h1>agenda</h1>
-<ul>
-<li>start with chatGPT example (resume summary)</li>
-<li>general introduction LLM<br>
-</li>
-<li>examples chatgpt (record some in case it doesn’t work)
-<ul>
-<li>quick insight into some area (CAREFUL)<br>
-</li>
-<li>assisted writing</li>
-<li>reformatting table<br>
-</li>
-<li>explain code</li>
-</ul></li>
-<li>example copilot
-<ul>
-<li>quick functions</li>
-<li>plotting and formatting (e.g.&nbsp;annotations)</li>
-</ul></li>
-<li>where is this going<br>
-</li>
-<li>what does it mean for us?</li>
-</ul>
-</section>
-
-<section id="ai-assistants" class="title-slide slide level1 center">
-<h1>AI Assistants</h1>
-<p>you probably use them every day</p>
+<section id="ai-assistants---you-probably-use-them-every-day" class="title-slide slide level1 center">
+<h1>AI assistants - you probably use them every day</h1>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li>typing on your smartphone (autocomplete)</li>
-<li>search accuracy and relevance (google, bing,…)</li>
-<li>language translation (deepL, google translate,…)</li>
-<li>chatbots for customer service and support</li>
-<li>content creation (e.g.&nbsp;marketing material, product descriptions, blog posts,…)</li>
-<li>data analysis (extract insights from large amounts of text data) <font color="red"> TRY WITH WATER LEVEL DATA! </font></li>
+<li><strong>Typing</strong> on your smartphone (autocomplete)</li>
+<li><strong>Search</strong> accuracy and relevance (google, bing,…)</li>
+<li>Language <strong>translation</strong> (deepL, google translate,…)</li>
+<li>Chatbots for <strong>customer service</strong> and support</li>
+<li><strong>Content creation</strong> (e.g.&nbsp;marketing material, product descriptions, blog posts,…)</li>
+<li><strong>Data analysis</strong> (extract insights from large amounts of text data)</li>
+<li><strong>Coding</strong>…</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><img data-src="figures/autocomplete.png" style="width:100.0%"></p>
@@ -391,64 +365,89 @@ Jesper Mariegaard and Clemens Cremer
 <section id="ai-assistants-foundations" class="title-slide slide level1 center">
 <h1>AI Assistants: Foundations</h1>
 <ul>
-<li>large language models (LLM)</li>
-<li>A type of generative AI model</li>
+<li><strong>Process natural language</strong></li>
+<li>currently <strong>large language models (LLM)</strong></li>
+<li>A type of <strong>generative AI</strong> model</li>
 <li>Examples: GPT-3, BERT, T5, LaMDA, GPT-Neo, GPT-Codex</li>
-<li>process and generate natural language (e.g.&nbsp;text)</li>
-<li>also capable of text to image or other formats</li>
-<li>keeping track of state (conversational)</li>
-<li>working memory is limited 10-40k characters (you can’t write a book with it in a go )</li>
-<li>can be very expensive to train</li>
+<li>Are <strong>conversational</strong> (keeping track of state)</li>
+<li>Can be <strong>very expensive to train</strong></li>
+<li>Working memory is limited 10-40k characters (you can’t write a book with it in a go )</li>
 </ul>
 <div class="footer">
 <p>https://www.youtube.com/watch?v=lnA9DMvHtfI</p>
 </div>
 </section>
-<section id="history" class="slide level2">
-<h2>history</h2>
+<section id="a-very-brief-history-of-natural-language-models" class="slide level2">
+<h2>A <strong>very brief</strong> history of natural language models</h2>
 <ul>
-<li>are not new but originated 1950s - 1960s (e.g.&nbsp;ELIZA 1966 at MIT)</li>
-<li>got a boost with introduction of deep learning in 1990s and particularly</li>
-<li>unsupervised learning (no labels for unstructured data)</li>
+<li>are not new but <strong>originated 1950s - 1960s</strong></li>
+<li>got a <strong>boost with introduction of deep learning</strong> in 1990s and particularly</li>
+<li><strong>unsupervised learning</strong> (no labels for unstructured data)</li>
 </ul>
+<div class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<p><img data-src="data_talk_llm_files/figure-revealjs/cell-2-output-1.png" width="1693" height="649"></p>
+</div>
+</div>
 </section>
-<section id="broad-overview" class="slide level2">
-<h2>broad overview</h2>
+<section id="more-recent-years" class="slide level2">
+<h2>more recent years</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column" style="width:40%;">
 <ul>
 <li><strong>GPT</strong>-like (Generative Pretrained Transformer) GPT-3.x or GPT-Neo, Dall-E (e.g.&nbsp;chatGPT, chatBCG) by <strong>OpenAI</strong>, &gt;175 Billion parameters (GPT-4 expected to be &gt;100x)</li>
 <li><strong>BERT</strong> (Bidirectional Encoder Representations from Transformers) by <strong>Google</strong>, ~340 Million parameters</li>
 <li><strong>BART/T5</strong>-like (Bidirectional Encoder Representations from Transformers, T5: Text-to-Text Transfer Transformer) by <strong>Facebook</strong>, ~400 Million parameters</li>
-<li>LaMDA (Language Model for Dialogue Applications) <strong>Google</strong> &gt;135 bn parameters</li>
-<li>PaLM (Pretrained Autoregressive Language Model) <strong>Google</strong> &gt; 540 bn parameters</li>
+<li><strong>LaMDA</strong> (Language Model for Dialogue Applications) <strong>Google</strong> &gt;135 bn parameters</li>
+<li><strong>PaLM</strong> (Pretrained Autoregressive Language Model) <strong>Google</strong> &gt; 540 bn parameters</li>
 </ul>
 <p><strong>why are parameters important?</strong> - parameters related to sophistication of the model incl.&nbsp;handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)</p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="figures/transformers_chrono_huggingface.svg" alt="Briefest history of transformers"> <img data-src="figures/model_parameters.png" alt="Parameters"></p>
+</div><div class="column" style="width:60%;">
+<p><img data-src="figures/model_parameters.png"></p>
 </div>
 </div>
 <div class="footer">
 <p>Links and sources: <a href="https://www.omegavp.com/articles/introduction-to-large-language-models/">1</a>, <a href="https://huggingface.co/course/chapter1/4?fw=pt">2</a>, <a href="https://ai.googleblog.com/2022/01/lamda-towards-safe-grounded-and-high.html">3</a></p>
 </div>
 </section></section>
-<section id="notes-on-using-chatgpt-for-code" class="title-slide slide level1 center">
-<h1>notes on using ChatGPT for code</h1>
+<section>
+<section id="assistants-for-code" class="title-slide slide level1 center">
+<h1>Assistants for code</h1>
+<ul>
+<li><strong>generation</strong> (e.g.&nbsp;code snippets, documentation, tests,…)
 <ul>
 <li>Explain code</li>
+<li>Writing documentation</li>
+</ul></li>
+<li><strong>refactoring</strong> (e.g.&nbsp;make code more readable, more efficient,…)
+<ul>
 <li>Improved existing code</li>
 <li>Rewrite code using correct style (refactor code made by non-native Python devs)</li>
 <li>Rewrite code using ideomatic constructs (make code Pythonic)</li>
 <li>Simplify code</li>
 <li>Exploring alternatives</li>
-<li>Writing documentation</li>
+</ul></li>
+<li><strong>testing and debugging</strong> (e.g.&nbsp;find bugs, find security vulnerabilities,…)
+<ul>
 <li>Writing tests</li>
 <li>Tracking down bugs</li>
+</ul></li>
 </ul>
 </section>
-
+<section id="chatgpt" class="slide level2">
+<h2>ChatGPT</h2>
+<p><img data-src="figures/chatGPT1.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT2.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT3.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT4.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT5.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT6.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT7.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT8.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT9.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
+</section></section>
 <section id="github-copilot-gpt-codex" class="title-slide slide level1 center">
-<h1>github copilot (GPT-Codex)</h1>
+<h1>Github copilot (GPT-Codex)</h1>
 <ul>
 <li>Codex: GPT3 fine tuned for programming tasks</li>
 <li>translating natural language to code</li>
@@ -581,6 +580,7 @@ Jesper Mariegaard and Clemens Cremer
 <section id="what-does-it-mean-for-me-short-term" class="slide level2">
 <h2>what does it mean for me? (short term)</h2>
 <ul>
+<li><p><font color="red"> example CV </font></p></li>
 <li><p>you are using Assistants anyway. But if you haven’t tried ChatGPT and Copilot –&gt; try! It is free</p></li>
 <li><p>adapt to leverage higher productivity<br>
 </p></li>
