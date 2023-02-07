@@ -16,7 +16,7 @@ execute:
 ---
 
 
-# **Poll**: have you used an AI assistant before? 
+# Poll: have you used an AI assistant before? 
 
 
 
@@ -55,17 +55,18 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 :::
 
 
-## A **very brief** history of natural language models
+## A very brief, incomplete, history of natural language models
 
 - are not new but **originated 1950s - 1960s** 
-- got a **boost with introduction of deep learning** in 1990s and particularly
-- **unsupervised learning** (no labels for unstructured data)
+- got a **boost with introduction of deep learning** in 1990s and particularly<br> **unsupervised learning** (no labels for unstructured data)
+- since **2010s adoption in everyday life** (e.g. Siri, Alexa, Google Assistant, Cortana, Bixby, etc.)
+- from **2021 coding and automatization**
 
 ``` {python}	
 import matplotlib.pyplot as plt
 import numpy as np
 import matplotlib
-matplotlib.rcParams.update({'font.size': 22})
+matplotlib.rcParams.update({'font.size': 24})
 
 #models = ['**ELIZA (1966)**\nELIZA was one of the earliest NLP models developed by Joseph Weizenbaum. It was designed as a mock Rogerian psychotherapist and could carry on simple conversations with users.', 'SHRDLU (1970)\nSHRDLU was a language model developed by Terry Winograd that could understand and respond to natural language commands in a block-world simulation.', 'PARRY (1972)\nPARRY was a conversational AI model developed by Kenneth Colby, designed to simulate a paranoid patient in a mental hospital.', 'R1 (1980s)\nR1 was a rule-based NLP system developed by researcher Steven Pinker, that could understand and generate simple sentences.', 'CYC (1984)\nCYC was an early attempt at creating a "general Knowledge Base" of common-sense knowledge.', 'ALICE (1995)\nALICE was an AI model that could hold conversations and respond to user input in natural language. It was developed by Richard Wallace and was one of the first NLP models to be used widely on the Internet.', 'Siri (2011)\nSiri was a virtual assistant developed by Apple Inc., that used natural language processing and generation to carry out tasks and respond to user requests.', 'Google Assistant (2016)\nGoogle Assistant is a virtual assistant developed by Google that uses NLP to answer questions, perform tasks, and control other devices.', 'ELMo (2018) - ELMo was one of the first deep learning-based NLP models that could be fine-tuned for specific tasks.','OpenAI GPT (2018)\nOpenAI GPT was a transformer-based language model that used a large-scale pre-training technique to generate text, answer questions, and perform other language-related tasks.']
 
@@ -75,7 +76,7 @@ models = ['ELIZA (MIT)', 'SHRDLU (MIT)', 'PARRY (Stanford)', 'R1 (Carnegie Mello
 years = [1966, 1970, 1972, 1980, 1984, 1995, 2011, 2016, 2018, 2021, 2022]
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(22,5))
+fig, ax = plt.subplots(figsize=(22,8))
 ax.spines['left'].set_visible(False)
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
@@ -101,7 +102,8 @@ ax.set_xlabel('Year')
 ax.set_title('Timeline of Natural Language Processing Models')
 
 # Show the plot
-plt.show()
+plt.xkcd();
+#plt.show()
 
 
 ```
@@ -117,11 +119,12 @@ plt.show()
 - **LaMDA** (Language Model for Dialogue Applications) **Google** >135 bn parameters
 - **PaLM** (Pretrained Autoregressive Language Model) **Google** > 540 bn parameters
 
-**why are parameters important?**
-- parameters related to sophistication of the model incl. handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)
 :::
 ::: {.column width=60%}
 ![](figures/model_parameters.png)
+
+**why are parameters important?**
+- parameters related to sophistication of the model incl. handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)
 :::
 ::::
 
@@ -130,7 +133,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 :::
 
 
-# Assistants for code
+# Assistants for code...
 
 - **generation** (e.g. code snippets, documentation, ...)
 	- Explain code
@@ -148,47 +151,126 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 
 ## ChatGPT
 
-![](figures/chatGPT1.png){.fragment .fade-left .absolute left=30 height="1000"}
+![](figures/chatGPT1.png){.fragment .fade-left .absolute left=50 height="1000"}
 
-![](figures/chatGPT2.png){.fragment .fade-left .absolute right=30 height="1000"}
+![](figures/chatGPT2.png){.fragment .fade-left .absolute right=50 height="1000"}
 
-![](figures/chatGPT3.png){.fragment .fade-left .absolute left=30 height="1000"}
+![](figures/chatGPT3.png){.fragment .fade-left .absolute left=50 height="1000"}
 
-![](figures/chatGPT4.png){.fragment .fade-left .absolute right=30 height="1000"}
+![](figures/chatGPT4.png){.fragment .fade-left .absolute right=50 height="1000"}
 
-![](figures/chatGPT5.png){.fragment .fade-left .absolute left=30 height="1000"}	
+![](figures/chatGPT5.png){.fragment .fade-left .absolute left=50 height="1000"}	
 
-![](figures/chatGPT6.png){.fragment .fade-left .absolute right=30 height="1000"}
+![](figures/chatGPT6.png){.fragment .fade-left .absolute right=50 height="1000"}
 
-![](figures/chatGPT7.png){.fragment .fade-left .absolute left=30 height="1000"}
+![](figures/chatGPT7.png){.fragment .fade-left .absolute left=50 height="1000"}
 	
-![](figures/chatGPT8.png){.fragment .fade-left .absolute right=30 height="1000"}
+![](figures/chatGPT8.png){.fragment .fade-left .absolute right=50 height="1000"}
 	
-![](figures/chatGPT9.png){.fragment .fade-left .absolute left=30 height="1000"}	
+![](figures/chatGPT9.png){.fragment .fade-left .absolute left=50 height="1000"}	
 
 
 
-# Github copilot (GPT-Codex)
+## Github copilot 
 
-- Codex: GPT3 fine tuned for programming tasks 
-- translating natural language to code
+- OpenAI **Codex: GPT3 fine tuned for programming tasks**
+- translating **natural language to code**
 - trained on GitHub codebase
-- more context aware in your environment
-- <font color=red> shortcuts (distinguish between namespace and copilot autocomplete)
-- look in copilot vs plugin description for bits to use </font>
-- https://copilot.github.com/
-- https://copilot.github.com/blog/introducing-copilot
+- **integrates** and is context aware **in your environment / favorite IDE**
+
+![](figures/jr_copilot_workflow.png){width=90%}
+	
+
+
+## Copilot Demo
+
+{{< video https://drive.google.com/file/d/1CaQ6iuKDpNJB3Z85lWd-LfB3qVpGJAIH/view >}}
+
+- add video demo
+- show live demo (e.g. write function and that copy & paste is unnecessary)
+
+
+# Where is it going? Am I useless now?
+
+:::{.incremental .fade-in}
+- "**Your hands need to remain on the wheel at all times, because Copilot can generate errors in code with no awareness of the error**." *Yann LeCun*,  META Chief AI Scientist and Touring Award Winner likening coding assistants such as Copilot to cruise control in cars. 
+
+- "**LLMs are still making sh\*t up**" *Yann LeCun*
+
+- **LLMs are very useful assistants and can increase productivity tremendously.** 
+- **But they are not perfect and need to be used with care.** 
+:::
+
+::: footer
+[1](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+::: 
+
+
+## What can I do?
+
+- Try out ChatGPT and Copilot! 
+- Adapt to leverage higher productivity  
+- Try other tools https://www.futurepedia.io/
 
 
 
-# Where is it going?
+## For DHI engineers... 
+
+:::: columns
+::: {.column width=30%}
+- Text
+    - Background information (be careful!)  
+    - Proposal and Report writing 
+    - Presentations (slides)
+- Code
+    - Documentation    
+    - Tests
+::: 
+::: {.column width=70%}
+![](figures/future_of_email_twit.jfif){width=100%}
+:::
+::::
+
+
+## How do you see this being used in your day to day work? 
+
+
+# Thanks for your attention!
+
+
+
+
+
+
+
+
+# Continuation
+
+# Where could this go for DHI?
 - Wild west
 - many things still unclear
 - pros and cons as with every new technology
+- DHI possible paths from retrieval to prompt crafting
+![Source: Mathematics of Data Science Seminar at DTU by Johan Rosenkilde, GitHub Next, Jan 12, 2023](figures/jr_spectrum.png){height="900"}
 
 
 
-## Should we have **legal and ethical concerns**? 
+
+## discussion privacy, security and ethics
+- should it be banned or restricted from education and elsewhere?
+- can we cite or acknowledge sources „Written in Cooperation with AI?“
+
+## discussion further implications
+- if everyone can use it, everyone can do it --> basic programming skills no longer required?
+- new skillsets needed?
+	- new workflows and ways of working --> adopt workflows including LLMs 
+	- unlearning old habits
+	- critical mindset more important than ever --> bullshit does scale now
+	- abitlity to review is important
+
+
+
+# Should we have **legal and ethical concerns**? 
  no, it can sort those out itself
 
 ![](figures/bar_exam.png){width=70%}
@@ -233,6 +315,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 [source](https://news.bloomberglaw.com/ip-law/wild-west-of-generative-ai-raises-novel-copyright-questions)
 :::
 
+
 ## Open questions
 
 ### Security and privacy
@@ -263,21 +346,33 @@ ChatGPT is already used to build hacking tools at scale
 ## Open questions
 ### Ethical aspects and code of conduct
 
+:::: columns
+::: {.column width=50%}
 **Hippocratic Oath**: Do no harm, respect privacy of patients
 
-![](figures/doctor.png){width="30%"}
-
+![](figures/doctor.png){width="80%"}
+:::
+::: {.column width=50%}
+![](figures/medical_bullshit.png){width="70%"}
+:::
+::::
 
 ::: footer
 [source](https://stanford-cs324.github.io/winter2022/lectures/legality/)
 :::
 
 
-# Ways forward
+## Open questions
+### Privacy and data protection
 
-- should it be banned or restricted from education and elsewhere?
-- can we cite or acknowledge sources „Written in Cooperation with AI?“
-- identify bullshit (from CV)
+![](figures/copilot_privacy.png){width="70%"}
+
+see also [Copilot privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-copilot-for-business-privacy-statement)
+
+::: footer
+[source](https://github.com/community/community/discussions/7163)
+:::
+
 
 
 ## positive perspectives by critical people 
@@ -291,14 +386,6 @@ ChatGPT is already used to build hacking tools at scale
 [source](https://podcasts.voxmedia.com/show/pivot), [source 2](https://www.reuters.com/legal/transactional/chatgpt-passes-law-school-exams-despite-mediocre-performance-2023-01-25/)
 :::
 
-
-# Am I useless now and what can I do?
-
-	- "(Yann) LeCun (META Chief AI Scientist and Touring Award Winner) recently 
-		- likened coding assistants such as Copilot to cruise control in cars. 
-		- "Your hands need to remain on the wheel at all times," 
-		- because **Copilot can generate errors in code with no awareness of the error**." [2](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
- 
 
 
 ## potential (longer term)
@@ -316,35 +403,3 @@ ChatGPT is already used to build hacking tools at scale
 ::: footer
 [further reading](https://hai.stanford.edu/news/how-large-language-models-will-transform-science-society-and-ai)
 :::
-
-## what does it mean for me? (short term)
-
-- <font color=red> example CV </font>
-- you are using Assistants anyway. But if you haven't tried ChatGPT and Copilot --> try! It is free 
-- adapt to leverage higher productivity  
-- options apart from ChatGPT and copilot (YouChat, Jasper, and Chatsonic)
-
-- prompt crafting: learn to ask the right questions or questions right
-
-- if everyone can use it, everyone can do it --> basic programming skills no longer required?
-- new skillsets needed?
-	- new workflows and ways of working --> adopt workflows including LLMs 
-	- unlearning old habits
-	- critical mindset more important than ever --> bullshit does scale now
-	- abitlity to review is important
-- discussion...  
-	- how do you see this being used in your day to day work? 
-
-
-## For DHI engineers... 
-
-- Text
-    - Background information (be careful)  
-    - Proposal and Report writing (insert application for job image here)
-		- Differ in tone of voice,...
-    - Presentations (slides)
-		- try quarto
-		- try chatBCG
-- Code
-    - Documentation    
-    - Tests

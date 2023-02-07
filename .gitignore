@@ -129,3 +129,8 @@ dmypy.json
 .pyre/
 *.js
 *.css
+talk_15_large_language_models/figures/jr_spectrum.png
+talk_15_large_language_models/figures/jr_copilot_workflow.png
+talk_15_large_language_models/figures/medical_bullshit.png
+talk_15_large_language_models/figures/future_of_email_twit.jfif
+talk_15_large_language_models/chatgpt_demo.ipynb

@@ -6,7 +6,9 @@
 <script src="data_talk_llm_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="data_talk_llm_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="data_talk_llm_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="data_talk_llm_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<link href="data_talk_llm_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="data_talk_llm_files/libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="data_talk_llm_files/libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.280">
 
   <meta name="author" content="Jesper Mariegaard and Clemens Cremer">
@@ -338,7 +340,7 @@ Jesper Mariegaard and Clemens Cremer
   <p class="date">February 7, 2023</p>
 </section>
 <section id="poll-have-you-used-an-ai-assistant-before" class="title-slide slide level1 center">
-<h1><strong>Poll</strong>: have you used an AI assistant before?</h1>
+<h1>Poll: have you used an AI assistant before?</h1>
 
 </section>
 
@@ -377,16 +379,17 @@ Jesper Mariegaard and Clemens Cremer
 <p>https://www.youtube.com/watch?v=lnA9DMvHtfI</p>
 </div>
 </section>
-<section id="a-very-brief-history-of-natural-language-models" class="slide level2">
-<h2>A <strong>very brief</strong> history of natural language models</h2>
+<section id="a-very-brief-incomplete-history-of-natural-language-models" class="slide level2">
+<h2>A very brief, incomplete, history of natural language models</h2>
 <ul>
 <li>are not new but <strong>originated 1950s - 1960s</strong></li>
-<li>got a <strong>boost with introduction of deep learning</strong> in 1990s and particularly</li>
-<li><strong>unsupervised learning</strong> (no labels for unstructured data)</li>
+<li>got a <strong>boost with introduction of deep learning</strong> in 1990s and particularly<br> <strong>unsupervised learning</strong> (no labels for unstructured data)</li>
+<li>since <strong>2010s adoption in everyday life</strong> (e.g.&nbsp;Siri, Alexa, Google Assistant, Cortana, Bixby, etc.)</li>
+<li>from <strong>2021 coding and automatization</strong></li>
 </ul>
 <div class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
-<p><img data-src="data_talk_llm_files/figure-revealjs/cell-2-output-1.png" width="1693" height="649"></p>
+<p><img data-src="data_talk_llm_files/figure-revealjs/cell-2-output-1.png" width="1693" height="739"></p>
 </div>
 </div>
 </section>
@@ -401,9 +404,9 @@ Jesper Mariegaard and Clemens Cremer
 <li><strong>LaMDA</strong> (Language Model for Dialogue Applications) <strong>Google</strong> &gt;135 bn parameters</li>
 <li><strong>PaLM</strong> (Pretrained Autoregressive Language Model) <strong>Google</strong> &gt; 540 bn parameters</li>
 </ul>
-<p><strong>why are parameters important?</strong> - parameters related to sophistication of the model incl.&nbsp;handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)</p>
 </div><div class="column" style="width:60%;">
 <p><img data-src="figures/model_parameters.png"></p>
+<p><strong>why are parameters important?</strong> - parameters related to sophistication of the model incl.&nbsp;handling tasks not being trained for (GPT2 could not do language translation while GPT3 can)</p>
 </div>
 </div>
 <div class="footer">
@@ -412,9 +415,9 @@ Jesper Mariegaard and Clemens Cremer
 </section></section>
 <section>
 <section id="assistants-for-code" class="title-slide slide level1 center">
-<h1>Assistants for code</h1>
+<h1>Assistants for code…</h1>
 <ul>
-<li><strong>generation</strong> (e.g.&nbsp;code snippets, documentation, tests,…)
+<li><strong>generation</strong> (e.g.&nbsp;code snippets, documentation, …)
 <ul>
 <li>Explain code</li>
 <li>Writing documentation</li>
@@ -427,50 +430,133 @@ Jesper Mariegaard and Clemens Cremer
 <li>Simplify code</li>
 <li>Exploring alternatives</li>
 </ul></li>
-<li><strong>testing and debugging</strong> (e.g.&nbsp;find bugs, find security vulnerabilities,…)
-<ul>
-<li>Writing tests</li>
-<li>Tracking down bugs</li>
-</ul></li>
+<li><strong>testing and debugging</strong> (e.g.&nbsp;find bugs, find security vulnerabilities,…)</li>
 </ul>
 </section>
 <section id="chatgpt" class="slide level2">
 <h2>ChatGPT</h2>
-<p><img data-src="figures/chatGPT1.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT2.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT3.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT4.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT5.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT6.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT7.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT8.png" class="fragment fade-left absolute" style="right: 30px; height: 1000px; "></p>
-<p><img data-src="figures/chatGPT9.png" class="fragment fade-left absolute" style="left: 30px; height: 1000px; "></p>
-</section></section>
-<section id="github-copilot-gpt-codex" class="title-slide slide level1 center">
-<h1>Github copilot (GPT-Codex)</h1>
+<p><img data-src="figures/chatGPT1.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT2.png" class="fragment fade-left absolute" style="right: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT3.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT4.png" class="fragment fade-left absolute" style="right: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT5.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT6.png" class="fragment fade-left absolute" style="right: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT7.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT8.png" class="fragment fade-left absolute" style="right: 50px; height: 1000px; "></p>
+<p><img data-src="figures/chatGPT9.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
+</section>
+<section id="github-copilot" class="slide level2">
+<h2>Github copilot</h2>
 <ul>
-<li>Codex: GPT3 fine tuned for programming tasks</li>
-<li>translating natural language to code</li>
+<li>OpenAI <strong>Codex: GPT3 fine tuned for programming tasks</strong></li>
+<li>translating <strong>natural language to code</strong></li>
 <li>trained on GitHub codebase</li>
-<li>more context aware in your environment</li>
-<li><font color="red"> shortcuts (distinguish between namespace and copilot autocomplete)</font></li><font color="red">
-</font><li><font color="red">look in copilot vs plugin description for bits to use </font></li>
-<li>https://copilot.github.com/</li>
-<li>https://copilot.github.com/blog/introducing-copilot</li>
+<li><strong>integrates</strong> and is context aware <strong>in your environment / favorite IDE</strong></li>
 </ul>
+<p><img data-src="figures/jr_copilot_workflow.png" style="width:90.0%"></p>
+</section>
+<section id="copilot-demo" class="slide level2">
+<h2>Copilot Demo</h2>
+<video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://drive.google.com/file/d/1CaQ6iuKDpNJB3Z85lWd-LfB3qVpGJAIH/view"></video>
+<ul>
+<li>add video demo</li>
+<li>show live demo (e.g.&nbsp;write function and that copy &amp; paste is unnecessary)</li>
+</ul>
+</section></section>
+<section>
+<section id="where-is-it-going-am-i-useless-now" class="title-slide slide level1 center">
+<h1>Where is it going? Am I useless now?</h1>
+<div class="fade-in">
+<ul>
+<li class="fragment"><p>“<strong>Your hands need to remain on the wheel at all times, because Copilot can generate errors in code with no awareness of the error</strong>.” <em>Yann LeCun</em>, META Chief AI Scientist and Touring Award Winner likening coding assistants such as Copilot to cruise control in cars.</p></li>
+<li class="fragment"><p>“<strong>LLMs are still making sh*t up</strong>” <em>Yann LeCun</em></p></li>
+<li class="fragment"><p><strong>LLMs are very useful assistants and can increase productivity tremendously.</strong></p></li>
+<li class="fragment"><p><strong>But they are not perfect and need to be used with care.</strong></p></li>
+</ul>
+</div>
+<div class="footer">
+<p><a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">1</a></p>
+</div>
+</section>
+<section id="what-can-i-do" class="slide level2">
+<h2>What can I do?</h2>
+<ul>
+<li>Try out ChatGPT and Copilot!</li>
+<li>Adapt to leverage higher productivity<br>
+</li>
+<li>Try other tools https://www.futurepedia.io/</li>
+</ul>
+</section>
+<section id="for-dhi-engineers" class="slide level2">
+<h2>For DHI engineers…</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<ul>
+<li>Text
+<ul>
+<li>Background information (be careful!)<br>
+</li>
+<li>Proposal and Report writing</li>
+<li>Presentations (slides)</li>
+</ul></li>
+<li>Code
+<ul>
+<li>Documentation<br>
+</li>
+<li>Tests</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:70%;">
+<p><img data-src="figures/future_of_email_twit.jfif" style="width:100.0%"></p>
+</div>
+</div>
+</section>
+<section id="how-do-you-see-this-being-used-in-your-day-to-day-work" class="slide level2">
+<h2>How do you see this being used in your day to day work?</h2>
+</section></section>
+<section id="thanks-for-your-attention" class="title-slide slide level1 center">
+<h1>Thanks for your attention!</h1>
+
+</section>
+
+<section id="continuation" class="title-slide slide level1 center">
+<h1>Continuation</h1>
+
 </section>
 
 <section>
-<section id="where-is-it-going" class="title-slide slide level1 center">
-<h1>Where is it going?</h1>
+<section id="where-could-this-go-for-dhi" class="title-slide slide level1 center">
+<h1>Where could this go for DHI?</h1>
 <ul>
 <li>Wild west</li>
 <li>many things still unclear</li>
 <li>pros and cons as with every new technology</li>
+<li>DHI possible paths from retrieval to prompt crafting <img data-src="figures/jr_spectrum.png" height="900" alt="Source: Mathematics of Data Science Seminar at DTU by Johan Rosenkilde, GitHub Next, Jan 12, 2023"></li>
 </ul>
 </section>
-<section id="should-we-have-legal-and-ethical-concerns" class="slide level2">
-<h2>Should we have <strong>legal and ethical concerns</strong>?</h2>
+<section id="discussion-privacy-security-and-ethics" class="slide level2">
+<h2>discussion privacy, security and ethics</h2>
+<ul>
+<li>should it be banned or restricted from education and elsewhere?</li>
+<li>can we cite or acknowledge sources „Written in Cooperation with AI?“</li>
+</ul>
+</section>
+<section id="discussion-further-implications" class="slide level2">
+<h2>discussion further implications</h2>
+<ul>
+<li>if everyone can use it, everyone can do it –&gt; basic programming skills no longer required?</li>
+<li>new skillsets needed?
+<ul>
+<li>new workflows and ways of working –&gt; adopt workflows including LLMs</li>
+<li>unlearning old habits</li>
+<li>critical mindset more important than ever –&gt; bullshit does scale now</li>
+<li>abitlity to review is important</li>
+</ul></li>
+</ul>
+</section></section>
+<section>
+<section id="should-we-have-legal-and-ethical-concerns" class="title-slide slide level1 center">
+<h1>Should we have <strong>legal and ethical concerns</strong>?</h1>
 <p>no, it can sort those out itself</p>
 <p><img data-src="figures/bar_exam.png" style="width:70.0%"></p>
 <div class="fragment">
@@ -528,20 +614,26 @@ Jesper Mariegaard and Clemens Cremer
 <section id="open-questions-4" class="slide level2">
 <h2>Open questions</h2>
 <h3 id="ethical-aspects-and-code-of-conduct-1">Ethical aspects and code of conduct</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
 <p><strong>Hippocratic Oath</strong>: Do no harm, respect privacy of patients</p>
-<p><img data-src="figures/doctor.png" style="width:30.0%"></p>
+<p><img data-src="figures/doctor.png" style="width:80.0%"></p>
+</div><div class="column" style="width:50%;">
+<p><img data-src="figures/medical_bullshit.png" style="width:70.0%"></p>
+</div>
+</div>
 <div class="footer">
 <p><a href="https://stanford-cs324.github.io/winter2022/lectures/legality/">source</a></p>
 </div>
-</section></section>
-<section>
-<section id="ways-forward" class="title-slide slide level1 center">
-<h1>Ways forward</h1>
-<ul>
-<li>should it be banned or restricted from education and elsewhere?</li>
-<li>can we cite or acknowledge sources „Written in Cooperation with AI?“</li>
-<li>identify bullshit (from CV)</li>
-</ul>
+</section>
+<section id="open-questions-5" class="slide level2">
+<h2>Open questions</h2>
+<h3 id="privacy-and-data-protection">Privacy and data protection</h3>
+<p><img data-src="figures/copilot_privacy.png" style="width:70.0%"></p>
+<p>see also <a href="https://docs.github.com/en/site-policy/privacy-policies/github-copilot-for-business-privacy-statement">Copilot privacy statement</a></p>
+<div class="footer">
+<p><a href="https://github.com/community/community/discussions/7163">source</a></p>
+</div>
 </section>
 <section id="positive-perspectives-by-critical-people" class="slide level2">
 <h2>positive perspectives by critical people</h2>
@@ -553,14 +645,6 @@ Jesper Mariegaard and Clemens Cremer
 <div class="footer">
 <p><a href="https://podcasts.voxmedia.com/show/pivot">source</a>, <a href="https://www.reuters.com/legal/transactional/chatgpt-passes-law-school-exams-despite-mediocre-performance-2023-01-25/">source 2</a></p>
 </div>
-</section></section>
-<section>
-<section id="am-i-useless-now-and-what-can-i-do" class="title-slide slide level1 center">
-<h1>Am I useless now and what can I do?</h1>
-<pre><code>- "(Yann) LeCun (META Chief AI Scientist and Touring Award Winner) recently 
-    - likened coding assistants such as Copilot to cruise control in cars. 
-    - "Your hands need to remain on the wheel at all times," 
-    - because **Copilot can generate errors in code with no awareness of the error**." [2](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)</code></pre>
 </section>
 <section id="potential-longer-term" class="slide level2">
 <h2>potential (longer term)</h2>
@@ -576,54 +660,6 @@ Jesper Mariegaard and Clemens Cremer
 <div class="footer">
 <p><a href="https://hai.stanford.edu/news/how-large-language-models-will-transform-science-society-and-ai">further reading</a></p>
 </div>
-</section>
-<section id="what-does-it-mean-for-me-short-term" class="slide level2">
-<h2>what does it mean for me? (short term)</h2>
-<ul>
-<li><p><font color="red"> example CV </font></p></li>
-<li><p>you are using Assistants anyway. But if you haven’t tried ChatGPT and Copilot –&gt; try! It is free</p></li>
-<li><p>adapt to leverage higher productivity<br>
-</p></li>
-<li><p>options apart from ChatGPT and copilot (YouChat, Jasper, and Chatsonic)</p></li>
-<li><p>prompt crafting: learn to ask the right questions or questions right</p></li>
-<li><p>if everyone can use it, everyone can do it –&gt; basic programming skills no longer required?</p></li>
-<li><p>new skillsets needed?</p>
-<ul>
-<li>new workflows and ways of working –&gt; adopt workflows including LLMs</li>
-<li>unlearning old habits</li>
-<li>critical mindset more important than ever –&gt; bullshit does scale now</li>
-<li>abitlity to review is important</li>
-</ul></li>
-<li><p>discussion…</p>
-<ul>
-<li>how do you see this being used in your day to day work?</li>
-</ul></li>
-</ul>
-</section>
-<section id="for-dhi-engineers" class="slide level2">
-<h2>For DHI engineers…</h2>
-<ul>
-<li>Text
-<ul>
-<li>Background information (be careful)<br>
-</li>
-<li>Proposal and Report writing (insert application for job image here)
-<ul>
-<li>Differ in tone of voice,…</li>
-</ul></li>
-<li>Presentations (slides)
-<ul>
-<li>try quarto</li>
-<li>try chatBCG</li>
-</ul></li>
-</ul></li>
-<li>Code
-<ul>
-<li>Documentation<br>
-</li>
-<li>Tests</li>
-</ul></li>
-</ul>
 <div class="footer footer-default">
 
 </div>
@@ -971,6 +1007,7 @@ Jesper Mariegaard and Clemens Cremer
       }
     });
     </script>
+    
     
 
 </body></html>
