@@ -72,11 +72,11 @@ matplotlib.rcParams.update({'font.size': 24})
 
 
 # Define the data to be plotted
-models = ['ELIZA (MIT)', 'SHRDLU (MIT)', 'PARRY (Stanford)', 'R1 (Carnegie Mellon)', 'CYC (Cycorp)', 'ALICE (ALICE Foundation)', 'Siri (SRI and Apple)', 'Google Assistant (Google)', 'OpenAI GPT (OpenAI)', 'GitHub Copilot (Github and Microsoft)', 'ChatGPT (OpenAI)', 'Bard AI (Google)']
+models = ['ELIZA (MIT)', 'SHRDLU (MIT)', 'PARRY (Stanford)', 'R1 (Carnegie Mellon)', 'CYC (Cycorp)', 'ALICE (ALICE Foundation)', 'Siri (SRI and Apple)', 'Google Assistant (Google)', 'OpenAI GPT (OpenAI)', 'GitHub Copilot (Github)', 'ChatGPT (OpenAI)', 'Bard AI (Google)']
 years = [1966, 1970, 1972, 1980, 1984, 1995, 2011, 2016, 2018, 2021, 2022, 2023]
 
 # Create the plot
-fig, ax = plt.subplots(figsize=(22,8))
+fig, ax = plt.subplots(figsize=(22,6))
 ax.spines['left'].set_visible(False)
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
@@ -99,7 +99,7 @@ ax.set_xlim(1960, 2024)
 
 # Add labels and title
 ax.set_xlabel('Year')
-ax.set_title('Timeline of Natural Language Processing Models')
+#ax.set_title('Timeline of Natural Language Processing Models')
 
 # Show the plot
 plt.xkcd();
@@ -178,7 +178,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 - trained on GitHub codebase
 - **integrates** and is context aware **in your environment / favorite IDE**
 
-![](figures/jr_copilot_workflow.png){width=90%}
+![](figures/jr_copilot_workflow.png){width=60%}
 	
 
 
