@@ -1,7 +1,7 @@
 ---
-title: Data Talk - Large Language Models
+title: Data Talk<br> - Using AI assistants for text and code -
 author: Jesper Mariegaard and Clemens Cremer
-date: 2023-02-07
+date: 2023-02-09
 date-format: long
 slide-number: c/t
 transition: slide
@@ -46,7 +46,7 @@ execute:
 - A type of **generative AI** model 
 - Examples: GPT-3, BERT, T5, LaMDA, GPT-Neo, GPT-Codex
 - Are **conversational** (keeping track of state) 
-- Can be **very expensive to train**
+- Can be **very expensive to train** (~10 mio USD for GPT-3)
 - Working memory is limited 10-40k characters (you can't write a book with it in a go )
 
 
@@ -55,9 +55,9 @@ https://www.youtube.com/watch?v=lnA9DMvHtfI
 :::
 
 
-## A very brief, incomplete, history of natural language models
+## From academia, to households to professionals.<br>A very brief, incomplete, history of natural language models
 
-- are not new but **originated 1950s - 1960s** 
+- are not new but **originated 1950s - 1960s** in academia
 - got a **boost with introduction of deep learning** in 1990s and particularly<br> **unsupervised learning** (no labels for unstructured data)
 - since **2010s adoption in everyday life** (e.g. Siri, Alexa, Google Assistant, Cortana, Bixby, etc.)
 - from **2021 coding and automatization**
@@ -72,8 +72,8 @@ matplotlib.rcParams.update({'font.size': 24})
 
 
 # Define the data to be plotted
-models = ['ELIZA (MIT)', 'SHRDLU (MIT)', 'PARRY (Stanford)', 'R1 (Carnegie Mellon)', 'CYC (Cycorp)', 'ALICE (ALICE Foundation)', 'Siri (SRI and Apple)', 'Google Assistant (Google)', 'OpenAI GPT (OpenAI)', 'GitHub Copilot (Github and Microsoft)', 'ChatGPT (OpenAI)']
-years = [1966, 1970, 1972, 1980, 1984, 1995, 2011, 2016, 2018, 2021, 2022]
+models = ['ELIZA (MIT)', 'SHRDLU (MIT)', 'PARRY (Stanford)', 'R1 (Carnegie Mellon)', 'CYC (Cycorp)', 'ALICE (ALICE Foundation)', 'Siri (SRI and Apple)', 'Google Assistant (Google)', 'OpenAI GPT (OpenAI)', 'GitHub Copilot (Github and Microsoft)', 'ChatGPT (OpenAI)', 'Bard AI (Google)']
+years = [1966, 1970, 1972, 1980, 1984, 1995, 2011, 2016, 2018, 2021, 2022, 2023]
 
 # Create the plot
 fig, ax = plt.subplots(figsize=(22,8))
@@ -89,13 +89,13 @@ for i, model in enumerate(models):
     ax.annotate(model, (years[i], 0), xytext=(0,5), textcoords='offset points', ha='center', va='bottom', rotation=90)
 
 # Add time arrow
-ax.annotate('', xy=(2023, 0), xycoords='data', xytext=(1960, 0),
+ax.annotate('', xy=(2024, 0), xycoords='data', xytext=(1960, 0),
             textcoords='data', arrowprops=dict(arrowstyle="->",
                                                 connectionstyle="arc3"))
 
 # Add gridlines and limit the x-axis
 ax.grid(axis='x')
-ax.set_xlim(1960, 2023)
+ax.set_xlim(1960, 2024)
 
 # Add labels and title
 ax.set_xlabel('Year')
@@ -109,7 +109,7 @@ plt.xkcd();
 ```
 
 
-## more recent years 
+## Big tech is driving recent growth 
 
 :::: columns
 ::: {.column width=40%}
@@ -133,7 +133,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 :::
 
 
-# Assistants for code...
+# Assistants can help with coding in different stages
 
 - **generation** (e.g. code snippets, documentation, ...)
 	- Explain code
@@ -149,7 +149,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 - **testing and debugging** (e.g. find bugs, find security vulnerabilities,...)
 
 
-## ChatGPT
+## ChatGPT dialogue example for code generation
 
 ![](figures/chatGPT1.png){.fragment .fade-left .absolute left=50 height="1000"}
 
@@ -171,7 +171,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 
 
 
-## Github copilot 
+## Github copilot - the assistant that integrates into your IDE 
 
 - OpenAI **Codex: GPT3 fine tuned for programming tasks**
 - translating **natural language to code**
@@ -184,18 +184,17 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 
 ## Copilot Demo
 
-{{< video https://drive.google.com/file/d/1CaQ6iuKDpNJB3Z85lWd-LfB3qVpGJAIH/view >}}
-
-- add video demo
-- show live demo (e.g. write function and that copy & paste is unnecessary)
 
 
-# Where is it going? Am I useless now?
+# Where is this going? Am I useless now?
 
 :::{.incremental .fade-in}
 - "**Your hands need to remain on the wheel at all times, because Copilot can generate errors in code with no awareness of the error**." *Yann LeCun*,  META Chief AI Scientist and Touring Award Winner likening coding assistants such as Copilot to cruise control in cars. 
 
 - "**LLMs are still making sh\*t up**" *Yann LeCun*
+
+- "...**ChatGPT is a bullshitter**. The essence of bullshit is unconcern with truth. It’s not a liar because to be a liar, you must know the truth and intend to mislead. ChatGPT is indifferent to the truth." *Cassie Kozyrkov*, Google Chief Decision Scientist 
+
 
 - **LLMs are very useful assistants and can increase productivity tremendously.** 
 - **But they are not perfect and need to be used with care.** 
@@ -203,6 +202,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 
 ::: footer
 [1](https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/)
+[2](https://kozyrkov.medium.com/introducing-chatgpt-aa824ad89623)
 ::: 
 
 

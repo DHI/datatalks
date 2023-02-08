@@ -6,14 +6,12 @@
 <script src="data_talk_llm_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="data_talk_llm_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="data_talk_llm_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="data_talk_llm_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="data_talk_llm_files/libs/quarto-contrib/videojs/video.min.js"></script>
-<link href="data_talk_llm_files/libs/quarto-contrib/videojs/video-js.css" rel="stylesheet"><meta charset="utf-8">
+<link href="data_talk_llm_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.280">
 
   <meta name="author" content="Jesper Mariegaard and Clemens Cremer">
-  <meta name="dcterms.date" content="2023-02-07">
-  <title>Data Talk - Large Language Models</title>
+  <meta name="dcterms.date" content="2023-02-09">
+  <title>Data Talk  - Using AI assistants for text and code -</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -327,7 +325,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Data Talk - Large Language Models</h1>
+  <h1 class="title">Data Talk<br> - Using AI assistants for text and code -</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -337,7 +335,7 @@ Jesper Mariegaard and Clemens Cremer
 </div>
 </div>
 
-  <p class="date">February 7, 2023</p>
+  <p class="date">February 9, 2023</p>
 </section>
 <section id="poll-have-you-used-an-ai-assistant-before" class="title-slide slide level1 center">
 <h1>Poll: have you used an AI assistant before?</h1>
@@ -372,17 +370,17 @@ Jesper Mariegaard and Clemens Cremer
 <li>A type of <strong>generative AI</strong> model</li>
 <li>Examples: GPT-3, BERT, T5, LaMDA, GPT-Neo, GPT-Codex</li>
 <li>Are <strong>conversational</strong> (keeping track of state)</li>
-<li>Can be <strong>very expensive to train</strong></li>
+<li>Can be <strong>very expensive to train</strong> (~10 mio USD for GPT-3)</li>
 <li>Working memory is limited 10-40k characters (you can’t write a book with it in a go )</li>
 </ul>
 <div class="footer">
 <p>https://www.youtube.com/watch?v=lnA9DMvHtfI</p>
 </div>
 </section>
-<section id="a-very-brief-incomplete-history-of-natural-language-models" class="slide level2">
-<h2>A very brief, incomplete, history of natural language models</h2>
+<section id="from-academia-to-households-to-professionals.-a-very-brief-incomplete-history-of-natural-language-models" class="slide level2">
+<h2>From academia, to households to professionals.<br>A very brief, incomplete, history of natural language models</h2>
 <ul>
-<li>are not new but <strong>originated 1950s - 1960s</strong></li>
+<li>are not new but <strong>originated 1950s - 1960s</strong> in academia</li>
 <li>got a <strong>boost with introduction of deep learning</strong> in 1990s and particularly<br> <strong>unsupervised learning</strong> (no labels for unstructured data)</li>
 <li>since <strong>2010s adoption in everyday life</strong> (e.g.&nbsp;Siri, Alexa, Google Assistant, Cortana, Bixby, etc.)</li>
 <li>from <strong>2021 coding and automatization</strong></li>
@@ -393,8 +391,8 @@ Jesper Mariegaard and Clemens Cremer
 </div>
 </div>
 </section>
-<section id="more-recent-years" class="slide level2">
-<h2>more recent years</h2>
+<section id="big-tech-is-driving-recent-growth" class="slide level2">
+<h2>Big tech is driving recent growth</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <ul>
@@ -414,8 +412,8 @@ Jesper Mariegaard and Clemens Cremer
 </div>
 </section></section>
 <section>
-<section id="assistants-for-code" class="title-slide slide level1 center">
-<h1>Assistants for code…</h1>
+<section id="assistants-can-help-with-coding-in-different-stages" class="title-slide slide level1 center">
+<h1>Assistants can help with coding in different stages</h1>
 <ul>
 <li><strong>generation</strong> (e.g.&nbsp;code snippets, documentation, …)
 <ul>
@@ -433,8 +431,8 @@ Jesper Mariegaard and Clemens Cremer
 <li><strong>testing and debugging</strong> (e.g.&nbsp;find bugs, find security vulnerabilities,…)</li>
 </ul>
 </section>
-<section id="chatgpt" class="slide level2">
-<h2>ChatGPT</h2>
+<section id="chatgpt-dialogue-example-for-code-generation" class="slide level2">
+<h2>ChatGPT dialogue example for code generation</h2>
 <p><img data-src="figures/chatGPT1.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
 <p><img data-src="figures/chatGPT2.png" class="fragment fade-left absolute" style="right: 50px; height: 1000px; "></p>
 <p><img data-src="figures/chatGPT3.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
@@ -445,8 +443,8 @@ Jesper Mariegaard and Clemens Cremer
 <p><img data-src="figures/chatGPT8.png" class="fragment fade-left absolute" style="right: 50px; height: 1000px; "></p>
 <p><img data-src="figures/chatGPT9.png" class="fragment fade-left absolute" style="left: 50px; height: 1000px; "></p>
 </section>
-<section id="github-copilot" class="slide level2">
-<h2>Github copilot</h2>
+<section id="github-copilot---the-assistant-that-integrates-into-your-ide" class="slide level2">
+<h2>Github copilot - the assistant that integrates into your IDE</h2>
 <ul>
 <li>OpenAI <strong>Codex: GPT3 fine tuned for programming tasks</strong></li>
 <li>translating <strong>natural language to code</strong></li>
@@ -457,25 +455,21 @@ Jesper Mariegaard and Clemens Cremer
 </section>
 <section id="copilot-demo" class="slide level2">
 <h2>Copilot Demo</h2>
-<video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="https://drive.google.com/file/d/1CaQ6iuKDpNJB3Z85lWd-LfB3qVpGJAIH/view"></video>
-<ul>
-<li>add video demo</li>
-<li>show live demo (e.g.&nbsp;write function and that copy &amp; paste is unnecessary)</li>
-</ul>
 </section></section>
 <section>
-<section id="where-is-it-going-am-i-useless-now" class="title-slide slide level1 center">
-<h1>Where is it going? Am I useless now?</h1>
+<section id="where-is-this-going-am-i-useless-now" class="title-slide slide level1 center">
+<h1>Where is this going? Am I useless now?</h1>
 <div class="fade-in">
 <ul>
 <li class="fragment"><p>“<strong>Your hands need to remain on the wheel at all times, because Copilot can generate errors in code with no awareness of the error</strong>.” <em>Yann LeCun</em>, META Chief AI Scientist and Touring Award Winner likening coding assistants such as Copilot to cruise control in cars.</p></li>
 <li class="fragment"><p>“<strong>LLMs are still making sh*t up</strong>” <em>Yann LeCun</em></p></li>
+<li class="fragment"><p>“…<strong>ChatGPT is a bullshitter</strong>. The essence of bullshit is unconcern with truth. It’s not a liar because to be a liar, you must know the truth and intend to mislead. ChatGPT is indifferent to the truth.” <em>Cassie Kozyrkov</em>, Google Chief Decision Scientist</p></li>
 <li class="fragment"><p><strong>LLMs are very useful assistants and can increase productivity tremendously.</strong></p></li>
 <li class="fragment"><p><strong>But they are not perfect and need to be used with care.</strong></p></li>
 </ul>
 </div>
 <div class="footer">
-<p><a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">1</a></p>
+<p><a href="https://www.zdnet.com/article/openai-is-hiring-developers-to-make-chatgpt-better-at-coding/">1</a> <a href="https://kozyrkov.medium.com/introducing-chatgpt-aa824ad89623">2</a></p>
 </div>
 </section>
 <section id="what-can-i-do" class="slide level2">
@@ -1007,7 +1001,6 @@ Jesper Mariegaard and Clemens Cremer
       }
     });
     </script>
-    
     
 
 </body></html>
