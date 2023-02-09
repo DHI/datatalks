@@ -41,8 +41,8 @@ execute:
 
 # AI Assistants: Foundations 
 
-- **Process natural language** 
-- currently **large language models (LLM)** 
+- Do **Natural Language Processing** (NLP) 
+- Currently **large language models (LLM)** 
 - A type of **generative AI** model 
 - Examples: GPT-3, BERT, T5, LaMDA, GPT-Neo, GPT-Codex
 - Are **conversational** (keeping track of state) 
@@ -151,24 +151,31 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 
 ## ChatGPT dialogue example for code generation
 
-![](figures/chatGPT1.png){.fragment .fade-left .absolute left=50 height="1000"}
+![](figures/chatGPT_crop/chatGPT1.png){.absolute left=500 height="1200"}
 
-![](figures/chatGPT2.png){.fragment .fade-left .absolute right=50 height="1000"}
+![](figures/chatGPT_crop/chatGPT2_a.png){.fragment .absolute left=500 height="1200"}
 
-![](figures/chatGPT3.png){.fragment .fade-left .absolute left=50 height="1000"}
+![](figures/chatGPT_crop/chatGPT2_b.png){.fragment .absolute left=500 height="1200"}
 
-![](figures/chatGPT4.png){.fragment .fade-left .absolute right=50 height="1000"}
+![](figures/chatGPT_crop/chatGPT3_a.png){.fragment .absolute left=500 height="1200"}
 
-![](figures/chatGPT5.png){.fragment .fade-left .absolute left=50 height="1000"}	
+![](figures/chatGPT_crop/chatGPT3_b.png){.fragment .absolute left=500 height="1200"}
 
-![](figures/chatGPT6.png){.fragment .fade-left .absolute right=50 height="1000"}
+![](figures/chatGPT_crop/chatGPT4_a.png){.fragment .absolute left=500 height="1200"}
 
-![](figures/chatGPT7.png){.fragment .fade-left .absolute left=50 height="1000"}
-	
-![](figures/chatGPT8.png){.fragment .fade-left .absolute right=50 height="1000"}
-	
-![](figures/chatGPT9.png){.fragment .fade-left .absolute left=50 height="1000"}	
+![](figures/chatGPT_crop/chatGPT4_b.png){.fragment .absolute left=500 height="1200"}
 
+![](figures/chatGPT_crop/chatGPT5_a.png){.fragment .absolute left=500 height="1200"}
+
+![](figures/chatGPT_crop/chatGPT5_b.png){.fragment .absolute left=500 height="1200"}
+
+![](figures/chatGPT_crop/chatGPT6_a.png){.fragment .absolute left=500 height="1200"}
+
+![](figures/chatGPT_crop/chatGPT6_b.png){.fragment .absolute left=500 height="1200"}
+
+![](figures/chatGPT_crop/chatGPT8_a.png){.fragment .absolute left=500 height="1200"}
+
+![](figures/chatGPT_crop/chatGPT8_b.png){.fragment .absolute left=500 height="1200"}
 
 
 ## Github copilot - the assistant that integrates into your IDE 
@@ -189,7 +196,7 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 # Where is this going? Am I useless now?
 
 :::{.incremental .fade-in}
-- "**Your hands need to remain on the wheel at all times, because Copilot can generate errors in code with no awareness of the error**." *Yann LeCun*,  META Chief AI Scientist and Touring Award Winner likening coding assistants such as Copilot to cruise control in cars. 
+- "**Your hands need to remain on the wheel at all times, because Copilot can generate errors in code with no awareness of the error**." *Yann LeCun*,  META Chief AI Scientist and Turing Award Winner likening coding assistants such as Copilot to cruise control in cars. 
 
 - "**LLMs are still making sh\*t up**" *Yann LeCun*
 
@@ -206,30 +213,19 @@ Links and sources: [1](https://www.omegavp.com/articles/introduction-to-large-la
 ::: 
 
 
-## What can I do?
+## Main Messages - What can I do?
 
-- Try out ChatGPT and Copilot! 
+- Think of these tools as your *assistant* - you are *responsible* for the final result
+- **Don't feed them confidential information** about your work (or private life)
+- Be careful about using them for researching topics - answers can look very convincing but still be wrong
 - Adapt to leverage higher productivity  
 - Try other tools https://www.futurepedia.io/
 
 
 
-## For DHI engineers... 
+## Outlook 
 
-:::: columns
-::: {.column width=30%}
-- Text
-    - Background information (be careful!)  
-    - Proposal and Report writing 
-    - Presentations (slides)
-- Code
-    - Documentation    
-    - Tests
-::: 
-::: {.column width=70%}
-![](figures/future_of_email_twit.jfif){width=100%}
-:::
-::::
+![](figures/future_of_email_twit.jfif){width=80%}
 
 
 ## How do you see this being used in your day to day work? 
@@ -376,7 +372,7 @@ see also [Copilot privacy statement](https://docs.github.com/en/site-policy/priv
 
 
 ## positive perspectives by critical people 
-- "I learned also learned writing by looking at other peoples work and getting inspired." Corey Doctorow     
+- "I also learned writing by looking at other peoples work and getting inspired." Corey Doctorow     
 
 - “Everybody loved Napster, but we all kind of knew it was illegal,” Butterick said. The digital **music streaming industry** that emerged later **did a better job at bringing artists and creators into the conversation, he added, and the AI industry should follow that model.**“ Butterick (filed a copilot lawsuit)
 
