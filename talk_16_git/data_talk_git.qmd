@@ -4,6 +4,7 @@ format:
   revealjs:
     theme: moon
     transition: fade
+    embed-resources: true
 footer: Data Talk 16
 ---
 
@@ -150,7 +151,8 @@ Use Git from the *command-line*, or a *graphical user interface*.
 * Keep pull requests small and focused
 * Use "issues" to track work
 * Review code regularly
-* Don't commit passwords 
+* Use .gitignore to exclude files
+* Don't commit passwords
 ::: 
 
 
