@@ -1,0 +1,216 @@
+---
+title: "Version Control with Git"
+format: 
+  revealjs:
+    theme: moon
+    transition: fade
+footer: Data Talks
+---
+
+
+
+## Why use version control? 
+
+::: {.columns}
+
+::: {.column width="30%"}
+![](images/Vadar-VersionControl-300x300.jpg)
+:::
+
+::: {.column width="70%" .incremental}
+* Keep track of changes
+* Revert to previous versions if needed
+* Transparency
+* Easier collaboration
+* Ensure code stability
+* Best practice
+:::
+
+:::
+
+
+## Git
+
+
+Git is a powerful tool for managing code changes and collaborating with others on a project.
+
+. . .
+
+Use Git from the *command-line*, or a *graphical user interface*.
+
+. . .
+
+::: {.columns}
+
+::: {.column width="55%" .smaller}
+`> git add foo.py`
+
+`> git commit -m "Fixed"`
+
+`> git push`
+:::
+
+::: {.column width="45%"} 
+![](images/GitHubDesktop.png)
+:::
+
+:::
+
+
+## Basic Git commands 
+
+:::{.incremental}
+* `git add`: adds a file to the staging area
+* `git commit`: creates a new commit with the changes in the staging area
+* `git stash`: temporarily save changes that are not ready to be committed
+::: 
+
+
+## Working with remote repositories  
+
+::: {.incremental}
+* `git clone`: creates a copy of the codebase on your local machine.
+* `git push`: pushes changes back to the remote repository.
+* `git pull`: pulls changes from the remote repository.
+:::
+
+
+## {background-color="white"}
+
+![](images/git_staging.png)
+
+## Demo 1
+
+1. Create a new repository on GitHub
+2. Clone the repository to your local machine
+3. Add a file
+4. Commit the file
+5. Push the file to GitHub
+
+
+## GitHub 
+
+::: {.incremental}
+* Git repository hosting service
+* Collaborate with others on codebase
+* **Pull requests** for code review and merging changes
+* **Issue tracking** and project management tools
+* **GitHub Pages** for hosting websites
+:::
+
+
+## Branching and Merging 
+
+* A branch is a separate version of your code that you can work on independently from the main branch.
+* `git merge`: merges changes back into the main branch (we will do this from GitHub)
+
+
+
+## Github flow {background-color="white" .smaller .incremental}
+
+![](images/git_workflow.png)
+
+::: {.incremental}
+1. Create a branch
+2. Make changes
+3. Create a pull request
+4. Review
+5. Merge
+:::
+
+
+
+## Demo 2
+
+1. Create a new branch
+2. Make changes
+3. Commit the file
+4. Create a pull request
+5. Get feedback and merge changes
+
+
+## Github best practices
+
+::: {.incremental}
+* Commit often
+* Use descriptive commit messages
+* Keep pull requests small and focused
+* Use "issues" to track work
+* Review code regularly
+::: 
+
+
+## Gettings started
+
+1. Create a [GitHub account](https://github.com)
+2. Install [GitHub Desktop](https://desktop.github.com/) (includes Git)
+
+
+
+
+## Resources
+
+* [GitHub: quickstart](https://docs.github.com/en/get-started/quickstart/hello-world)
+* [RealPython: git and github intro](https://realpython.com/python-git-github-intro/)
+
+
+
+
+
+## Word list {.smaller .scrollable}
+
+
+Clone 
+  : making a local copy of a remote repository on your computer.
+
+Remote 
+  : a reference to a Git repository that is hosted on a remote server, typically on a service like GitHub.
+
+Commit 
+  : a record of changes made to a repository, including the changes themselves and a message describing what was changed.
+
+Stage 
+  : selecting changes that you want to include in the next commit.
+
+Push 
+  : sending changes from your local repository to a remote repository.
+
+Pull 
+  : retrieving changes from a remote repository and merging them into your local repository.
+
+Branch 
+  : a separate line of development that can be used to work on new features or bug fixes without affecting the main codebase.
+
+Pull request 
+  : a way to propose changes to a repository by asking the repository owner to "pull" in the changes from a branch or fork.
+
+Stash
+  : temporarily save changes that are not ready to be committed (bring them back later when needed).
+
+Merge 
+  : the process of combining changes from one branch or fork into another, typically the main codebase.
+
+Rebase 
+  : a way to integrate changes from one branch into another by applying the changes from the first branch to the second branch as if they were made there all along.
+
+Merge conflict 
+  : when Git is unable to automatically merge changes from two different branches, because the changes overlap or conflict.
+
+Checkout 
+  : switching between different branches or commits in a repository.
+
+Fork 
+  : a copy of a repository that you create on your own account, which you can modify without affecting the original repository.
+
+
+## Summary
+
+::: {.incremental}
+
+* Version control is a tool for managing changes to code 
+* Git is a distributed version control system (*software*)
+* GitHub is a *platform* for hosting and collaborating on Git repositories
+* GitHub Desktop is a GUI for Git (and GitHub)
+* Pull requests are a way to propose changes to a repository 
+
+:::
