@@ -30,10 +30,10 @@ footer: Data Talk 16
 
 ::: {.column width="70%" .incremental}
 * Keep track of changes
-* Revert to previous versions if needed
+* Backup and restore
 * Transparency
 * Easier collaboration
-* Increased code quality
+* Improved code quality
 * Allow experimentation
 :::
 
@@ -119,7 +119,7 @@ Use Git from the *command-line*, or a *graphical user interface*.
 
 
 
-## Github flow {background-color="white" .smaller .incremental}
+## Pull request workflow {background-color="white" .smaller .incremental}
 
 ![](images/git_workflow.png)
 
@@ -142,7 +142,7 @@ Use Git from the *command-line*, or a *graphical user interface*.
 5. Get feedback and merge changes
 
 
-## Github best practices
+## Best practices
 
 ::: {.incremental}
 * Commit often
@@ -150,6 +150,7 @@ Use Git from the *command-line*, or a *graphical user interface*.
 * Keep pull requests small and focused
 * Use "issues" to track work
 * Review code regularly
+* Don't commit passwords 
 ::: 
 
 
