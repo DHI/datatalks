@@ -4,8 +4,19 @@ format:
   revealjs:
     theme: moon
     transition: fade
-footer: Data Talks
+footer: Data Talk 16
 ---
+
+
+
+## Why use version control? 
+
+![](images/tech-comics-version-control.jpeg)
+
+
+## Why use version control? 
+
+![](images/filenames_versions.png)
 
 
 
@@ -22,8 +33,8 @@ footer: Data Talks
 * Revert to previous versions if needed
 * Transparency
 * Easier collaboration
-* Ensure code stability
-* Best practice
+* Increased code quality
+* Allow experimentation
 :::
 
 :::
@@ -79,14 +90,6 @@ Use Git from the *command-line*, or a *graphical user interface*.
 
 ![](images/git_staging.png)
 
-## Demo 1
-
-1. Create a new repository on GitHub
-2. Clone the repository to your local machine
-3. Add a file
-4. Commit the file
-5. Push the file to GitHub
-
 
 ## GitHub 
 
@@ -97,6 +100,16 @@ Use Git from the *command-line*, or a *graphical user interface*.
 * **Issue tracking** and project management tools
 * **GitHub Pages** for hosting websites
 :::
+
+
+## Demo 1
+
+1. Create a new repository on GitHub
+2. Clone the repository to your local machine
+3. Add a file
+4. Commit the file
+5. Push the file to GitHub
+
 
 
 ## Branching and Merging 
@@ -144,8 +157,8 @@ Use Git from the *command-line*, or a *graphical user interface*.
 
 1. Create a [GitHub account](https://github.com)
 2. Install [GitHub Desktop](https://desktop.github.com/) (includes Git)
-
-
+3. Become part of DHI-organization on GitHub (ask THB)
+4. Create a new repository on GitHub
 
 
 ## Resources
@@ -208,7 +221,7 @@ Fork
 ::: {.incremental}
 
 * Version control is a tool for managing changes to code 
-* Git is a distributed version control system (*software*)
+* Git is a version control system (*software*)
 * GitHub is a *platform* for hosting and collaborating on Git repositories
 * GitHub Desktop is a GUI for Git (and GitHub)
 * Pull requests are a way to propose changes to a repository 
