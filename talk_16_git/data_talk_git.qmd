@@ -152,6 +152,7 @@ Use Git from the *command-line*, or a *graphical user interface*.
 * Use "issues" to track work
 * Review code regularly
 * Use .gitignore to exclude files
+* Don't commit data (only very small test data)
 * Don't commit passwords
 ::: 
 
