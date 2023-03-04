@@ -1,0 +1,54 @@
+---
+title: "From Analysis to Communication"
+subtitle: "A journey in visualizations from exploration to explanation of data"
+author: "Clemens Cremer"
+format: 
+  revealjs:
+    theme: [white, assets/dhi_light.scss]
+    transition: fade
+    embed-resources: true
+    footer: Data Talk 18
+    logo: assets/DHI_Logo_Pos_RGB.png
+---
+
+
+
+## Agenda
+* why visualizations?
+* stages of 
+
+
+## Visualizations simplify complex data
+
+::: {.incremental}
+* to simplify complex data
+* historical context...
+:::
+
+
+## Visualizations in different data project steps
+
+<img src="images/data_wrangling_marathon.png" width="90%" />
+^[Dykes, B. Effective Data Storytelling: How to Drive Change With Data, Narrative and Visuals. Published by Wiley, 2019.]
+
+
+
+
+
+## Summary
+
+::: {.incremental}
+* Interactivity is very cool for exploration
+* Be vary how you exhaust the audiences attention
+* guide your audience with
+  * colors
+  * structure
+  * highlights
+* keep it neat
+:::
+
+# Test for template
+- https://github.com/DHI/datatalks
+- font Default Aa
+- font [Arial Aa]{style="font-family: Arial"} Aa
+- font [Karbon Aa]{style="font-family: Karbon Regular"} Aa
