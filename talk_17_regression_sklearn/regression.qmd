@@ -1,0 +1,88 @@
+---
+title: Getting started with Regression using scikit-learn
+author: Henrik Andersson
+date: 2023-03-23
+date-format: long
+format: revealjs
+jupyter: python3
+execute: 
+  freeze: auto
+---
+
+## 
+```{mermaid}
+flowchart TB
+  DA(Do you have data\n of the target variable?)
+  SC(Scenarios?)
+  ET(Predict rare events?)
+  
+  P(Known physics?)
+  
+  ML[Machine learning model]
+  PB[Physics-based model]  
+    
+  DA --Yes--> SC
+  DA --No--> P
+  SC--No--> ET
+  SC --Yes--> P
+  ET --No--> ML
+  ET --Yes--> P
+  P --Yes --> PB
+```
+
+## Types of Machine learning
+
+```{mermaid}
+flowchart TB
+  C(Do you have labels?)
+  C --No--> D(Unsupervised learning)
+  C --Yes--> E(Supervised learning)
+  E --> F(Are you predicting a\n continuous variable?)
+  F --No --> H(Classification)
+  F --Yes --> G(Regression)
+```
+
+## Workflow
+
+```{mermaid}
+flowchart TB
+  DA(Data aquisition)  --> SP(Train/test split)
+  SP --> DC(Data cleaning)
+  DC --> AS(Algorithm selection)
+  AS --> MT(Model training)
+  MT --> ME(Skill assessment)
+```
+
+## Regression
+
+Regression is a supervised learning method where the target variable is continuous.
+
+Some popular regression methods are:
+* K-nearest neighbors
+* Linear regression
+* Gradient boosting
+
+
+## K-nearest neighbors
+
+Regression based on k-nearest neighbors.
+
+The target is predicted by local interpolation of the targets associated of the nearest neighbors in the training set.
+
+## Linear regression
+
+Linear regression can either be ordinary least squares or a regularized version, e.g. Ridge regression.
+
+$$ \hat{y} = \mathbf{X}w + b $$
+
+. . .
+
+$$ J_{ols} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2}$$
+
+. . .
+
+$$ J_{ridge} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2} + \alpha \sum_{j=1}^p w_j^2 $$
+
+## Gradient boosting
+
+## Downscaling example
