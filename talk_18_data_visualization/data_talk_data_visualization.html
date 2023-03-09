@@ -10,7 +10,7 @@
   <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Clemens Cremer">
-  <title>From Analysis to Communication</title>
+  <title>A journey in visualizations</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -318,14 +318,17 @@
       margin-right: 0; 
     }
   </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">From Analysis to Communication</h1>
-  <p class="subtitle">A journey in visualizations from exploration to explanation of data</p>
+  <h1 class="title">A journey in visualizations</h1>
+  <p class="subtitle">From analysis to communication<br> Part I: Exploration</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -336,57 +339,418 @@ Clemens Cremer
 </div>
 
 </section>
-<section id="agenda" class="slide level2">
-<h2>Agenda</h2>
-<ul>
-<li>why visualizations?</li>
-<li>stages of</li>
-</ul>
+<section id="section" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h1>
+Where do we start?
+</h1>
 </section>
-<section id="visualizations-simplify-complex-data" class="slide level2">
-<h2>Visualizations simplify complex data</h2>
-<div>
-<ul>
-<li class="fragment">to simplify complex data</li>
-<li class="fragment">historical context…</li>
-</ul>
+<section id="section-1" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title"></h2>
+<h1>
+Where do we start?
+</h1>
+<h2>
+A short history of data visualization
+</h2>
+</section>
+<section id="the-early-days-of-data-visualization" class="slide level2" data-auto-animate="false">
+<h2 data-id="quarto-animate-title">The early days of data visualization</h2>
+<p><img data-src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute" style="left: 20px; bottom: 0px; width: 500px; "></p>
+<div class="r-stack">
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 20px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5;">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div style="position: absolute; bottom:360px; left:20px;">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+</div>
+<aside class="notes">
+<p>This 17th century road strip map was created by John Ogilby as part of his 1675 Britannia Atlas. The map shows the route from London to Winchester via Staines, Reading and Basingstoke.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="the-industrial-revolution-and-quantitative-data" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The industrial revolution and quantitative data</h2>
+<p><img data-src="images/Playfair_1821.png" class="absolute" style="left: 300px; bottom: 670px; width: 500px; "> <img data-src="images/binomial-quetelet-1846.jpg" class="absolute" style="left: 200px; bottom: 810px; width: 200px; "></p>
+<div class="r-stack">
+<div style="opacity: 0.5">
+<p><img data-src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute" style="left: 20px; bottom: 0px; width: 500px; "></p>
+</div>
+<div style="position: absolute; bottom:360px; left:20px; opacity: 0.5">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 530px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div data-id="point2" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;">
+
+</div>
+<div style="position: absolute; bottom:520px; left:310px;">
+<p><b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts</p>
+</div>
 </div>
 </section>
-<section id="visualizations-in-different-data-project-steps" class="slide level2">
-<h2>Visualizations in different data project steps</h2>
-<p><img src="images/data_wrangling_marathon.png" width="90%"> <sup>1</sup></p>
-<aside><ol class="aside-footnotes"><li id="fn1"><p>Dykes, B. Effective Data Storytelling: How to Drive Change With Data, Narrative and Visuals. Published by Wiley, 2019.</p></li></ol></aside></section>
+<section id="computer-aided-visualization" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Computer aided visualization</h2>
+<p><img data-src="images/1970s_computer_graphics.png" class="absolute" style="left: 770px; bottom: 0px; height: 360px; "></p>
+<div class="r-stack">
+<div style="opacity: 0.5">
+<p><img data-src="images/binomial-quetelet-1846.jpg" class="absolute" style="left: 200px; bottom: 810px; width: 200px; "></p>
+</div>
+<div style="opacity: 0.5">
+<p><img data-src="images/Playfair_1821.png" class="absolute" style="left: 300px; bottom: 670px; width: 500px; "></p>
+</div>
+<div style="opacity: 0.5">
+<p><img data-src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute" style="left: 20px; bottom: 0px; width: 500px; "></p>
+</div>
+<div style="position: absolute; bottom:360px; left:20px; opacity: 0.5">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 1050px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div data-id="point2" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;">
+
+</div>
+<div data-id="point3" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;">
+
+</div>
+<div style="position: absolute; bottom:520px; left:310px; opacity: 0.5">
+<p><b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts</p>
+</div>
+<div style="position: absolute; bottom:360px; left:770px;">
+<p><b>&gt;1960s</b><br> computer aided visualization</p>
+</div>
+</div>
+</section>
+<section id="the-next-dimension-and-new-golden-age" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">The next dimension and new golden age?</h2>
+<p><img data-src="images/excel-for-windows-3.0-charts-and-graphs.png" class="absolute" style="left: 1400px; bottom: 670px; height: 300px; "></p>
+<div class="r-stack">
+<div style="opacity: 0.5">
+<p><img data-src="images/1970s_computer_graphics.png" class="absolute" style="left: 770px; bottom: 0px; height: 360px; "></p>
+</div>
+<div style="opacity: 0.5">
+<p><img data-src="images/binomial-quetelet-1846.jpg" class="absolute" style="left: 200px; bottom: 810px; width: 200px; "></p>
+</div>
+<div style="opacity: 0.5">
+<p><img data-src="images/Playfair_1821.png" class="absolute" style="left: 300px; bottom: 670px; width: 500px; "></p>
+</div>
+<div style="opacity: 0.5">
+<p><img data-src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute" style="left: 20px; bottom: 0px; width: 500px; "></p>
+</div>
+<div style="position: absolute; bottom:360px; left:20px; opacity: 0.5">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 1800px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div data-id="point2" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;">
+
+</div>
+<div data-id="point3" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;">
+
+</div>
+<div data-id="point4" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1560px;">
+
+</div>
+<div style="position: absolute; bottom:520px; left:310px; opacity: 0.5">
+<p><b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts</p>
+</div>
+<div style="position: absolute; bottom:360px; left:770px; opacity: 0.5">
+<p><b>&gt;1960s</b><br> computer aided visualization</p>
+</div>
+<div style="position: absolute; bottom:520px; left:1400px">
+<p><b>&gt;1980s</b><br> high dimension<br>dynamic visualizations</p>
+</div>
+</div>
+</section>
+<section id="where-are-we-now" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Where are we now?</h2>
+<ul>
+<li class="fragment">🚀 more data than ever before</li>
+<li class="fragment">🛠️ more tools than ever before</li>
+<li class="fragment">😊 greater ease of access than ever before</li>
+<li class="fragment">🤯 this is not unambiguously a good thing <img data-src="images/perception_pie_charts.jpg" class="absolute" style="left: 1000px; bottom: 300px; width: 1000px; "></li>
+</ul>
+<aside class="notes">
+<p>In the pre-computer visualization era you would think long and hard about your visualization. It was a specialists job. Now you can just throw a bunch of data at a computer and it will spit out a visualization. But that does not mean that the visualization is good. In fact, it is often the opposite. - With great power comes great responsibility</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="remember-common-goal-of-visualizations" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Remember common goal of visualizations</h2>
+<p>to <strong>simplify</strong> complex data</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display" data-execution_count="13">
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>A</th>
+      <th>B</th>
+      <th>C</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-01-01</th>
+      <td>-1.692897</td>
+      <td>-2.541950</td>
+      <td>2.662534</td>
+    </tr>
+    <tr>
+      <th>2023-01-02</th>
+      <td>-1.235764</td>
+      <td>0.820784</td>
+      <td>0.332363</td>
+    </tr>
+    <tr>
+      <th>2023-01-03</th>
+      <td>-0.093112</td>
+      <td>-2.976320</td>
+      <td>0.836715</td>
+    </tr>
+    <tr>
+      <th>2023-01-04</th>
+      <td>1.622054</td>
+      <td>-0.797592</td>
+      <td>-2.116877</td>
+    </tr>
+    <tr>
+      <th>2023-01-05</th>
+      <td>1.479045</td>
+      <td>0.335016</td>
+      <td>-1.478304</td>
+    </tr>
+    <tr>
+      <th>2023-01-06</th>
+      <td>2.510910</td>
+      <td>0.684284</td>
+      <td>-1.252213</td>
+    </tr>
+    <tr>
+      <th>2023-01-07</th>
+      <td>0.680285</td>
+      <td>0.634560</td>
+      <td>-0.154703</td>
+    </tr>
+    <tr>
+      <th>2023-01-08</th>
+      <td>0.395828</td>
+      <td>-0.233365</td>
+      <td>0.353651</td>
+    </tr>
+    <tr>
+      <th>2023-01-09</th>
+      <td>-0.717803</td>
+      <td>0.526763</td>
+      <td>-0.191491</td>
+    </tr>
+    <tr>
+      <th>2023-01-10</th>
+      <td>-0.211554</td>
+      <td>-1.607150</td>
+      <td>1.014837</td>
+    </tr>
+    <tr>
+      <th>2023-01-11</th>
+      <td>-0.909039</td>
+      <td>0.544246</td>
+      <td>-0.279463</td>
+    </tr>
+    <tr>
+      <th>2023-01-12</th>
+      <td>-0.317184</td>
+      <td>-1.283746</td>
+      <td>-1.321128</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<p><img data-src="data_talk_data_visualization_files/figure-revealjs/cell-3-output-1.png" width="939" height="508"></p>
+</div>
+</div>
+</div>
+</div>
+<aside class="notes">
+<p>To not get overwhelmed by possibilities it is useful to think about if and how a visualization serve to simplify complex data.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="getting-ready-by-putting-some-thought-in" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Getting ready by putting some thought in!</h2>
+<ul>
+<li class="fragment">why you are doing this: purpose and hypothesis,</li>
+<li class="fragment">whom you are doing it for: intended audience</li>
+<li class="fragment">how will you deliver: form of presentation and digestion<br>
+</li>
+<li class="fragment">should you really put in the effort and visualize?</li>
+</ul>
+<aside class="notes">
+<p>Before starting any visualization, you should have a purpose of doing it. Nobody should wrangle data and visualize for no reason.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="data-visualizations-typically-differ-through-project-stages" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Data visualizations typically differ through project stages</h2>
+<ul>
+<li class="fragment">understanding (exploration or analysis)</li>
+<li class="fragment">communication (explanation)</li>
+<li class="fragment">decision making (action) <img data-src="images/data_wrangling_marathon.png" class="absolute" style="left: 370px; bottom: 0px; width: 1200px; "></li>
+</ul>
+<div class="footer">
+<p>[Dykes, B. Effective Data Storytelling: How to Drive Change With Data, Narrative and Visuals. Published by Wiley, 2019.]</p>
+</div>
+</section>
+<section id="exploration" class="slide level2">
+<h2>Exploration</h2>
+<ul>
+<li class="fragment"><p>start with motivation</p></li>
+<li class="fragment"><p>focus on understanding the data</p></li>
+<li class="fragment"><p>find a story in the data</p></li>
+<li class="fragment"><p>tools</p>
+<ul>
+<li class="fragment"><del>MIKE</del></li>
+<li class="fragment"><del>Excel</del></li>
+<li class="fragment">Python based
+<ul>
+<li class="fragment">Plotly</li>
+<li class="fragment">Altair</li>
+<li class="fragment">Streamlit</li>
+<li class="fragment">???</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="explanation" class="slide level2">
+<h2>Explanation</h2>
+<ul>
+<li class="fragment"><p>focus on accessibility and limited attention</p>
+<ul>
+<li class="fragment"><em>principle of expressiveness</em>: Say everything you want to say-no more, no less</li>
+<li class="fragment"><em>principle of effectiveness</em>: Use the best method available</li>
+</ul></li>
+<li class="fragment"><p>stick to</p></li>
+<li class="fragment"><p>what is your call to action? What do you want your audience to do with the information?</p></li>
+<li class="fragment"><p>tools</p>
+<ul>
+<li class="fragment">Python based
+<ul>
+<li class="fragment">Matplotlib</li>
+<li class="fragment">Seaborn</li>
+<li class="fragment">???</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="footer">
+<p>[Berinato, S. Good Charts: The HBR Guide to Making Smarter, More Persuasive Data Visualizations in Excel and PowerPoint. Harvard Business Review Press, 2017.]</p>
+</div>
+</section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
-<div>
 <ul>
-<li class="fragment">Interactivity is very cool for exploration</li>
-<li class="fragment">Be vary how you exhaust the audiences attention</li>
-<li class="fragment">guide your audience with
-<ul>
-<li class="fragment">colors</li>
-<li class="fragment">structure</li>
-<li class="fragment">highlights</li>
-</ul></li>
-<li class="fragment">keep it neat</li>
+<li class="fragment">interactivity is very cool for exploration</li>
+<li class="fragment">be vary with your own and your audiences attention</li>
 </ul>
-</div>
+<aside class="notes">
+<p>main take away: overview of tools secondary take away: be vary with your own and your audiences attention</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </section>
 <section id="test-for-template" class="title-slide slide level1 center">
 <h1>Test for template</h1>
 <ul>
-<li>https://github.com/DHI/datatalks</li>
-<li>font Default Aa</li>
-<li>font <span style="font-family: Arial">Arial Aa</span> Aa</li>
-<li>font <span style="font-family: Karbon Regular">Karbon Aa</span> Aa</li>
+<li class="fragment">https://github.com/DHI/datatalks</li>
+<li class="fragment">font Default Aa</li>
+<li class="fragment">font <span style="font-family: Arial">Arial Aa</span> Aa</li>
+<li class="fragment">font <span style="font-family: Karbon Regular">Karbon Aa</span> Aa</li>
 </ul>
 
-<img src="assets/DHI_Logo_Pos_RGB.png" class="slide-logo r-stretch"><div class="footer footer-default">
+<img src="assets/DHI_Logo_Pos_RGB_noMargin.png" class="slide-logo r-stretch"><div class="footer footer-default">
 <p>Data Talk 18</p>
 </div>
 </section>
-
-
     </div>
   </div>
 
@@ -544,7 +908,7 @@ Clemens Cremer
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'fade',
+        transition: 'slide',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'default',
@@ -564,9 +928,9 @@ Clemens Cremer
         // The "normal" size of the presentation, aspect ratio will be preserved
         // when the presentation is scaled to fit different resolutions. Can be
         // specified using percentage units.
-        width: 1050,
+        width: 1920,
 
-        height: 700,
+        height: 1080,
 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,

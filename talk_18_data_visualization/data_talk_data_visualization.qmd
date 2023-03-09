@@ -1,51 +1,295 @@
 ---
-title: "From Analysis to Communication"
-subtitle: "A journey in visualizations from exploration to explanation of data"
+title: "A journey in visualizations"
+subtitle: "From analysis to communication<br> Part I: Exploration"
 author: "Clemens Cremer"
 format: 
   revealjs:
-    theme: [white, assets/dhi_light.scss]
-    transition: fade
-    embed-resources: true
-    footer: Data Talk 18
-    logo: assets/DHI_Logo_Pos_RGB.png
+      theme: [default, assets/dhi_light.scss]
+      width: 1920
+      height: 1080
+      margin: 0.1
+      incremental: true
+      transition: slide
+      footer: Data Talk 18
+      logo: assets/DHI_Logo_Pos_RGB_noMargin.png
+      df-print: kable
 ---
 
 
 
-## Agenda
-* why visualizations?
-* stages of 
+## {auto-animate=true}
+
+<h1> Where do we start? </h1>
 
 
-## Visualizations simplify complex data
 
-::: {.incremental}
-* to simplify complex data
-* historical context...
+## {auto-animate=true}
+
+<h1>Where do we start? </h1>
+<h2>A short history of data visualization</h2> 
+
+
+
+## The early days of data visualization {auto-animate=false}
+
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+
+::: {.r-stack}
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 20px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5;"}
+:::
+
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+
+:::{style="position: absolute; bottom:360px; left:20px;"}
+<b>< 17th century</b><br> maps
+:::
+:::
+
+::: notes
+This 17th century road strip map was created by John Ogilby as part of his 1675 Britannia Atlas. The map shows the route from London to Winchester via Staines, Reading and Basingstoke.
 :::
 
 
-## Visualizations in different data project steps
 
-<img src="images/data_wrangling_marathon.png" width="90%" />
-^[Dykes, B. Effective Data Storytelling: How to Drive Change With Data, Narrative and Visuals. Published by Wiley, 2019.]
+## The industrial revolution and quantitative data {auto-animate=true}
+
+![](images/Playfair_1821.png){.absolute bottom=670 left=300 width="500"}
+![](images/binomial-quetelet-1846.jpg){.absolute bottom=810 left=200 width="200"}
+
+::: {.r-stack}
+:::{style="opacity: 0.5"}
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+:::
+::: {style="position: absolute; bottom:360px; left:20px; opacity: 0.5"}
+<b>< 17th century</b><br> maps
+:::
+
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 530px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5"}
+:::
+
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+
+::: {data-id="point2" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;"}
+:::
+
+::: {style="position: absolute; bottom:520px; left:310px;"}
+<b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts
+:::
+:::
 
 
 
+## Computer aided visualization {auto-animate=true} 
+
+
+![](images/1970s_computer_graphics.png){.absolute bottom=0px left=770 height="360"}
+
+::: {.r-stack}
+::: {style="opacity: 0.5"}
+![](images/binomial-quetelet-1846.jpg){.absolute bottom=810 left=200 width="200"}
+:::
+:::{style="opacity: 0.5"}
+![](images/Playfair_1821.png){.absolute bottom=670 left=300 width="500"}
+:::
+:::{style="opacity: 0.5"}
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+:::
+::: {style="position: absolute; bottom:360px; left:20px; opacity: 0.5"}
+<b>< 17th century</b><br> maps
+:::
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 1050px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5"}
+:::
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+::: {data-id="point2" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;"}
+:::
+::: {data-id="point3" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;"}
+:::
+::: {style="position: absolute; bottom:520px; left:310px; opacity: 0.5"}
+<b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts
+:::
+::: {style="position: absolute; bottom:360px; left:770px;"}
+<b>>1960s</b><br> computer aided visualization
+:::
+:::
+
+
+## The next dimension and new golden age? {auto-animate=true}
+
+![](images/excel-for-windows-3.0-charts-and-graphs.png){.absolute bottom=670 left=1400 height="300"}
+
+::: {.r-stack}
+::: {style="opacity: 0.5"}
+![](images/1970s_computer_graphics.png){.absolute bottom=0px left=770 height="360"}
+:::
+::: {style="opacity: 0.5"}
+![](images/binomial-quetelet-1846.jpg){.absolute bottom=810 left=200 width="200"}
+:::
+:::{style="opacity: 0.5"}
+![](images/Playfair_1821.png){.absolute bottom=670 left=300 width="500"}
+:::
+:::{style="opacity: 0.5"}
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+:::
+::: {style="position: absolute; bottom:360px; left:20px; opacity: 0.5"}
+<b>< 17th century</b><br> maps
+:::
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 1800px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5"}
+:::
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+::: {data-id="point2" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;"}
+:::
+::: {data-id="point3" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;"}
+:::
+::: {data-id="point4" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1560px;"}
+:::
+::: {style="position: absolute; bottom:520px; left:310px; opacity: 0.5"}
+<b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts
+:::
+::: {style="position: absolute; bottom:360px; left:770px; opacity: 0.5"}
+<b>>1960s</b><br> computer aided visualization
+:::
+::: {style="position: absolute; bottom:520px; left:1400px"}
+<b>>1980s</b><br> high dimension<br>dynamic visualizations
+:::
+:::
+
+
+
+## Where are we now? {auto-animate=true}
+
+* 🚀 more data than ever before
+* 🛠️ more tools than ever before
+* 😊 greater ease of access than ever before
+* 🤯 this is not unambiguously a good thing
+![](images/perception_pie_charts.jpg){.absolute bottom=300 left=1000 width="1000"}
+
+::: notes
+In the pre-computer visualization era you would think long and hard about your visualization. It was a specialists job. Now you can just throw a bunch of data at a computer and it will spit out a visualization. But that does not mean that the visualization is good. In fact, it is often the opposite.
+- With great power comes great responsibility
+:::
+
+
+
+## Remember common goal of visualizations {auto-animate=true}
+
+to **simplify** complex data
+
+::::: {.columns}
+
+::: {.column width="50%" }
+```{python}	
+import pandas as pd
+import numpy as np
+
+n_datapoints = 50
+df = pd.DataFrame(np.random.randn(n_datapoints, 3), 
+    index = pd.date_range('2023-01-01', periods=n_datapoints, freq='D'), 
+    columns=list('ABC'))
+df.head(12)
+```
+:::
+
+::: {.column width="50%"}
+```{python}	
+import matplotlib.pyplot as plt
+# change font size to 14
+plt.rcParams.update({'font.size': 14})	
+
+fig, ax = plt.subplots()
+ax.plot(df)
+fig.tight_layout()
+plt.title('Hypothesis:\n A has speediest increase')
+plt.legend(['A', 'B', 'C']);
+```
+:::
+
+:::::
+
+
+::: notes
+To not get overwhelmed by possibilities it is useful to think about if and how a visualization serve to simplify complex data.
+:::
+
+
+
+## Getting ready by putting some thought in! {auto-animate=true}
+
+* why you are doing this: purpose and hypothesis, 
+* whom you are doing it for: intended audience
+* how will you deliver: form of presentation and digestion  
+* should you really put in the effort and visualize?
+
+::: notes
+Before starting any visualization, you should have a purpose of doing it. Nobody should wrangle data and visualize for no reason.
+:::
+
+
+
+## Data visualizations typically differ through project stages {auto-animate=true}
+
+* understanding (exploration or analysis)
+* communication (explanation)
+* decision making (action)
+![](images/data_wrangling_marathon.png){.absolute bottom=0px left=370px width="1200"}
+
+::: footer
+[Dykes, B. Effective Data Storytelling: How to Drive Change With Data, Narrative and Visuals. Published by Wiley, 2019.]
+:::
+
+
+
+## Exploration
+
+* start with motivation 
+* focus on understanding the data
+* find a story in the data 
+
+* tools
+  * ~~MIKE~~
+  * ~~Excel~~
+  * Python based
+    * Plotly
+    * Altair
+    * Streamlit
+    * ???
+
+
+
+## Explanation
+
+* focus on accessibility and limited attention
+  * *principle of expressiveness*: Say everything you want to say-no more, no less
+  * *principle of effectiveness*: Use the best method available
+* stick to 
+* what is your call to action? What do you want your audience to do with the information?
+
+* tools
+  * Python based
+    * Matplotlib
+    * Seaborn
+    * ???
+
+::: footer
+[Berinato, S. Good Charts: The HBR Guide to Making Smarter, More Persuasive Data Visualizations in Excel and PowerPoint. Harvard Business Review Press, 2017.]
+:::
 
 
 ## Summary
 
-::: {.incremental}
-* Interactivity is very cool for exploration
-* Be vary how you exhaust the audiences attention
-* guide your audience with
-  * colors
-  * structure
-  * highlights
-* keep it neat
+* interactivity is very cool for exploration
+* be vary with your own and your audiences attention
+
+
+::: notes
+main take away: overview of tools
+secondary take away: be vary with your own and your audiences attention
 :::
+
+
 
 # Test for template
 - https://github.com/DHI/datatalks

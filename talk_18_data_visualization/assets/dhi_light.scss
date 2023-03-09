@@ -1,10 +1,6 @@
 /**
  * Customization of Quarto to DHI light theme for reveal.js presentations.
  * Font and Colors have been adjusted to match the DHI corporate visual identity.
- *
- * White theme for reveal.js. This is the opposite of the 'black' theme.
- *
- * By Hakim El Hattab, http://hakim.se
  */
 
 
@@ -12,7 +8,6 @@
 //@import url(//db.onlinewebfonts.com/c/21e415575218d66fa9df647bd0c610cf?family=Copyright+Klim+Type+Foundry);
 //$font-family-sans-serif: "Copyright Klim Type Foundry", sans-serif !default;
 
-// IMPORT TAKES VERY LONG
 @import url(//db.onlinewebfonts.com/c/12cff83c23b642a97c6a98ef97f8ba38?family=Karbon+Regular);
 $font-family-sans-serif: "Arial", "Karbon Regular", sans-serif !default;
 
@@ -31,43 +26,32 @@ $presentation-heading-text-transform: uppercase !default;
 
 $presentation-slide-text-align: left !default;
 
-
 /*-- scss:rules --*/
-.picture {
-    border-style: solid;
-    border-width: 3pt;
-    border-color: $body-color;
-    border-radius: 50%;
-    padding: 5pt;
-    height: 50%;
-    width: auto;
+#title-slide {
+  text-align: left;
+
+  .subtitle,
+  .institute,
+  .quarto-title-affiliation,
+  .quarto-title-author-email {
+    font-style: italic;
+    // font-size: 80%;
+    color: #7F7F7F;
   }
 
-#title-slide {
-    text-align: left;
+  .author, .quarto-title-author-name {
+    color: $body-color;
+  }
+
+  .quarto-title-authors {
+    display: flex;
+    justify-content: left;
   
-    .subtitle,
-    .institute,
-    .quarto-title-affiliation,
-    .quarto-title-author-email {
-      font-style: italic;
-      // font-size: 80%;
-      color: #7F7F7F;
+    .quarto-title-author {
+      padding-left: 0em;
+      padding-right: 0em;
+      width: 100%;
     }
-  
-    .author, .quarto-title-author-name {
-      color: $body-color;
-    }
-  
-    .quarto-title-authors {
-      display: flex;
-      justify-content: left;
-    
-      .quarto-title-author {
-        padding-left: 0em;
-        padding-right: 0em;
-        width: 100%;
-      }
-    }
+  }
 }
 
