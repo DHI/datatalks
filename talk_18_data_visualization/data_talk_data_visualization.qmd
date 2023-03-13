@@ -12,7 +12,8 @@ format:
       transition: slide
       footer: Data Talk 18
       logo: assets/DHI_Logo_Pos_RGB_noMargin.png
-      df-print: kable
+  html:
+      df-print: paged
 ---
 
 
@@ -178,36 +179,47 @@ In the pre-computer visualization era you would think long and hard about your v
 
 to **simplify** complex data
 
+```{python}
+# create 2d distribution of data on a 40x40 grid with peak at 10,10
+import numpy as np
+import pandas as pd
+from IPython.display import HTML
+from scipy.stats import multivariate_normal
+x, y = np.mgrid[0:40, 0:40]
+pos = np.empty(x.shape + (2,))
+pos[:, :, 0] = x
+pos[:, :, 1] = y
+rv = multivariate_normal(mean=[12, 10], cov=[[20, 1], [18, 30]])
+data = rv.pdf(pos)
+df = pd.DataFrame(data)
+out = df.to_html(classes='table table-stripped')
+
+with open('example_table.html', 'w') as f:	
+    f.write(out)
+```
+
 ::::: {.columns}
 
-::: {.column width="50%" }
-```{python}	
-import pandas as pd
-import numpy as np
-
-n_datapoints = 50
-df = pd.DataFrame(np.random.randn(n_datapoints, 3), 
-    index = pd.date_range('2023-01-01', periods=n_datapoints, freq='D'), 
-    columns=list('ABC'))
-df.head(12)
+::: {.column width="50%"}
+```{=html}	
+<iframe width="900" height="800" src="example_table.html" title="Table"></iframe>
 ```
 :::
 
-::: {.column width="50%"}
+::: {.column width="50%" .fragment}
 ```{python}	
 import matplotlib.pyplot as plt
-# change font size to 14
-plt.rcParams.update({'font.size': 14})	
 
-fig, ax = plt.subplots()
-ax.plot(df)
-fig.tight_layout()
-plt.title('Hypothesis:\n A has speediest increase')
-plt.legend(['A', 'B', 'C']);
+fig, ax = plt.subplots(figsize=(8, 8))
+plt.imshow(data)
+plt.colorbar()
+plt.tight_layout()
+plt.show() 
 ```
 :::
 
 :::::
+how is this data distributed? Where is the max. value?
 
 
 ::: notes
@@ -253,6 +265,7 @@ Before starting any visualization, you should have a purpose of doing it. Nobody
   * ~~Excel~~
   * Python based
     * Plotly
+    * Seaborn
     * Altair
     * Streamlit
     * ???

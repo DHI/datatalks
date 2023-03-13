@@ -318,9 +318,6 @@
       margin-right: 0; 
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-  <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 </head>
 <body class="quarto-light">
   <div class="reveal">
@@ -514,118 +511,17 @@ A short history of data visualization
 <p>to <strong>simplify</strong> complex data</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="13">
 
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>A</th>
-      <th>B</th>
-      <th>C</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>2023-01-01</th>
-      <td>-1.692897</td>
-      <td>-2.541950</td>
-      <td>2.662534</td>
-    </tr>
-    <tr>
-      <th>2023-01-02</th>
-      <td>-1.235764</td>
-      <td>0.820784</td>
-      <td>0.332363</td>
-    </tr>
-    <tr>
-      <th>2023-01-03</th>
-      <td>-0.093112</td>
-      <td>-2.976320</td>
-      <td>0.836715</td>
-    </tr>
-    <tr>
-      <th>2023-01-04</th>
-      <td>1.622054</td>
-      <td>-0.797592</td>
-      <td>-2.116877</td>
-    </tr>
-    <tr>
-      <th>2023-01-05</th>
-      <td>1.479045</td>
-      <td>0.335016</td>
-      <td>-1.478304</td>
-    </tr>
-    <tr>
-      <th>2023-01-06</th>
-      <td>2.510910</td>
-      <td>0.684284</td>
-      <td>-1.252213</td>
-    </tr>
-    <tr>
-      <th>2023-01-07</th>
-      <td>0.680285</td>
-      <td>0.634560</td>
-      <td>-0.154703</td>
-    </tr>
-    <tr>
-      <th>2023-01-08</th>
-      <td>0.395828</td>
-      <td>-0.233365</td>
-      <td>0.353651</td>
-    </tr>
-    <tr>
-      <th>2023-01-09</th>
-      <td>-0.717803</td>
-      <td>0.526763</td>
-      <td>-0.191491</td>
-    </tr>
-    <tr>
-      <th>2023-01-10</th>
-      <td>-0.211554</td>
-      <td>-1.607150</td>
-      <td>1.014837</td>
-    </tr>
-    <tr>
-      <th>2023-01-11</th>
-      <td>-0.909039</td>
-      <td>0.544246</td>
-      <td>-0.279463</td>
-    </tr>
-    <tr>
-      <th>2023-01-12</th>
-      <td>-0.317184</td>
-      <td>-1.283746</td>
-      <td>-1.321128</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-</div>
-</div><div class="column" style="width:50%;">
+<iframe width="900" height="800" src="example_table.html" title="Table"></iframe>
+</div><div class="column fragment" style="width:50%;">
 <div class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
-<p><img data-src="data_talk_data_visualization_files/figure-revealjs/cell-3-output-1.png" width="939" height="508"></p>
+<p><img data-src="data_talk_data_visualization_files/figure-revealjs/cell-3-output-1.png" width="736" height="758"></p>
 </div>
 </div>
 </div>
 </div>
+<p>how is this data distributed? Where is the max. value?</p>
 <aside class="notes">
 <p>To not get overwhelmed by possibilities it is useful to think about if and how a visualization serve to simplify complex data.</p>
 <style type="text/css">
@@ -687,6 +583,7 @@ A short history of data visualization
 <li class="fragment">Python based
 <ul>
 <li class="fragment">Plotly</li>
+<li class="fragment">Seaborn</li>
 <li class="fragment">Altair</li>
 <li class="fragment">Streamlit</li>
 <li class="fragment">???</li>
