@@ -3,16 +3,22 @@ title: Getting started with Regression using scikit-learn
 author: Henrik Andersson
 date: 2023-03-23
 date-format: long
-format: revealjs
+format: 
+  revealjs:
+    slide-number: true
+    theme: [default, assets/dhi_light.scss]
+    footer: Getting started with Regression using scikit-learn
+
 jupyter: python3
 execute: 
   echo: true
   freeze: auto
+  cache: true
 ---
 
 ## 
 ```{mermaid}
-#| echo: false
+%%| echo: false
 flowchart TB
   DA(Do you have data\n of the target variable?)
   SC(Scenarios?)
@@ -70,7 +76,7 @@ flowchart TB
 ## Workflow
 
 ```{mermaid}
-#| echo: false
+%%| echo: false
 flowchart TB
   DA(Data aquisition)  --> SP(Train/test split)
   SP --> DC(Data cleaning)
@@ -180,6 +186,7 @@ X_test = test
 Regression is a supervised learning method where the target variable is continuous.
 
 Some popular regression methods are:
+
 * K-nearest neighbors
 * Linear regression
 * Gradient boosting
@@ -209,6 +216,7 @@ The data is scaled to have zero mean and standard deviation of one.
 
 $$ \frac{x - \mu}{\sigma} $$
 
+## Standardization
 
 ```{python}
 from sklearn.preprocessing import StandardScaler
@@ -222,24 +230,42 @@ X_test_scaled = scaler.transform(X_test)
 
 ## Use case: Downscaling wave height
 
-A local wave model has higher resolution, with a more accurate bathymetry and can resolve smaller features e.g. islands.
+:::: {.columns}
+
+::: {.column}
 
 Training data: 
+
 * Global wave model (Hs, Tp , MWD)
 * Local wave model (Hs)
 
-Downloaded from [Metocean Data Portal (MOOD)](https://www.metocean-on-demand.com/)
+:::
+
+::: {.column}
+
+![](assets/mood.png)
+
+[Metocean Data Portal (MOOD)](https://www.metocean-on-demand.com/)
 
 
-. . .
+:::
+
+::::
+
+::: {.notes}
+A local wave model has higher resolution, with a more accurate bathymetry and can resolve smaller features e.g. islands.
 
 Can we train a machine learning to downscale the global wave model to the local wave model?
+:::
+
+
 
 ## Baseline
 
 In this case, the baseline is our global wave model.
 
 ```{python}
+# | echo: false
 y_pred = X_test["Hs"]
 
 rmse_baseline = np.sqrt(np.mean((y_test - y_pred) ** 2))
@@ -334,6 +360,7 @@ plt.title(f"Polynomial ridge regression RMSE: {rmse:.2f}")
 ## Linear regression
 
 Advantages of linear regression:
+
 * Fast to train
 * Easy to interpret
 * Can be regularized
@@ -405,7 +432,7 @@ rmse_test = np.sqrt(np.mean((y_test - y_pred_test) ** 2))
 plt.title(f"Test RMSE: {rmse_test:.2f}")
 ```
 
-## Conclusion
+## Timeseries
 
 ```{python}
 # | echo: false
@@ -413,10 +440,31 @@ df = pd.DataFrame({"global": X_test["Hs"], "local": y_test, "GB": y_pred_test})
 df.head()
 ```
 
+## Timeseries
+
 ```{python}
 # | echo: false
 df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
 ```
+
+
+## Conclusion
+
+::: {.incremental}
+
+* scikit-learn is a great library for machine learning
+* Functions for preprocessing, model selection, and evaluation
+* There are many models to choose from
+* All scikit-learn models have a similar API
+* Pipelines are a great way to chain preprocessing steps and a model
+* Linear regression can be powerful with the right preprocessing
+* Gradient boosting is a powerful model for regression
+
+:::
+
+✨ Thank you! ✨
+
+
 
 
 

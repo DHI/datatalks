@@ -137,3 +137,4 @@ talk_15_large_language_models/chatgpt_demo.ipynb
 talk_15_large_language_models/demo_data.xlsx
 
 *_files
+.jupyter_cache
