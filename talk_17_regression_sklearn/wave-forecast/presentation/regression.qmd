@@ -1,0 +1,423 @@
+---
+title: Getting started with Regression using scikit-learn
+author: Henrik Andersson
+date: 2023-03-23
+date-format: long
+format: revealjs
+jupyter: python3
+execute: 
+  echo: true
+  freeze: auto
+---
+
+## 
+```{mermaid}
+#| echo: false
+flowchart TB
+  DA(Do you have data\n of the target variable?)
+  SC(Scenarios?)
+  ET(Predict rare events?)
+  
+  P(Known physics?)
+  
+  ML[Machine learning model]
+  PB[Physics-based model]  
+    
+  DA --Yes--> SC
+  DA --No--> P
+  SC--No--> ET
+  SC --Yes--> P
+  ET --No--> ML
+  ET --Yes--> P
+  P --Yes --> PB
+```
+
+## Machine learning vs rule-based models
+
+```{mermaid}
+%%| echo: false
+flowchart LR
+  Input --> Traditional
+  Rules --> Traditional
+  Traditional --> Output
+```
+
+. . .
+
+```{mermaid}
+%%| echo: false
+flowchart LR
+  Input --> ML[Machine Learning]
+  Output --> ML
+  ML --> Rules
+```
+
+
+
+## Types of Machine learning
+
+```{mermaid}
+%%| echo: false
+flowchart TB
+  C(Do you have labels?)
+  C --No--> D(Unsupervised learning)
+  C --Yes--> E(Supervised learning)
+  E --> F(Are you predicting a\n continuous variable?)
+  F --No --> H(Classification)
+  F --Yes --> G(Regression)
+```
+
+## Workflow
+
+```{mermaid}
+#| echo: false
+flowchart TB
+  DA(Data aquisition)  --> SP(Train/test split)
+  SP --> DC(Data cleaning)
+  DC --> AS(Algorithm selection)
+  AS --> MT(Model training)
+  MT --> ME(Skill assessment)
+```
+
+
+##
+
+```{python}
+# | echo: false
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+```
+
+```{python}
+# | echo: false
+
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import LinearRegression
+
+
+def true_fun(X):
+    return np.cos(1.5 * np.pi * X)
+
+
+np.random.seed(0)
+
+n_samples = 29
+degrees = [1, 4, 15]
+titles = ["Underfitting", "Good fit", "Overfitting"]
+
+X = np.sort(np.random.rand(n_samples))
+y = true_fun(X) + np.random.randn(n_samples) * 0.1
+
+with plt.xkcd():
+    plt.figure(figsize=(14, 5))
+    for i in range(len(degrees)):
+        ax = plt.subplot(1, len(degrees), i + 1)
+        plt.setp(ax, xticks=(), yticks=())
+
+        polynomial_features = PolynomialFeatures(degree=degrees[i], include_bias=False)
+        linear_regression = LinearRegression()
+        pipeline = Pipeline(
+            [
+                ("polynomial_features", polynomial_features),
+                ("linear_regression", linear_regression),
+            ]
+        )
+        pipeline.fit(X[:, np.newaxis], y)
+
+        X_test = np.linspace(0, 1, 100)
+        plt.plot(X_test, pipeline.predict(X_test[:, np.newaxis]), label="Model")
+        plt.scatter(X, y, edgecolor="b", s=20, label="Data")
+        plt.xlabel("x")
+        plt.ylabel("y")
+        plt.xlim((0, 1))
+        plt.ylim((-2, 2))
+        plt.legend(loc="best")
+        plt.title(titles[i])
+
+plt.show()
+
+```
+
+
+. . .
+
+* An overfit model is too complex and will not generalize well to new data.
+
+
+## Train/test split
+
+Splitting the data into a training and test set is a way to avoid overfitting.
+
+```{.python}
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+```
+. . .
+
+For time series data, we should split the data chronologically.
+
+```{python}
+df = pd.read_csv("../data/processed/wave.zip", index_col=0, parse_dates=True)
+split_date = "2001-06-01"
+train = df.loc[:split_date]
+test = df.loc[split_date:]
+
+y_train = train.pop("target")
+X_train = train
+
+y_test = test.pop("target")
+X_test = test
+```
+
+
+
+## Regression
+
+Regression is a supervised learning method where the target variable is continuous.
+
+Some popular regression methods are:
+* K-nearest neighbors
+* Linear regression
+* Gradient boosting
+
+
+## Baseline
+
+Always start with a simple baseline.
+
+::: {.incremental}
+
+* What is the simplest model that can be used?
+* Predicting the mean value of the target variable.
+* For time series data, the previous value of the target variable.
+
+:::
+
+## Standardization
+
+Some regression methods are sensitive to the scale of the data.
+
+* Neural networks
+* K-nearest neighbors
+
+A common way is to use z-score standardization.
+The data is scaled to have zero mean and standard deviation of one.
+
+$$ \frac{x - \mu}{\sigma} $$
+
+
+```{python}
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+```
+
+
+## Use case: Downscaling wave height
+
+A local wave model has higher resolution, with a more accurate bathymetry and can resolve smaller features e.g. islands.
+
+Training data: 
+* Global wave model (Hs, Tp , MWD)
+* Local wave model (Hs)
+
+Downloaded from [Metocean Data Portal (MOOD)](https://www.metocean-on-demand.com/)
+
+
+. . .
+
+Can we train a machine learning to downscale the global wave model to the local wave model?
+
+## Baseline
+
+In this case, the baseline is our global wave model.
+
+```{python}
+y_pred = X_test["Hs"]
+
+rmse_baseline = np.sqrt(np.mean((y_test - y_pred) ** 2))
+plt.scatter(y_test, y_pred)
+plt.title(f"Baseline RMSE: {rmse_baseline:.2f}")
+```
+
+
+## K-nearest neighbors
+
+Regression based on k-nearest neighbors.
+
+The target is predicted by local interpolation of the targets associated of the nearest neighbors in the training set.
+
+
+## K-nearest neighbors
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.neighbors import KNeighborsRegressor
+
+knn = KNeighborsRegressor(n_neighbors=5, weights="distance")
+knn.fit(X_train_scaled, y_train)
+y_pred = knn.predict(X_train_scaled)
+
+plt.scatter(y_train, y_pred, label="Training data")
+rmse = np.sqrt(np.mean((y_train - y_pred) ** 2))
+rmse
+```
+
+```{python}
+y_pred_test = knn.predict(X_test_scaled)
+plt.scatter(y_test, y_pred_test, label="Test data")
+rmse_test = np.sqrt(np.mean((y_test - y_pred_test) ** 2))
+rmse_test
+```
+
+## Linear regression
+
+Linear regression can either be ordinary least squares or a regularized version, e.g. Ridge regression.
+
+$$ \hat{y} = \mathbf{X}w + b $$
+
+. . .
+
+$$ J_{ols} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2}$$
+
+. . .
+
+$$ J_{ridge} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2} + \alpha \sum_{j=1}^p w_j^2 $$
+
+::: {.note}
+
+Bias (intercept) is not penalized.
+
+:::
+
+
+## Linear regression
+
+```{python}
+from sklearn.linear_model import Ridge
+
+ridge = Ridge(alpha=1)
+ridge.fit(X_train_scaled, y_train)
+y_pred = ridge.predict(X_train_scaled)
+
+plt.scatter(y_train, y_pred, label="Training data")
+rmse = np.sqrt(np.mean((y_train - y_pred) ** 2))
+plt.title(f"Ridge regression RMSE: {rmse:.2f}")
+```
+
+## Polynomial regression
+
+```{python}
+from sklearn.preprocessing import PolynomialFeatures
+
+poly = PolynomialFeatures(degree=2)
+X_train_poly = poly.fit_transform(X_train_scaled)
+X_test_poly = poly.transform(X_test_scaled)
+
+ridge_poly = Ridge(alpha=1)
+ridge_poly.fit(X_train_poly, y_train)
+y_pred = ridge_poly.predict(X_train_poly)
+
+plt.scatter(y_train, y_pred, label="Training data")
+rmse = np.sqrt(np.mean((y_train - y_pred) ** 2))
+plt.title(f"Polynomial ridge regression RMSE: {rmse:.2f}")
+```
+
+## Linear regression
+
+Advantages of linear regression:
+* Fast to train
+* Easy to interpret
+* Can be regularized
+* Easy to run a trained model in any programming language
+
+. . .
+
+$$ \hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \dots + b_p x_p $$
+
+ . . .
+
+```{.csharp}
+double y_pred = b0 + b1 * x1 + b2 * x2 + ... + bp * xp;
+```
+
+
+## Pipelines
+
+
+Pipeline is a way to chain multiple preprocessing steps and a model.
+
+Using pipelines avoids trivial mistakes such as applying the preprocessing steps to the test set.
+
+. . .
+
+```{python}
+from sklearn.pipeline import make_pipeline
+
+pipe = make_pipeline(
+    StandardScaler(),
+    PolynomialFeatures(degree=2),
+    Ridge(alpha=1),
+)
+
+pipe.fit(X_train, y_train)
+y_pred = pipe.predict(X_train)
+
+y_pred_test = pipe.predict(X_test)
+```
+
+## Gradient boosting
+
+Gradient boosting is insensitive to the scale of the data.
+
+```bash
+$ pip install lightgbm
+```
+
+```{python}
+from lightgbm import LGBMRegressor
+
+lgbm = LGBMRegressor()
+lgbm.fit(X_train, y_train)
+```
+
+## Gradient boosting
+
+```{python}
+y_pred = lgbm.predict(X_train)
+plt.scatter(y_train, y_pred, label="Training data")
+rmse_train = np.sqrt(np.mean((y_train - y_pred) ** 2))
+plt.title(f"Training RMSE: {rmse_train:.2f}")
+```
+
+```{python}
+y_pred_test = lgbm.predict(X_test)
+plt.scatter(y_test, y_pred_test, label="Test data")
+rmse_test = np.sqrt(np.mean((y_test - y_pred_test) ** 2))
+plt.title(f"Test RMSE: {rmse_test:.2f}")
+```
+
+## Conclusion
+
+```{python}
+# | echo: false
+df = pd.DataFrame({"global": X_test["Hs"], "local": y_test, "GB": y_pred_test})
+df.head()
+```
+
+```{python}
+# | echo: false
+df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
+```
+
+
+
+
