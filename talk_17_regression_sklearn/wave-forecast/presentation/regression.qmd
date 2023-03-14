@@ -38,6 +38,44 @@ flowchart TB
   P --Yes --> PB
 ```
 
+
+## Prediction with a rule-based model
+
+```python
+def model(height: float, direction: float) -> float:
+  if direction < 90:
+    return height * 0.8
+  elif direction < 180:
+    return height * 0.9
+  elif direction < 270:
+    return height * 0.7
+  else:
+    return height * 0.6
+```
+
+. . .
+
+What if we want to include the wave period? 🤔 
+
+## Prediction with a rule-based model
+
+```python
+def model(height:float, period:float, direction:float) -> float:
+  
+  if period < 5.0:
+    if direction < 90:
+      return height * 0.8
+    ...
+  else:
+    if direction < 90:
+      return height * 0.6
+    ...
+```
+
+. . .
+
+This is getting complicated. What if we want to include the wind speed? 😟
+
 ## Machine learning vs rule-based models
 
 ```{mermaid}
@@ -57,8 +95,6 @@ flowchart LR
   Output --> ML
   ML --> Rules
 ```
-
-
 
 ## Types of Machine learning
 
@@ -84,6 +120,20 @@ flowchart TB
   AS --> MT(Model training)
   MT --> ME(Skill assessment)
 ```
+
+
+## ML lingo
+
+::: {.incremental}
+* **Feature**: A variable that is used to predict the target variable, also called an **independent** variable.
+* **Feature vector**: A vector of features $\mathbf{X}$, also called a design matrix.
+* **Target variable**: The variable that we want to predict $y$, also called a **dependent** variable.
+::: 
+
+. . .
+
+* $\mathbf{X}$ is a matrix where each row is an example and each column is a feature.
+* $y$ is a vector with one element for each example. 
 
 
 ##
@@ -150,23 +200,75 @@ plt.show()
 
 . . .
 
-* An overfit model is too complex and will not generalize well to new data.
+::: {.notes}
+
+You will be aware if you have an underfit model, since the skill be low.
+An overfit model will have a high skill on the training data, but a low skill on the test data.
+This is important to watch out for.
+
+:::
+
 
 
 ## Train/test split
 
 Splitting the data into a training and test set is a way to avoid overfitting.
 
+For many datasets a **random** split is good and easy to do:
+
 ```{.python}
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 ```
+
+
+## Train/test split
+
+For time series data, we should split the data chronologically, to avoid data leakage.
+
 . . .
 
-For time series data, we should split the data chronologically.
+```{python}
+# | echo: false
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate random time series data
+x = np.arange(0, 50, 0.5)
+y = np.sin(x) + np.random.normal(0, 0.2, size=len(x))
+
+# Define the split point
+split_point = int(len(x) * 0.7)
+
+# Plot the entire time series
+plt.subplots(figsize=(10, 5))
+plt.plot(x, y, "k+-", label="Time series")
+
+# Highlight the training section
+plt.axvspan(-1, x[split_point], alpha=0.2, color="blue", label="Training section")
+
+# Highlight the test section
+plt.axvspan(x[split_point], 51, alpha=0.2, color="orange", label="Test section")
+
+# Set chart title and axis labels
+plt.title("Splitting a time series into training and test section")
+plt.xlabel("Time")
+plt.ylabel("Value")
+plt.xlim(0, 50)
+
+# Show the legend
+plt.legend()
+
+# Show the chart
+plt.show()
+```
+
+
 
 ```{python}
+# | echo: false
 df = pd.read_csv("../data/processed/wave.zip", index_col=0, parse_dates=True)
 split_date = "2001-06-01"
 train = df.loc[:split_date]
@@ -178,18 +280,6 @@ X_train = train
 y_test = test.pop("target")
 X_test = test
 ```
-
-
-
-## Regression
-
-Regression is a supervised learning method where the target variable is continuous.
-
-Some popular regression methods are:
-
-* K-nearest neighbors
-* Linear regression
-* Gradient boosting
 
 
 ## Baseline
@@ -273,12 +363,29 @@ plt.scatter(y_test, y_pred)
 plt.title(f"Baseline RMSE: {rmse_baseline:.2f}")
 ```
 
+## Regression
+
+Regression is a supervised learning method where the target variable is continuous.
+
+Some popular regression methods are:
+
+* K-nearest neighbors
+* Linear regression
+* Gradient boosting
+
 
 ## K-nearest neighbors
 
 Regression based on k-nearest neighbors.
 
 The target is predicted by local interpolation of the targets associated of the nearest neighbors in the training set.
+
+::: {.incremental}
+* non-parametric, i.e. there are no parameters to learn, the model is just the training data
+* fast to train, since no model is learned 🤨
+* can be slow to predict, since the distance to all training points must be calculated 🤔
+
+:::
 
 
 ## K-nearest neighbors
@@ -463,6 +570,8 @@ df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
 :::
 
 ✨ Thank you! ✨
+ 
+
 
 
 
