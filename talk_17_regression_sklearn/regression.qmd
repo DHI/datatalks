@@ -5,6 +5,7 @@ date: 2023-03-23
 date-format: long
 format: 
   revealjs:
+    margin: 0.1
     slide-number: true
     theme: [default, assets/dhi_light.scss]
     footer: Getting started with Regression using scikit-learn
@@ -13,7 +14,6 @@ jupyter: python3
 execute: 
   echo: true
   freeze: auto
-  cache: true
 ---
 
 ## 
@@ -268,7 +268,7 @@ plt.show()
 
 ```{python}
 # | echo: false
-df = pd.read_csv("../data/processed/wave.zip", index_col=0, parse_dates=True)
+df = pd.read_csv("data/wave.zip", index_col=0, parse_dates=True)
 split_date = "2001-06-01"
 train = df.loc[:split_date]
 test = df.loc[split_date:]
@@ -331,7 +331,19 @@ Always start with a simple baseline.
 
 ## Baseline
 
+
+::: {.columns}
+
+
+::: {.column}
+
 In this case, the baseline is our global wave model.
+
+
+:::
+
+
+::: {.column}
 
 ```{python}
 # | echo: false
@@ -343,22 +355,38 @@ y_pred = X_test["Hs"]
 r2 = r2_score(y_test, y_pred)
 
 
-def plot_scatter(name, y_pred, r2):
-    plt.figure(figsize=(6, 6))
-    plt.scatter(y_test, y_pred, alpha=0.5, label="Test data")
-    plt.plot([0, 6], [0, 6], "k--", label="1:1 line")
-    plt.xlabel("Local wave model")
-    plt.ylabel("Predicted")
-    plt.title(f"{name} $R^2$ = {r2:.2f}")
-    plt.xlim(0, 6)
-    plt.ylim(0, 6)
-    plt.legend()
-    _ = plt.axis("square")
+def plot_scatter(name, y_pred, r2, ax=None, test=True, legend=True):
+
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(6, 6))
+
+    if test:
+        y = y_test
+        label = "Test data"
+    else:
+        y = y_train
+        label = "Train data"
+
+    ax.scatter(y, y_pred, alpha=0.5, label=label)
+    max_val = max(y.max(), y_pred.max())
+    ax.plot([0, max_val], [0, max_val], "k--", label="1:1 line")
+    ax.set_xlabel("Local wave model")
+    ax.set_ylabel("Predicted")
+    ax.set_title(f"{name} $R^2$ = {r2:.2f}")
+    ax.set_xlim(0, max_val)
+    ax.set_ylim(0, max_val)
+    if legend:
+        ax.legend()
+    _ = ax.axis("square")
 
 
 plot_scatter("Baseline", y_pred, r2)
 ```
-```
+
+:::
+::::
+
+
 
 ## Regression
 
@@ -385,19 +413,48 @@ The target is predicted by local interpolation of the targets associated of the 
 :::
 
 
-
 ## K-nearest neighbors
+
+
+```{.python code-line-numbers="1-3|4|6|8"}
+from sklearn.neighbors import KNeighborsRegressor
+
+knn = KNeighborsRegressor(n_neighbors=5) # Options depends on the model
+knn.fit(X_train_scaled, y_train) # Fit the model
+
+y_pred = knn.predict(X_train_scaled) # Make predictions
+
+knn.score(X_test_scaled, y_test) # Score, for regression this is R^2
+```
+
+. . .
+
+All models (*estimators*) in scikit-learn have:
+
+* `fit` method to train the model
+* `predict` method to make predictions
+* `score` method to score the model
+
+
+## K-nearest neighbors {.smaller}
+
+:::: {.columns}
+
+::: {.column}
 
 ```{python}
 from sklearn.neighbors import KNeighborsRegressor
 
-knn = KNeighborsRegressor(n_neighbors=5, weights="distance")
+knn = KNeighborsRegressor(n_neighbors=5)
 knn.fit(X_train_scaled, y_train)
 y_pred = knn.predict(X_train_scaled)
 
 knn.score(X_test_scaled, y_test)
 ```
 
+:::
+
+::: {.column}
 
 ```{python}
 # | echo: false
@@ -405,6 +462,9 @@ y_pred_test = knn.predict(X_test_scaled)
 
 plot_scatter("KNN", y_pred_test, knn.score(X_test_scaled, y_test))
 ```
+
+:::
+::::
 
 ## Linear regression
 
@@ -420,14 +480,18 @@ $$ J_{ols} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2}$$
 
 $$ J_{ridge} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2} + \alpha \sum_{j=1}^p w_j^2 $$
 
-::: {.note}
+::: {.notes}
 
 Bias (intercept) is not penalized.
 
 :::
 
 
-## Linear regression
+## Linear regression {.smaller}
+
+:::: {.columns}
+
+::: {.column}
 
 ```{python}
 from sklearn.linear_model import Ridge
@@ -437,13 +501,24 @@ ridge.fit(X_train_scaled, y_train)
 y_pred = ridge.predict(X_train_scaled)
 ```
 
+:::
+
+::: {.column}
+
 ```{python}
 # |  echo: false
 y_test_pred = ridge.predict(X_test_scaled)
 plot_scatter("Ridge", y_test_pred, ridge.score(X_test_scaled, y_test))
 ```
 
-## Polynomial regression
+:::
+::::
+
+## Polynomial regression {.smaller}
+
+:::: {.columns}
+
+::: {.column}
 
 ```{python}
 from sklearn.preprocessing import PolynomialFeatures
@@ -458,6 +533,9 @@ ridge_poly.score(X_test_poly, y_test)
 ```
 
 
+:::
+
+::: {.column}
 
 ```{python}
 # |  echo: false
@@ -465,6 +543,9 @@ plot_scatter(
     "Polynomial", ridge_poly.predict(X_test_poly), ridge_poly.score(X_test_poly, y_test)
 )
 ```
+
+:::
+::::
 
 ## Linear regression
 
@@ -478,21 +559,27 @@ Advantages of linear regression:
 
 **C#**
 
-```{.csharp, filename: linear_regression.cs}
-double y_pred = b0 + b1 * x1 + b2 * x2 + ... + bp * xp;
+```{.csharp filename="predict.cs"}
+double y_pred = b0 + b1 * x1 + b2 * x2 + b3 * x3;
 ```
 
 
 ## Pipelines
 
+```{mermaid}
+%%| echo: false
+flowchart LR
 
-Pipeline is a way to chain multiple preprocessing steps and a model.
+  scale[StandardScaler]
+  poly[PolynomialFeatures]
+  ridge[Ridge]
+  scale --> poly
+  poly --> ridge
 
-Using pipelines avoids trivial mistakes such as applying the preprocessing steps to the test set.
-
+```
 . . .
 
-```{python}
+```{.python code-line-numbers="|9|12"}
 from sklearn.pipeline import make_pipeline
 
 pipe = make_pipeline(
@@ -509,45 +596,67 @@ y_pred_test = pipe.predict(X_test)
 pipe.score(X_test, y_test)
 ```
 
-## Gradient boosting
+::: {.notes}
+Using pipelines avoids trivial mistakes such as applying the preprocessing steps to the test set.
+:::
 
-Gradient boosting is insensitive to the scale of the data.
 
-```bash
-$ pip install lightgbm
-```
+## Gradient boosting {.smaller}
+
+:::: {.columns}
+
+::: {.column}
+
+
+* Gradient boosting is insensitive to the scale of the data.
+* LightGBM is a separate library, compatible with scikit-learn.
+
 
 ```{python}
 from lightgbm import LGBMRegressor
 
-lgbm = LGBMRegressor()
+lgbm = LGBMRegressor(n_estimators=200)
 lgbm.fit(X_train, y_train)
 
 lgbm.score(X_test, y_test)
 ```
+
+:::
+
+::: {.column}
+
+```{python}
+# | echo: false
+plot_scatter("Gradient boosting", lgbm.predict(X_test), lgbm.score(X_test, y_test))
+```
+
+:::
+::::
 
 ::: {.notes}
 
 Gradient boosting is a tree-based model.
 It fits a weak learner (e.g. a decision tree) to the residuals of the previous model.
 
-LightGBM is a separate library, but it is compatible with scikit-learn.
-
 :::
 
 
-## Gradient boosting
 
 
-```{python}
-plot_scatter("Gradient boosting", lgbm.predict(X_test), lgbm.score(X_test, y_test))
-```
+
+
 
 ## Timeseries
 
 ```{python}
 # | echo: false
-df = pd.DataFrame({"global": X_test["Hs"], "local": y_test, "GB": y_pred_test})
+df = pd.DataFrame(
+    {
+        "global": X_test["Hs"],
+        "local": y_test,
+        "GB": lgbm.predict(X_test),
+    }
+)
 df.head()
 ```
 
@@ -555,11 +664,11 @@ df.head()
 
 ```{python}
 # | echo: false
-df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
+_ = df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
 ```
 
 
-## Conclusion
+## Conclusion {.smaller}
 
 ::: {.incremental}
 
@@ -574,10 +683,95 @@ df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
 
 :::
 
+
+##
+
 ✨ Thank you! ✨
- 
+
+## Comparison
+
+```{python}
+# | echo: false
+fig, ax = plt.subplots(figsize=(18, 4), ncols=5, nrows=2, sharex=True, sharey=True)
+plt.subplots_adjust(wspace=0.1, hspace=0.1)
 
 
+y_pred_train = X_train["Hs"]
+
+r2 = r2_score(y_train, y_pred_train)
+
+plot_scatter(
+    name="Baseline", y_pred=y_pred_train, r2=r2, ax=ax[0, 0], test=False, legend=False
+)
+
+plot_scatter(
+    name="KNN",
+    y_pred=knn.predict(X_train_scaled),
+    r2=knn.score(X_train_scaled, y_train),
+    ax=ax[0, 1],
+    test=False,
+    legend=False,
+)
+plot_scatter(
+    name="Ridge",
+    y_pred=ridge.predict(X_train_scaled),
+    r2=ridge.score(X_train_scaled, y_train),
+    ax=ax[0, 2],
+    test=False,
+    legend=False,
+)
+plot_scatter(
+    name="Polynomial",
+    y_pred=ridge_poly.predict(X_train_poly),
+    r2=ridge_poly.score(X_train_poly, y_train),
+    ax=ax[0, 3],
+    test=False,
+    legend=False,
+)
+plot_scatter(
+    name="Gradient boosting",
+    y_pred=lgbm.predict(X_train),
+    r2=lgbm.score(X_train, y_train),
+    ax=ax[0, 4],
+    test=False,
+    legend=False,
+)
+
+y_pred_test = X_test["Hs"]
+
+r2 = r2_score(y_test, y_pred_test)
+
+plot_scatter(name="Baseline", y_pred=y_pred_test, r2=r2, ax=ax[1, 0], legend=False)
+
+plot_scatter(
+    name="KNN",
+    y_pred=knn.predict(X_test_scaled),
+    r2=knn.score(X_test_scaled, y_test),
+    ax=ax[1, 1],
+    legend=False,
+)
+plot_scatter(
+    name="Ridge",
+    y_pred=ridge.predict(X_test_scaled),
+    r2=ridge.score(X_test_scaled, y_test),
+    ax=ax[1, 2],
+    legend=False,
+)
+plot_scatter(
+    name="Polynomial",
+    y_pred=ridge_poly.predict(X_test_poly),
+    r2=ridge_poly.score(X_test_poly, y_test),
+    ax=ax[1, 3],
+    legend=False,
+)
+plot_scatter(
+    name="Gradient boosting",
+    y_pred=lgbm.predict(X_test),
+    r2=lgbm.score(X_test, y_test),
+    ax=ax[1, 4],
+    legend=False,
+)
+```
 
 
 
