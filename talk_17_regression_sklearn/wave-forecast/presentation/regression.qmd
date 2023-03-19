@@ -197,9 +197,6 @@ plt.show()
 
 ```
 
-
-. . .
-
 ::: {.notes}
 
 You will be aware if you have an underfit model, since the skill be low.
@@ -215,6 +212,8 @@ This is important to watch out for.
 Splitting the data into a training and test set is a way to avoid overfitting.
 
 For many datasets a **random** split is good and easy to do:
+
+. . .
 
 ```{.python}
 from sklearn.model_selection import train_test_split
@@ -282,18 +281,6 @@ X_test = test
 ```
 
 
-## Baseline
-
-Always start with a simple baseline.
-
-::: {.incremental}
-
-* What is the simplest model that can be used?
-* Predicting the mean value of the target variable.
-* For time series data, the previous value of the target variable.
-
-:::
-
 ## Standardization
 
 Some regression methods are sensitive to the scale of the data.
@@ -320,27 +307,7 @@ X_test_scaled = scaler.transform(X_test)
 
 ## Use case: Downscaling wave height
 
-:::: {.columns}
-
-::: {.column}
-
-Training data: 
-
-* Global wave model (Hs, Tp , MWD)
-* Local wave model (Hs)
-
-:::
-
-::: {.column}
-
-![](assets/mood.png)
-
-[Metocean Data Portal (MOOD)](https://www.metocean-on-demand.com/)
-
-
-:::
-
-::::
+![](assets/downscaling.png)
 
 ::: {.notes}
 A local wave model has higher resolution, with a more accurate bathymetry and can resolve smaller features e.g. islands.
@@ -349,6 +316,18 @@ Can we train a machine learning to downscale the global wave model to the local 
 :::
 
 
+## Baseline
+
+Always start with a simple baseline.
+
+::: {.incremental}
+
+* What is the simplest model that can be used?
+* Predicting the mean value of the target variable.
+* For time series data, the previous value of the target variable.
+
+:::
+
 
 ## Baseline
 
@@ -356,11 +335,29 @@ In this case, the baseline is our global wave model.
 
 ```{python}
 # | echo: false
+
+from sklearn.metrics import r2_score
+
 y_pred = X_test["Hs"]
 
-rmse_baseline = np.sqrt(np.mean((y_test - y_pred) ** 2))
-plt.scatter(y_test, y_pred)
-plt.title(f"Baseline RMSE: {rmse_baseline:.2f}")
+r2 = r2_score(y_test, y_pred)
+
+
+def plot_scatter(name, y_pred, r2):
+    plt.figure(figsize=(6, 6))
+    plt.scatter(y_test, y_pred, alpha=0.5, label="Test data")
+    plt.plot([0, 6], [0, 6], "k--", label="1:1 line")
+    plt.xlabel("Local wave model")
+    plt.ylabel("Predicted")
+    plt.title(f"{name} $R^2$ = {r2:.2f}")
+    plt.xlim(0, 6)
+    plt.ylim(0, 6)
+    plt.legend()
+    _ = plt.axis("square")
+
+
+plot_scatter("Baseline", y_pred, r2)
+```
 ```
 
 ## Regression
@@ -388,34 +385,32 @@ The target is predicted by local interpolation of the targets associated of the 
 :::
 
 
+
 ## K-nearest neighbors
 
 ```{python}
-import numpy as np
-import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsRegressor
 
 knn = KNeighborsRegressor(n_neighbors=5, weights="distance")
 knn.fit(X_train_scaled, y_train)
 y_pred = knn.predict(X_train_scaled)
 
-plt.scatter(y_train, y_pred, label="Training data")
-rmse = np.sqrt(np.mean((y_train - y_pred) ** 2))
-rmse
+knn.score(X_test_scaled, y_test)
 ```
 
+
 ```{python}
+# | echo: false
 y_pred_test = knn.predict(X_test_scaled)
-plt.scatter(y_test, y_pred_test, label="Test data")
-rmse_test = np.sqrt(np.mean((y_test - y_pred_test) ** 2))
-rmse_test
+
+plot_scatter("KNN", y_pred_test, knn.score(X_test_scaled, y_test))
 ```
 
 ## Linear regression
 
 Linear regression can either be ordinary least squares or a regularized version, e.g. Ridge regression.
 
-$$ \hat{y} = \mathbf{X}w + b $$
+$$ \hat{y} = b_0 + b_1*x_1 + ... + b_n*x_n $$
 
 . . .
 
@@ -440,10 +435,12 @@ from sklearn.linear_model import Ridge
 ridge = Ridge(alpha=1)
 ridge.fit(X_train_scaled, y_train)
 y_pred = ridge.predict(X_train_scaled)
+```
 
-plt.scatter(y_train, y_pred, label="Training data")
-rmse = np.sqrt(np.mean((y_train - y_pred) ** 2))
-plt.title(f"Ridge regression RMSE: {rmse:.2f}")
+```{python}
+# |  echo: false
+y_test_pred = ridge.predict(X_test_scaled)
+plot_scatter("Ridge", y_test_pred, ridge.score(X_test_scaled, y_test))
 ```
 
 ## Polynomial regression
@@ -457,11 +454,16 @@ X_test_poly = poly.transform(X_test_scaled)
 
 ridge_poly = Ridge(alpha=1)
 ridge_poly.fit(X_train_poly, y_train)
-y_pred = ridge_poly.predict(X_train_poly)
+ridge_poly.score(X_test_poly, y_test)
+```
 
-plt.scatter(y_train, y_pred, label="Training data")
-rmse = np.sqrt(np.mean((y_train - y_pred) ** 2))
-plt.title(f"Polynomial ridge regression RMSE: {rmse:.2f}")
+
+
+```{python}
+# |  echo: false
+plot_scatter(
+    "Polynomial", ridge_poly.predict(X_test_poly), ridge_poly.score(X_test_poly, y_test)
+)
 ```
 
 ## Linear regression
@@ -473,13 +475,10 @@ Advantages of linear regression:
 * Can be regularized
 * Easy to run a trained model in any programming language
 
-. . .
 
-$$ \hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \dots + b_p x_p $$
+**C#**
 
- . . .
-
-```{.csharp}
+```{.csharp, filename: linear_regression.cs}
 double y_pred = b0 + b1 * x1 + b2 * x2 + ... + bp * xp;
 ```
 
@@ -506,6 +505,8 @@ pipe.fit(X_train, y_train)
 y_pred = pipe.predict(X_train)
 
 y_pred_test = pipe.predict(X_test)
+
+pipe.score(X_test, y_test)
 ```
 
 ## Gradient boosting
@@ -521,22 +522,25 @@ from lightgbm import LGBMRegressor
 
 lgbm = LGBMRegressor()
 lgbm.fit(X_train, y_train)
+
+lgbm.score(X_test, y_test)
 ```
+
+::: {.notes}
+
+Gradient boosting is a tree-based model.
+It fits a weak learner (e.g. a decision tree) to the residuals of the previous model.
+
+LightGBM is a separate library, but it is compatible with scikit-learn.
+
+:::
+
 
 ## Gradient boosting
 
-```{python}
-y_pred = lgbm.predict(X_train)
-plt.scatter(y_train, y_pred, label="Training data")
-rmse_train = np.sqrt(np.mean((y_train - y_pred) ** 2))
-plt.title(f"Training RMSE: {rmse_train:.2f}")
-```
 
 ```{python}
-y_pred_test = lgbm.predict(X_test)
-plt.scatter(y_test, y_pred_test, label="Test data")
-rmse_test = np.sqrt(np.mean((y_test - y_pred_test) ** 2))
-plt.title(f"Test RMSE: {rmse_test:.2f}")
+plot_scatter("Gradient boosting", lgbm.predict(X_test), lgbm.score(X_test, y_test))
 ```
 
 ## Timeseries
@@ -564,6 +568,7 @@ df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
 * There are many models to choose from
 * All scikit-learn models have a similar API
 * Pipelines are a great way to chain preprocessing steps and a model
+* K-nearest neighbors is a simple, but powerful model for non-linear regression
 * Linear regression can be powerful with the right preprocessing
 * Gradient boosting is a powerful model for regression
 
