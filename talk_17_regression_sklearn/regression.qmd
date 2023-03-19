@@ -28,6 +28,7 @@ flowchart TB
   
   ML[Machine learning model]
   PB[Physics-based model]  
+  TL[Tough luck]
     
   DA --Yes--> SC
   DA --No--> P
@@ -35,11 +36,13 @@ flowchart TB
   SC --Yes--> P
   ET --No--> ML
   ET --Yes--> P
+  P --No --> TL
   P --Yes --> PB
+  
 ```
 
 
-## Prediction with a rule-based model
+## Rule-based model
 
 ```python
 def model(height: float, direction: float) -> float:
@@ -57,7 +60,7 @@ def model(height: float, direction: float) -> float:
 
 What if we want to include the wave period? 🤔 
 
-## Prediction with a rule-based model
+## Rule-based model (2)
 
 ```python
 def model(height:float, period:float, direction:float) -> float:
@@ -266,44 +269,6 @@ plt.show()
 
 
 
-```{python}
-# | echo: false
-df = pd.read_csv("data/wave.zip", index_col=0, parse_dates=True)
-split_date = "2001-06-01"
-train = df.loc[:split_date]
-test = df.loc[split_date:]
-
-y_train = train.pop("target")
-X_train = train
-
-y_test = test.pop("target")
-X_test = test
-```
-
-
-## Standardization
-
-Some regression methods are sensitive to the scale of the data.
-
-* Neural networks
-* K-nearest neighbors
-
-A common way is to use z-score standardization.
-The data is scaled to have zero mean and standard deviation of one.
-
-$$ \frac{x - \mu}{\sigma} $$
-
-## Standardization
-
-```{python}
-from sklearn.preprocessing import StandardScaler
-
-scaler = StandardScaler()
-scaler.fit(X_train)
-X_train_scaled = scaler.transform(X_train)
-X_test_scaled = scaler.transform(X_test)
-```
-
 
 ## Use case: Downscaling wave height
 
@@ -315,10 +280,33 @@ A local wave model has higher resolution, with a more accurate bathymetry and ca
 Can we train a machine learning to downscale the global wave model to the local wave model?
 :::
 
+## The data
+
+```{python}
+import pandas as pd
+
+df = pd.read_csv("data/wave.zip", index_col=0, parse_dates=True)
+split_date = "2001-06-01 00:00"
+train = df.loc[:split_date].iloc[:-1]  # Remove last row
+test = df.loc[split_date:]
+
+y_train = train.pop("target")
+X_train = train
+
+y_test = test.pop("target")
+X_test = test
+
+print(f"Features: {list(X_train.columns)}")
+print(f"Train: {train.index[0]} - {train.index[-1]}")
+print(f"Test: {test.index[0]} - {test.index[-1]}")
+```
+
 
 ## Baseline
 
-Always start with a simple baseline.
+Always consider what the baseline is.
+
+If your model is not better than the baseline, it is not useful.
 
 ::: {.incremental}
 
@@ -398,6 +386,31 @@ Some popular regression methods are:
 * Linear regression
 * Gradient boosting
 
+
+## Standardization
+
+Some regression methods are sensitive to the scale of the data.
+
+* Neural networks
+* Regularized regression
+* K-nearest neighbors
+
+
+A common way is to use z-score standardization.
+The data is scaled to have zero mean and standard deviation of one.
+
+$$ \frac{x - \mu}{\sigma} $$
+
+## Standardization
+
+```{python}
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+scaler.fit(X_train)
+X_train_scaled = scaler.transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+```
 
 ## K-nearest neighbors
 
@@ -496,9 +509,11 @@ Bias (intercept) is not penalized.
 ```{python}
 from sklearn.linear_model import Ridge
 
-ridge = Ridge(alpha=1)
+ridge = Ridge(alpha=1.0)  # higher alpha -> more regularization
 ridge.fit(X_train_scaled, y_train)
 y_pred = ridge.predict(X_train_scaled)
+
+ridge.score(X_test_scaled, y_test)
 ```
 
 :::
@@ -557,13 +572,6 @@ Advantages of linear regression:
 * Easy to run a trained model in any programming language
 
 
-**C#**
-
-```{.csharp filename="predict.cs"}
-double y_pred = b0 + b1 * x1 + b2 * x2 + b3 * x3;
-```
-
-
 ## Pipelines
 
 ```{mermaid}
@@ -608,7 +616,8 @@ Using pipelines avoids trivial mistakes such as applying the preprocessing steps
 ::: {.column}
 
 
-* Gradient boosting is insensitive to the scale of the data.
+* Based on decision trees.
+* Insensitive to the scale of the data.
 * LightGBM is a separate library, compatible with scikit-learn.
 
 
@@ -617,6 +626,7 @@ from lightgbm import LGBMRegressor
 
 lgbm = LGBMRegressor(n_estimators=200)
 lgbm.fit(X_train, y_train)
+y_pred = lgbm.predict(X_test)
 
 lgbm.score(X_test, y_test)
 ```
@@ -639,11 +649,6 @@ Gradient boosting is a tree-based model.
 It fits a weak learner (e.g. a decision tree) to the residuals of the previous model.
 
 :::
-
-
-
-
-
 
 
 ## Timeseries
