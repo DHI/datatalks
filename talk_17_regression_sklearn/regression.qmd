@@ -60,7 +60,7 @@ def model(height: float, direction: float) -> float:
 
 What if we want to include the wave period? 🤔 
 
-## Rule-based model (2)
+## Rule-based model
 
 ```python
 def model(height:float, period:float, direction:float) -> float:
@@ -118,25 +118,24 @@ flowchart TB
 %%| echo: false
 flowchart TB
   DA(Data aquisition)  --> SP(Train/test split)
-  SP --> DC(Data cleaning)
-  DC --> AS(Algorithm selection)
+  SP --> AS(Algorithm selection)
   AS --> MT(Model training)
   MT --> ME(Skill assessment)
 ```
 
 
-## ML lingo
+## ML terminology
 
 ::: {.incremental}
 * **Feature**: A variable that is used to predict the target variable, also called an **independent** variable.
-* **Feature vector**: A vector of features $\mathbf{X}$, also called a design matrix.
+* **Feature vector**: A vector of features $\mathbf{x}$ for a single example.
 * **Target variable**: The variable that we want to predict $y$, also called a **dependent** variable.
 ::: 
 
 . . .
 
 * $\mathbf{X}$ is a matrix where each row is an example and each column is a feature.
-* $y$ is a vector with one element for each example. 
+* $\mathbf{y}$ is a vector with one element for each example. 
 
 
 ##
@@ -207,6 +206,28 @@ An overfit model will have a high skill on the training data, but a low skill on
 This is important to watch out for.
 
 :::
+
+
+## scikit-learn {.smaller}
+
+:::: {.columns}
+
+::: {.column width=50%}
+
+* Simple and efficient tools for predictive data analysis
+* Accessible to everybody, and reusable in various contexts
+* Built on NumPy, SciPy, and matplotlib
+* Open source, commercially usable - BSD license
+
+:::
+
+::: {.column width=50%}
+
+
+![](https://scikit-learn.org/stable/_images/scikit-learn-logo-notext.png)
+
+:::
+::::
 
 
 
@@ -395,11 +416,16 @@ Some regression methods are sensitive to the scale of the data.
 * Regularized regression
 * K-nearest neighbors
 
+Z-score standardization
+$$ z = \frac{x - \mu}{\sigma} $$
 
+
+::: {.notes}
+Some features are in units of meters, others in units of milliseconds.
 A common way is to use z-score standardization.
 The data is scaled to have zero mean and standard deviation of one.
 
-$$ \frac{x - \mu}{\sigma} $$
+:::
 
 ## Standardization
 
@@ -419,7 +445,7 @@ Regression based on k-nearest neighbors.
 The target is predicted by local interpolation of the targets associated of the nearest neighbors in the training set.
 
 ::: {.incremental}
-* non-parametric, i.e. there are no parameters to learn, the model is just the training data
+* non-parametric, i.e. no parameters to learn, the model is just the training data
 * fast to train, since no model is learned 🤨
 * can be slow to predict, since the distance to all training points must be calculated 🤔
 
@@ -487,11 +513,11 @@ $$ \hat{y} = b_0 + b_1*x_1 + ... + b_n*x_n $$
 
 . . .
 
-$$ J_{ols} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2}$$
+$$ J_{ols} = MSE = \frac{1}{n}\sum_{i=1}^n{(y_i - \hat{y}_i)^2}$$
 
 . . .
 
-$$ J_{ridge} = \sum_{i=1}^n{(y_i - \hat{y}_i)^2} + \alpha \sum_{j=1}^p w_j^2 $$
+$$ J_{ridge} = MSE + \alpha \sum_{j=1}^p w_j^2 $$
 
 ::: {.notes}
 
@@ -509,7 +535,7 @@ Bias (intercept) is not penalized.
 ```{python}
 from sklearn.linear_model import Ridge
 
-ridge = Ridge(alpha=1.0)  # higher alpha -> more regularization
+ridge = Ridge(alpha=1.0)  # regularization
 ridge.fit(X_train_scaled, y_train)
 y_pred = ridge.predict(X_train_scaled)
 
@@ -653,6 +679,7 @@ It fits a weak learner (e.g. a decision tree) to the residuals of the previous m
 
 ## Timeseries
 
+
 ```{python}
 # | echo: false
 df = pd.DataFrame(
@@ -662,22 +689,40 @@ df = pd.DataFrame(
         "GB": lgbm.predict(X_test),
     }
 )
-df.head()
-```
-
-## Timeseries
-
-```{python}
-# | echo: false
 _ = df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6))
 ```
+
+## Types of Machine learning
+
+```{mermaid}
+%%| echo: false
+flowchart TB
+  C(Do you have labels?)
+  C --No--> D(Unsupervised learning)
+  C --Yes--> E(Supervised learning)
+  E --> F(Are you predicting a\n continuous variable?)
+  F --No --> H(Classification)
+  F --Yes --> G(Regression)
+```
+
+::: {.notes}
+In addition to regreession, there is:
+* Classification
+* Clustering
+* Dimensionality reduction
+* Anomaly detection
+* Cross-validation
+* Model selection
+* Feature selection
+* Feature engineering
+:::
 
 
 ## Conclusion {.smaller}
 
 ::: {.incremental}
 
-* scikit-learn is a great library for machine learning
+* scikit-learn is a great *open-source* library for machine learning
 * Functions for preprocessing, model selection, and evaluation
 * There are many models to choose from
 * All scikit-learn models have a similar API
@@ -688,97 +733,7 @@ _ = df["2001-07-09":"2001-07-25"].plot(style=["--", "k-", "r-"], figsize=(12, 6)
 
 :::
 
-
 ##
 
-✨ Thank you! ✨
-
-## Comparison
-
-```{python}
-# | echo: false
-fig, ax = plt.subplots(figsize=(18, 4), ncols=5, nrows=2, sharex=True, sharey=True)
-plt.subplots_adjust(wspace=0.1, hspace=0.1)
-
-
-y_pred_train = X_train["Hs"]
-
-r2 = r2_score(y_train, y_pred_train)
-
-plot_scatter(
-    name="Baseline", y_pred=y_pred_train, r2=r2, ax=ax[0, 0], test=False, legend=False
-)
-
-plot_scatter(
-    name="KNN",
-    y_pred=knn.predict(X_train_scaled),
-    r2=knn.score(X_train_scaled, y_train),
-    ax=ax[0, 1],
-    test=False,
-    legend=False,
-)
-plot_scatter(
-    name="Ridge",
-    y_pred=ridge.predict(X_train_scaled),
-    r2=ridge.score(X_train_scaled, y_train),
-    ax=ax[0, 2],
-    test=False,
-    legend=False,
-)
-plot_scatter(
-    name="Polynomial",
-    y_pred=ridge_poly.predict(X_train_poly),
-    r2=ridge_poly.score(X_train_poly, y_train),
-    ax=ax[0, 3],
-    test=False,
-    legend=False,
-)
-plot_scatter(
-    name="Gradient boosting",
-    y_pred=lgbm.predict(X_train),
-    r2=lgbm.score(X_train, y_train),
-    ax=ax[0, 4],
-    test=False,
-    legend=False,
-)
-
-y_pred_test = X_test["Hs"]
-
-r2 = r2_score(y_test, y_pred_test)
-
-plot_scatter(name="Baseline", y_pred=y_pred_test, r2=r2, ax=ax[1, 0], legend=False)
-
-plot_scatter(
-    name="KNN",
-    y_pred=knn.predict(X_test_scaled),
-    r2=knn.score(X_test_scaled, y_test),
-    ax=ax[1, 1],
-    legend=False,
-)
-plot_scatter(
-    name="Ridge",
-    y_pred=ridge.predict(X_test_scaled),
-    r2=ridge.score(X_test_scaled, y_test),
-    ax=ax[1, 2],
-    legend=False,
-)
-plot_scatter(
-    name="Polynomial",
-    y_pred=ridge_poly.predict(X_test_poly),
-    r2=ridge_poly.score(X_test_poly, y_test),
-    ax=ax[1, 3],
-    legend=False,
-)
-plot_scatter(
-    name="Gradient boosting",
-    y_pred=lgbm.predict(X_test),
-    r2=lgbm.score(X_test, y_test),
-    ax=ax[1, 4],
-    legend=False,
-)
-```
-
-
-
-
+![](https://imgs.xkcd.com/comics/curve_fitting.png)
 
