@@ -1,0 +1,4742 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  letterpaper,
+  DIV=11,
+  numbers=noendperiod]{scrartcl}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{241,243,245}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.40,0.45,0.13}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\ExtensionTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.28,0.35,0.67}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.46,0.62}{#1}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\NormalTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.68,0.00,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{\textcolor[rgb]{0.00,0.23,0.31}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.07,0.07,0.07}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.13,0.47,0.30}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.37,0.37,0.37}{\textit{#1}}}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+
+\KOMAoption{captions}{tableheading}
+\makeatletter
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Table of contents}
+\else
+  \newcommand\contentsname{Table of contents}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{List of Figures}
+\else
+  \newcommand\listfigurename{List of Figures}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{List of Tables}
+\else
+  \newcommand\listtablename{List of Tables}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figure}
+\else
+  \newcommand\figurename{Figure}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Table}
+\else
+  \newcommand\tablename{Table}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listing}
+\newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\makeatletter
+\@ifpackageloaded{tcolorbox}{}{\usepackage[many]{tcolorbox}}
+\makeatother
+\makeatletter
+\@ifundefined{shadecolor}{\definecolor{shadecolor}{rgb}{.97, .97, .97}}
+\makeatother
+\makeatletter
+\makeatother
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Python plotting libraries for exploratory data analysis},
+  pdfauthor={Clemens Cremer},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Python plotting libraries for exploratory data analysis}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{A comparative evaluation}
+\author{Clemens Cremer}
+\date{}
+
+\begin{document}
+\maketitle
+\ifdefined\Shaded\renewenvironment{Shaded}{\begin{tcolorbox}[borderline west={3pt}{0pt}{shadecolor}, sharp corners, interior hidden, enhanced, boxrule=0pt, breakable, frame hidden]}{\end{tcolorbox}}\fi
+
+\hypertarget{section}{%
+\subsection{}\label{section}}
+
+Where do we start?
+
+\hypertarget{section-1}{%
+\subsection{}\label{section-1}}
+
+Where do we start?
+
+A short history of data visualization
+
+\hypertarget{the-early-days-of-data-visualization}{%
+\subsection{The early days of data
+visualization}\label{the-early-days-of-data-visualization}}
+
+\includegraphics[width=5.20833in,height=\textheight]{images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png}
+
+\textless{} 17th century maps
+
+This 17th century road strip map was created by John Ogilby as part of
+his 1675 Britannia Atlas. The map shows the route from London to
+Winchester via Staines, Reading and Basingstoke.
+
+\hypertarget{the-industrial-revolution-and-quantitative-data}{%
+\subsection{The industrial revolution and quantitative
+data}\label{the-industrial-revolution-and-quantitative-data}}
+
+\includegraphics[width=5.20833in,height=\textheight]{images/Playfair_1821.png}
+\includegraphics[width=2.08333in,height=\textheight]{images/binomial-quetelet-1846.jpg}
+
+\includegraphics[width=5.20833in,height=\textheight]{images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png}
+
+\textless{} 17th century maps
+
+18th - early 20th century statistical mapping. First bar graphs, pie
+charts
+
+\hypertarget{computer-aided-visualization}{%
+\subsection{Computer aided
+visualization}\label{computer-aided-visualization}}
+
+\includegraphics[width=\textwidth,height=3.75in]{images/1970s_computer_graphics.png}
+
+\includegraphics[width=2.08333in,height=\textheight]{images/binomial-quetelet-1846.jpg}
+
+\includegraphics[width=5.20833in,height=\textheight]{images/Playfair_1821.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png}
+
+\textless{} 17th century maps
+
+18th - early 20th century statistical mapping. First bar graphs, pie
+charts
+
+\textgreater1960s computer aided visualization
+
+\hypertarget{the-next-dimension-and-new-golden-age}{%
+\subsection{The next dimension and new golden
+age?}\label{the-next-dimension-and-new-golden-age}}
+
+\includegraphics[width=\textwidth,height=3.125in]{images/excel-for-windows-3.0-charts-and-graphs.png}
+
+\includegraphics[width=\textwidth,height=3.75in]{images/1970s_computer_graphics.png}
+
+\includegraphics[width=2.08333in,height=\textheight]{images/binomial-quetelet-1846.jpg}
+
+\includegraphics[width=5.20833in,height=\textheight]{images/Playfair_1821.png}
+
+\includegraphics[width=5.20833in,height=\textheight]{images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png}
+
+\textless{} 17th century maps
+
+18th - early 20th century statistical mapping. First bar graphs, pie
+charts
+
+\textgreater1960s computer aided visualization
+
+\textgreater1980s high dimensiondynamic visualizations
+
+\hypertarget{where-are-we-now}{%
+\subsection{Where are we now?}\label{where-are-we-now}}
+
+\begin{itemize}
+\tightlist
+\item
+  🚀 more data than ever before
+\item
+  🛠️ more tools than ever before
+\item
+  😊 greater ease of access than ever before
+\item
+  🤯 this is not unambiguously a good thing
+  \includegraphics[width=10.41667in,height=\textheight]{images/perception_pie_charts.jpg}
+\item
+  🔧 \textbf{picking the right tool(s) is important}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    choice of tool not choice of chart is discussed here
+  \end{itemize}
+\end{itemize}
+
+In the pre-computer visualization era you would think long and hard
+about your visualization. It was a specialists job. Now you can just
+throw a bunch of data at a computer and it will spit out a
+visualization. But that does not mean that the visualization is good. In
+fact, it is often the opposite. - With great power comes great
+responsibility
+
+\hypertarget{the-for-the-right-tool}{%
+\subsection{The 🔍 for the right tool}\label{the-for-the-right-tool}}
+
+\begin{itemize}
+\tightlist
+\item
+  MATLAB: Unified plotting framework ✅
+\item
+  R: R Graphics, ggplot2, \ldots{} ✅
+\item
+  Python: huge choice 🤯
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{from}\NormalTok{ wordcloud }\ImportTok{import}\NormalTok{ WordCloud, random\_color\_func}
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+
+\CommentTok{\# List of library names}
+\NormalTok{libraries }\OperatorTok{=}\NormalTok{ [}
+    \StringTok{"Matplotlib"}\NormalTok{, }\StringTok{"Pandas"}\NormalTok{, }\StringTok{"Seaborn"}\NormalTok{, }\StringTok{"Altair"}\NormalTok{, }\StringTok{"Bokeh"}\NormalTok{, }\StringTok{"Plotly"}\NormalTok{,}
+    \StringTok{"ggplot"}\NormalTok{, }\StringTok{"Holoviews"}\NormalTok{, }\StringTok{"Geoplotlib"}\NormalTok{, }\StringTok{"Pygal"}\NormalTok{, }\StringTok{"pygwalker"}\NormalTok{, }\StringTok{"shiny"}
+\NormalTok{]}
+
+\CommentTok{\# Join the library names into a single string}
+\NormalTok{text }\OperatorTok{=} \StringTok{\textquotesingle{} \textquotesingle{}}\NormalTok{.join(libraries)}
+
+\CommentTok{\# Custom color function}
+\KeywordTok{def}\NormalTok{ custom\_color\_func(}\OperatorTok{*}\NormalTok{args, }\OperatorTok{**}\NormalTok{kwargs):}
+    \ControlFlowTok{return}\NormalTok{ random\_color\_func(}\OperatorTok{*}\NormalTok{args, }\OperatorTok{**}\NormalTok{kwargs)}
+
+\CommentTok{\# Generate the word cloud}
+\NormalTok{wordcloud }\OperatorTok{=}\NormalTok{ WordCloud(}
+\NormalTok{    width}\OperatorTok{=}\DecValTok{800}\NormalTok{, height}\OperatorTok{=}\DecValTok{400}\NormalTok{, background\_color}\OperatorTok{=}\StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{, color\_func}\OperatorTok{=}\NormalTok{custom\_color\_func}
+\NormalTok{).generate(text)}
+
+\CommentTok{\# Display the word cloud}
+\NormalTok{plt.figure(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{plt.imshow(wordcloud, interpolation}\OperatorTok{=}\StringTok{\textquotesingle{}bilinear\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.axis(}\StringTok{\textquotesingle{}off\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{plotting_libs_eda_files/figure-pdf/cell-2-output-1.pdf}
+
+}
+
+\end{figure}
+
+\hypertarget{low-level-plotting-with-matplotlib}{%
+\subsection{Low level plotting with
+matplotlib}\label{low-level-plotting-with-matplotlib}}
+
+\begin{itemize}
+\tightlist
+\item
+  grandfather of python plotting libraries
+\item
+  based on Matlab to ``lure away'' Matlab users
+\item
+  access to everything but might become verbose
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\NormalTok{plt.xkcd()}
+\NormalTok{years }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{2002}\NormalTok{, }\DecValTok{2019}\NormalTok{))}
+\NormalTok{established\_years }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{\textquotesingle{}matplotlib\textquotesingle{}}\NormalTok{: }\DecValTok{2003}\NormalTok{,}
+    \StringTok{\textquotesingle{}pandas\textquotesingle{}}\NormalTok{: }\DecValTok{2008}\NormalTok{,}
+    \StringTok{\textquotesingle{}seaborn\textquotesingle{}}\NormalTok{: }\DecValTok{2012}\NormalTok{,}
+    \StringTok{\textquotesingle{}plotly\textquotesingle{}}\NormalTok{: }\DecValTok{2012}\NormalTok{,}
+    \StringTok{\textquotesingle{}bokeh\textquotesingle{}}\NormalTok{: }\DecValTok{2013}\NormalTok{,}
+    \StringTok{\textquotesingle{}altair\textquotesingle{}}\NormalTok{: }\DecValTok{2016}
+\NormalTok{\}}
+\NormalTok{fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{ax.plot(years, [}\DecValTok{0}\NormalTok{] }\OperatorTok{*} \BuiltInTok{len}\NormalTok{(years), linestyle}\OperatorTok{=}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, linewidth}\OperatorTok{=}\DecValTok{2}\NormalTok{)}
+\NormalTok{ax.scatter(established\_years.values(), [}\DecValTok{0}\NormalTok{] }\OperatorTok{*} \BuiltInTok{len}\NormalTok{(established\_years), s}\OperatorTok{=}\DecValTok{200}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\CommentTok{\# Annotate with offset for Plotly}
+\NormalTok{offsets }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}plotly\textquotesingle{}}\NormalTok{: (}\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{)\}}
+\ControlFlowTok{for}\NormalTok{ lib, year }\KeywordTok{in}\NormalTok{ established\_years.items():}
+\NormalTok{    dx, dy }\OperatorTok{=}\NormalTok{ offsets.get(lib, (}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\NormalTok{    ax.text(year }\OperatorTok{+}\NormalTok{ dx, }\FloatTok{0.1} \OperatorTok{+}\NormalTok{ dy, lib, fontsize}\OperatorTok{=}\DecValTok{20}\NormalTok{, rotation}\OperatorTok{=}\DecValTok{45}\NormalTok{, ha}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, va}\OperatorTok{=}\StringTok{\textquotesingle{}bottom\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax.set\_ylim(}\FloatTok{0.0}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}top\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}bottom\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.set\_yticks([])}
+\NormalTok{ax.set\_xticks(years)}
+\NormalTok{ax.set\_xticklabels(years, fontsize}\OperatorTok{=}\DecValTok{20}\NormalTok{, rotation}\OperatorTok{=}\DecValTok{45}\NormalTok{, ha}\OperatorTok{=}\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{, va}\OperatorTok{=}\StringTok{\textquotesingle{}top\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{plotting_libs_eda_files/figure-pdf/cell-3-output-377.pdf}
+
+}
+
+\end{figure}
+
+\hypertarget{high-and-mixed-level-libraries}{%
+\subsection{High and mixed level
+libraries}\label{high-and-mixed-level-libraries}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{pandas}: built into DataFrame \& Series objects, based on
+  Matplotlib
+\item
+  \textbf{seaborn}: extends Matplotlib with improved styling, statistics
+  focused
+\item
+  \textbf{plotly}: interactive and responsive visualizations with a
+  high-level API, suitable for web applications and dashboards,
+  supporting various chart types
+\item
+  \textbf{bokeh}: interactive and scalable visualizations with a
+  powerful API; suitable for web applications and dashboards
+\item
+  \textbf{altair}: interactive plots. Declarative, following grammar of
+  graphics*.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ImportTok{import}\NormalTok{ matplotlib.pyplot }\ImportTok{as}\NormalTok{ plt}
+\NormalTok{plt.xkcd()}
+\NormalTok{years }\OperatorTok{=} \BuiltInTok{list}\NormalTok{(}\BuiltInTok{range}\NormalTok{(}\DecValTok{2002}\NormalTok{, }\DecValTok{2019}\NormalTok{))}
+\NormalTok{established\_years }\OperatorTok{=}\NormalTok{ \{}
+    \StringTok{\textquotesingle{}matplotlib\textquotesingle{}}\NormalTok{: }\DecValTok{2003}\NormalTok{,}
+    \StringTok{\textquotesingle{}pandas\textquotesingle{}}\NormalTok{: }\DecValTok{2008}\NormalTok{,}
+    \StringTok{\textquotesingle{}seaborn\textquotesingle{}}\NormalTok{: }\DecValTok{2012}\NormalTok{,}
+    \StringTok{\textquotesingle{}plotly\textquotesingle{}}\NormalTok{: }\DecValTok{2012}\NormalTok{,}
+    \StringTok{\textquotesingle{}bokeh\textquotesingle{}}\NormalTok{: }\DecValTok{2013}\NormalTok{,}
+    \StringTok{\textquotesingle{}altair\textquotesingle{}}\NormalTok{: }\DecValTok{2016}
+\NormalTok{\}}
+\NormalTok{fig, ax }\OperatorTok{=}\NormalTok{ plt.subplots(figsize}\OperatorTok{=}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{5}\NormalTok{))}
+\NormalTok{ax.plot(years, [}\DecValTok{0}\NormalTok{] }\OperatorTok{*} \BuiltInTok{len}\NormalTok{(years), linestyle}\OperatorTok{=}\StringTok{\textquotesingle{}{-}\textquotesingle{}}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}black\textquotesingle{}}\NormalTok{, linewidth}\OperatorTok{=}\DecValTok{2}\NormalTok{)}
+\NormalTok{ax.scatter(established\_years.values(), [}\DecValTok{0}\NormalTok{] }\OperatorTok{*} \BuiltInTok{len}\NormalTok{(established\_years), s}\OperatorTok{=}\DecValTok{200}\NormalTok{, color}\OperatorTok{=}\StringTok{\textquotesingle{}red\textquotesingle{}}\NormalTok{)}
+\CommentTok{\# Annotate with offset for Plotly}
+\NormalTok{offsets }\OperatorTok{=}\NormalTok{ \{}\StringTok{\textquotesingle{}plotly\textquotesingle{}}\NormalTok{: (}\DecValTok{0}\NormalTok{, }\FloatTok{0.1}\NormalTok{)\}}
+\ControlFlowTok{for}\NormalTok{ lib, year }\KeywordTok{in}\NormalTok{ established\_years.items():}
+\NormalTok{    dx, dy }\OperatorTok{=}\NormalTok{ offsets.get(lib, (}\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\NormalTok{    ax.text(year }\OperatorTok{+}\NormalTok{ dx, }\FloatTok{0.1} \OperatorTok{+}\NormalTok{ dy, lib, fontsize}\OperatorTok{=}\DecValTok{20}\NormalTok{, rotation}\OperatorTok{=}\DecValTok{45}\NormalTok{, ha}\OperatorTok{=}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{, va}\OperatorTok{=}\StringTok{\textquotesingle{}bottom\textquotesingle{}}\NormalTok{)}
+\NormalTok{ax.set\_ylim(}\FloatTok{0.0}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}top\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}bottom\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.spines[}\StringTok{\textquotesingle{}left\textquotesingle{}}\NormalTok{].set\_visible(}\VariableTok{False}\NormalTok{)}
+\NormalTok{ax.set\_yticks([])}
+\NormalTok{ax.set\_xticks(years)}
+\NormalTok{ax.set\_xticklabels(years, fontsize}\OperatorTok{=}\DecValTok{20}\NormalTok{, rotation}\OperatorTok{=}\DecValTok{45}\NormalTok{, ha}\OperatorTok{=}\StringTok{\textquotesingle{}right\textquotesingle{}}\NormalTok{, va}\OperatorTok{=}\StringTok{\textquotesingle{}top\textquotesingle{}}\NormalTok{)}
+\NormalTok{plt.show()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'xkcd Script' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Humor Sans' not found.
+\end{verbatim}
+
+\begin{verbatim}
+findfont: Font family 'Comic Neue' not found.
+\end{verbatim}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{plotting_libs_eda_files/figure-pdf/cell-4-output-377.pdf}
+
+}
+
+\end{figure}
+
+*grammar of graphics: vizualization as series of independent components,
+such as data, scales, axes, and geometries
+
+\hypertarget{how-to-find-the-right-data-viz-tool-introducing-some-metrics}{%
+\subsection{How to find the ``right'' data-viz tool: introducing some
+metrics}\label{how-to-find-the-right-data-viz-tool-introducing-some-metrics}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{learning curve}
+\item
+  \textbf{code simplicity}
+\item
+  \textbf{iteration speed}
+\item
+  \textbf{flexibility}
+\item
+  \textbf{interactivity}
+\item
+  \textbf{performance}
+\item
+  \textbf{aesthetics}
+\item
+  \textbf{community support \& documentation}
+\end{itemize}
+
+\hypertarget{a-selected-list-of-contenders-in-python}{%
+\subsection{A selected list of contenders in
+python}\label{a-selected-list-of-contenders-in-python}}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.3333}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\centering
+\includegraphics{https://matplotlib.org/stable/_static/logo2_compressed.svg}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\includegraphics{https://pandas.pydata.org/docs/_static/pandas.svg}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\includegraphics{https://seaborn.pydata.org/_static/logo-wide-lightbg.svg}
+\end{minipage} \\
+\midrule()
+\endhead
+\includegraphics{https://static.bokeh.org/branding/logos/bokeh-logo.svg}
+&
+\includegraphics{https://altair-viz.github.io/_static/altair-logo-light.png}
+&
+\includegraphics{https://images.plot.ly/logo/new-branding/plotly-logomark.png} \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{a-brief-practical-comparison-dataset-and-evaluation}{%
+\subsection{A brief practical comparison: Dataset and
+evaluation}\label{a-brief-practical-comparison-dataset-and-evaluation}}
+
+\begin{itemize}
+\tightlist
+\item
+  using artificial ``time series'' data
+\item
+  datetime index
+
+  \begin{itemize}
+  \tightlist
+  \item
+    2023-04-06 - 2023-04-13
+  \item
+    10 min intervals
+  \end{itemize}
+\item
+  \textbf{minimal plot} with components
+
+  \begin{itemize}
+  \tightlist
+  \item
+    labels,
+  \item
+    legend (if more than one class)
+  \end{itemize}
+\item
+  on \textbf{most common plot types}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    line,
+  \item
+    scatter,
+  \item
+    bar / histogram
+  \end{itemize}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create a sample dataframe}
+\ImportTok{import}\NormalTok{ pandas }\ImportTok{as}\NormalTok{ pd}
+\ImportTok{import}\NormalTok{ numpy }\ImportTok{as}\NormalTok{ np}
+\NormalTok{np.random.seed(}\DecValTok{42}\NormalTok{)}
+\NormalTok{date\_rng }\OperatorTok{=}\NormalTok{ pd.date\_range(start}\OperatorTok{=}\StringTok{\textquotesingle{}4/06/2023\textquotesingle{}}\NormalTok{, end}\OperatorTok{=}\StringTok{\textquotesingle{}4/13/2023\textquotesingle{}}\NormalTok{, freq}\OperatorTok{=}\StringTok{\textquotesingle{}10T\textquotesingle{}}\NormalTok{)}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ pd.DataFrame(date\_rng, columns}\OperatorTok{=}\NormalTok{[}\StringTok{\textquotesingle{}date\textquotesingle{}}\NormalTok{])}
+\NormalTok{df[}\StringTok{\textquotesingle{}wl a\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ np.random.randint(}\DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{, size}\OperatorTok{=}\NormalTok{(}\BuiltInTok{len}\NormalTok{(date\_rng)))}
+\NormalTok{df[}\StringTok{\textquotesingle{}wl b\textquotesingle{}}\NormalTok{] }\OperatorTok{=}\NormalTok{ np.random.randint(}\DecValTok{0}\NormalTok{, }\DecValTok{100}\NormalTok{, size}\OperatorTok{=}\NormalTok{(}\BuiltInTok{len}\NormalTok{(date\_rng)))}
+\NormalTok{df }\OperatorTok{=}\NormalTok{ df.set\_index(}\StringTok{\textquotesingle{}date\textquotesingle{}}\NormalTok{)}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+c:\Users\clcr\AppData\Local\mambaforge\lib\site-packages\IPython\core\formatters.py:342: FutureWarning:
+
+In future versions `DataFrame.to_latex` is expected to utilise the base implementation of `Styler.to_latex` for formatting and rendering. The arguments signature may therefore change. It is recommended instead to use `DataFrame.style.to_latex` which also contains additional functionality.
+\end{verbatim}
+
+\begin{tabular}{lrr}
+\toprule
+{} &  wl a &  wl b \\
+date                &       &       \\
+\midrule
+2023-04-06 00:00:00 &    51 &    63 \\
+2023-04-06 00:10:00 &    92 &    97 \\
+2023-04-06 00:20:00 &    14 &    58 \\
+2023-04-06 00:30:00 &    71 &    55 \\
+2023-04-06 00:40:00 &    60 &    58 \\
+2023-04-06 00:50:00 &    20 &    69 \\
+2023-04-06 01:00:00 &    82 &    32 \\
+2023-04-06 01:10:00 &    86 &    52 \\
+2023-04-06 01:20:00 &    74 &    21 \\
+2023-04-06 01:30:00 &    74 &    20 \\
+2023-04-06 01:40:00 &    87 &    69 \\
+2023-04-06 01:50:00 &    99 &    69 \\
+2023-04-06 02:00:00 &    23 &     3 \\
+2023-04-06 02:10:00 &     2 &    93 \\
+2023-04-06 02:20:00 &    21 &    74 \\
+2023-04-06 02:30:00 &    52 &    61 \\
+2023-04-06 02:40:00 &     1 &    61 \\
+2023-04-06 02:50:00 &    87 &    93 \\
+2023-04-06 03:00:00 &    29 &    94 \\
+2023-04-06 03:10:00 &    37 &    23 \\
+2023-04-06 03:20:00 &     1 &    54 \\
+2023-04-06 03:30:00 &    63 &     8 \\
+2023-04-06 03:40:00 &    59 &     2 \\
+2023-04-06 03:50:00 &    20 &    30 \\
+2023-04-06 04:00:00 &    32 &    39 \\
+2023-04-06 04:10:00 &    75 &    35 \\
+2023-04-06 04:20:00 &    57 &    23 \\
+2023-04-06 04:30:00 &    21 &    94 \\
+2023-04-06 04:40:00 &    88 &     5 \\
+2023-04-06 04:50:00 &    48 &    65 \\
+2023-04-06 05:00:00 &    90 &    83 \\
+2023-04-06 05:10:00 &    58 &    91 \\
+2023-04-06 05:20:00 &    41 &    74 \\
+2023-04-06 05:30:00 &    91 &     3 \\
+2023-04-06 05:40:00 &    59 &    78 \\
+2023-04-06 05:50:00 &    79 &     5 \\
+2023-04-06 06:00:00 &    14 &    93 \\
+2023-04-06 06:10:00 &    61 &    50 \\
+2023-04-06 06:20:00 &    61 &    61 \\
+2023-04-06 06:30:00 &    46 &    56 \\
+2023-04-06 06:40:00 &    61 &    65 \\
+2023-04-06 06:50:00 &    50 &    78 \\
+2023-04-06 07:00:00 &    54 &    74 \\
+2023-04-06 07:10:00 &    63 &     7 \\
+2023-04-06 07:20:00 &     2 &    25 \\
+2023-04-06 07:30:00 &    50 &    50 \\
+2023-04-06 07:40:00 &     6 &    44 \\
+2023-04-06 07:50:00 &    20 &    43 \\
+2023-04-06 08:00:00 &    72 &     4 \\
+2023-04-06 08:10:00 &    38 &    69 \\
+2023-04-06 08:20:00 &    17 &    25 \\
+2023-04-06 08:30:00 &     3 &    67 \\
+2023-04-06 08:40:00 &    88 &    18 \\
+2023-04-06 08:50:00 &    59 &    83 \\
+2023-04-06 09:00:00 &    13 &    96 \\
+2023-04-06 09:10:00 &     8 &    19 \\
+2023-04-06 09:20:00 &    89 &    11 \\
+2023-04-06 09:30:00 &    52 &    46 \\
+2023-04-06 09:40:00 &     1 &     0 \\
+2023-04-06 09:50:00 &    83 &    89 \\
+2023-04-06 10:00:00 &    91 &    13 \\
+2023-04-06 10:10:00 &    59 &    63 \\
+2023-04-06 10:20:00 &    70 &    37 \\
+2023-04-06 10:30:00 &    43 &    36 \\
+2023-04-06 10:40:00 &     7 &    10 \\
+2023-04-06 10:50:00 &    46 &    99 \\
+2023-04-06 11:00:00 &    34 &    76 \\
+2023-04-06 11:10:00 &    77 &     2 \\
+2023-04-06 11:20:00 &    80 &    32 \\
+2023-04-06 11:30:00 &    35 &     5 \\
+2023-04-06 11:40:00 &    49 &    49 \\
+2023-04-06 11:50:00 &     3 &     9 \\
+2023-04-06 12:00:00 &     1 &     4 \\
+2023-04-06 12:10:00 &     5 &    22 \\
+2023-04-06 12:20:00 &    53 &     9 \\
+2023-04-06 12:30:00 &     3 &    43 \\
+2023-04-06 12:40:00 &    53 &     1 \\
+2023-04-06 12:50:00 &    92 &    12 \\
+2023-04-06 13:00:00 &    62 &    39 \\
+2023-04-06 13:10:00 &    17 &     1 \\
+2023-04-06 13:20:00 &    89 &    83 \\
+2023-04-06 13:30:00 &    43 &    64 \\
+2023-04-06 13:40:00 &    33 &    62 \\
+2023-04-06 13:50:00 &    73 &    72 \\
+2023-04-06 14:00:00 &    61 &    16 \\
+2023-04-06 14:10:00 &    99 &     8 \\
+2023-04-06 14:20:00 &    13 &    74 \\
+2023-04-06 14:30:00 &    94 &    14 \\
+2023-04-06 14:40:00 &    47 &    23 \\
+2023-04-06 14:50:00 &    14 &    37 \\
+2023-04-06 15:00:00 &    71 &    34 \\
+2023-04-06 15:10:00 &    77 &    93 \\
+2023-04-06 15:20:00 &    86 &    94 \\
+2023-04-06 15:30:00 &    61 &    48 \\
+2023-04-06 15:40:00 &    39 &    68 \\
+2023-04-06 15:50:00 &    84 &    61 \\
+2023-04-06 16:00:00 &    79 &    59 \\
+2023-04-06 16:10:00 &    81 &    49 \\
+2023-04-06 16:20:00 &    52 &    77 \\
+2023-04-06 16:30:00 &    23 &    74 \\
+2023-04-06 16:40:00 &    25 &     8 \\
+2023-04-06 16:50:00 &    88 &    33 \\
+2023-04-06 17:00:00 &    59 &    75 \\
+2023-04-06 17:10:00 &    40 &    98 \\
+2023-04-06 17:20:00 &    28 &    34 \\
+2023-04-06 17:30:00 &    14 &     0 \\
+2023-04-06 17:40:00 &    44 &    39 \\
+2023-04-06 17:50:00 &    64 &    63 \\
+2023-04-06 18:00:00 &    88 &    21 \\
+2023-04-06 18:10:00 &    70 &    59 \\
+2023-04-06 18:20:00 &     8 &    63 \\
+2023-04-06 18:30:00 &    87 &    92 \\
+2023-04-06 18:40:00 &     0 &    71 \\
+2023-04-06 18:50:00 &     7 &    10 \\
+2023-04-06 19:00:00 &    87 &    13 \\
+2023-04-06 19:10:00 &    62 &    59 \\
+2023-04-06 19:20:00 &    10 &    29 \\
+2023-04-06 19:30:00 &    80 &    34 \\
+2023-04-06 19:40:00 &     7 &    84 \\
+2023-04-06 19:50:00 &    34 &    36 \\
+2023-04-06 20:00:00 &    34 &     4 \\
+2023-04-06 20:10:00 &    32 &    82 \\
+2023-04-06 20:20:00 &     4 &    77 \\
+2023-04-06 20:30:00 &    40 &    25 \\
+2023-04-06 20:40:00 &    27 &    61 \\
+2023-04-06 20:50:00 &     6 &     3 \\
+2023-04-06 21:00:00 &    72 &    88 \\
+2023-04-06 21:10:00 &    71 &    41 \\
+2023-04-06 21:20:00 &    11 &    88 \\
+2023-04-06 21:30:00 &    33 &    17 \\
+2023-04-06 21:40:00 &    32 &    39 \\
+2023-04-06 21:50:00 &    47 &    71 \\
+2023-04-06 22:00:00 &    22 &    38 \\
+2023-04-06 22:10:00 &    61 &    13 \\
+2023-04-06 22:20:00 &    87 &    31 \\
+2023-04-06 22:30:00 &    36 &    50 \\
+2023-04-06 22:40:00 &    98 &    37 \\
+2023-04-06 22:50:00 &    43 &    96 \\
+2023-04-06 23:00:00 &    85 &    22 \\
+2023-04-06 23:10:00 &    90 &    62 \\
+2023-04-06 23:20:00 &    34 &    14 \\
+2023-04-06 23:30:00 &    64 &    96 \\
+2023-04-06 23:40:00 &    98 &    24 \\
+2023-04-06 23:50:00 &    46 &    16 \\
+2023-04-07 00:00:00 &    77 &    96 \\
+2023-04-07 00:10:00 &     2 &    65 \\
+2023-04-07 00:20:00 &     0 &    77 \\
+2023-04-07 00:30:00 &     4 &    52 \\
+2023-04-07 00:40:00 &    89 &    50 \\
+2023-04-07 00:50:00 &    13 &    38 \\
+2023-04-07 01:00:00 &    26 &    50 \\
+2023-04-07 01:10:00 &     8 &    69 \\
+2023-04-07 01:20:00 &    78 &     5 \\
+2023-04-07 01:30:00 &    14 &    66 \\
+2023-04-07 01:40:00 &    89 &     6 \\
+2023-04-07 01:50:00 &    41 &    50 \\
+2023-04-07 02:00:00 &    76 &    71 \\
+2023-04-07 02:10:00 &    50 &    41 \\
+2023-04-07 02:20:00 &    62 &    63 \\
+2023-04-07 02:30:00 &    95 &    14 \\
+2023-04-07 02:40:00 &    51 &    28 \\
+2023-04-07 02:50:00 &    95 &    32 \\
+2023-04-07 03:00:00 &     3 &    93 \\
+2023-04-07 03:10:00 &    93 &    26 \\
+2023-04-07 03:20:00 &    22 &    35 \\
+2023-04-07 03:30:00 &    14 &    28 \\
+2023-04-07 03:40:00 &    42 &    37 \\
+2023-04-07 03:50:00 &    28 &    56 \\
+2023-04-07 04:00:00 &    35 &    96 \\
+2023-04-07 04:10:00 &    12 &    26 \\
+2023-04-07 04:20:00 &    31 &    54 \\
+2023-04-07 04:30:00 &    70 &    32 \\
+2023-04-07 04:40:00 &    58 &    67 \\
+2023-04-07 04:50:00 &    85 &    85 \\
+2023-04-07 05:00:00 &    27 &    65 \\
+2023-04-07 05:10:00 &    65 &     9 \\
+2023-04-07 05:20:00 &    41 &     4 \\
+2023-04-07 05:30:00 &    44 &    73 \\
+2023-04-07 05:40:00 &    61 &    96 \\
+2023-04-07 05:50:00 &    56 &    37 \\
+2023-04-07 06:00:00 &     5 &    12 \\
+2023-04-07 06:10:00 &    27 &    30 \\
+2023-04-07 06:20:00 &    27 &    46 \\
+2023-04-07 06:30:00 &    43 &    99 \\
+2023-04-07 06:40:00 &    83 &    87 \\
+2023-04-07 06:50:00 &    29 &    51 \\
+2023-04-07 07:00:00 &    61 &    55 \\
+2023-04-07 07:10:00 &    74 &    14 \\
+2023-04-07 07:20:00 &    91 &    28 \\
+2023-04-07 07:30:00 &    88 &     7 \\
+2023-04-07 07:40:00 &    61 &     4 \\
+2023-04-07 07:50:00 &    96 &    28 \\
+2023-04-07 08:00:00 &     0 &    46 \\
+2023-04-07 08:10:00 &    26 &    67 \\
+2023-04-07 08:20:00 &    61 &    75 \\
+2023-04-07 08:30:00 &    76 &    44 \\
+2023-04-07 08:40:00 &     2 &     1 \\
+2023-04-07 08:50:00 &    69 &    26 \\
+2023-04-07 09:00:00 &    71 &    94 \\
+2023-04-07 09:10:00 &    26 &    35 \\
+2023-04-07 09:20:00 &     8 &    35 \\
+2023-04-07 09:30:00 &    61 &    25 \\
+2023-04-07 09:40:00 &    36 &    42 \\
+2023-04-07 09:50:00 &    96 &    26 \\
+2023-04-07 10:00:00 &    50 &    68 \\
+2023-04-07 10:10:00 &    43 &    19 \\
+2023-04-07 10:20:00 &    23 &    10 \\
+2023-04-07 10:30:00 &    78 &    73 \\
+2023-04-07 10:40:00 &    58 &    37 \\
+2023-04-07 10:50:00 &    31 &     5 \\
+2023-04-07 11:00:00 &    95 &    71 \\
+2023-04-07 11:10:00 &    87 &    22 \\
+2023-04-07 11:20:00 &    51 &    46 \\
+2023-04-07 11:30:00 &    61 &    89 \\
+2023-04-07 11:40:00 &    57 &    45 \\
+2023-04-07 11:50:00 &    51 &    11 \\
+2023-04-07 12:00:00 &    11 &    89 \\
+2023-04-07 12:10:00 &    38 &    12 \\
+2023-04-07 12:20:00 &     1 &    61 \\
+2023-04-07 12:30:00 &     2 &    81 \\
+2023-04-07 12:40:00 &    55 &    88 \\
+2023-04-07 12:50:00 &    80 &    96 \\
+2023-04-07 13:00:00 &    58 &    59 \\
+2023-04-07 13:10:00 &     1 &    42 \\
+2023-04-07 13:20:00 &     1 &    75 \\
+2023-04-07 13:30:00 &    91 &    99 \\
+2023-04-07 13:40:00 &    53 &    67 \\
+2023-04-07 13:50:00 &    86 &     4 \\
+2023-04-07 14:00:00 &    95 &    36 \\
+2023-04-07 14:10:00 &    96 &    71 \\
+2023-04-07 14:20:00 &     0 &    91 \\
+2023-04-07 14:30:00 &    18 &    30 \\
+2023-04-07 14:40:00 &     1 &     8 \\
+2023-04-07 14:50:00 &    52 &    50 \\
+2023-04-07 15:00:00 &    43 &    28 \\
+2023-04-07 15:10:00 &    89 &    77 \\
+2023-04-07 15:20:00 &    31 &    39 \\
+2023-04-07 15:30:00 &    69 &    40 \\
+2023-04-07 15:40:00 &    31 &    85 \\
+2023-04-07 15:50:00 &    67 &    10 \\
+2023-04-07 16:00:00 &    54 &    22 \\
+2023-04-07 16:10:00 &    74 &     0 \\
+2023-04-07 16:20:00 &    55 &    45 \\
+2023-04-07 16:30:00 &    16 &    20 \\
+2023-04-07 16:40:00 &    37 &    89 \\
+2023-04-07 16:50:00 &    23 &    35 \\
+2023-04-07 17:00:00 &    68 &    53 \\
+2023-04-07 17:10:00 &    97 &    86 \\
+2023-04-07 17:20:00 &    69 &    56 \\
+2023-04-07 17:30:00 &    85 &     0 \\
+2023-04-07 17:40:00 &    10 &    62 \\
+2023-04-07 17:50:00 &    15 &    53 \\
+2023-04-07 18:00:00 &    96 &    54 \\
+2023-04-07 18:10:00 &    72 &    39 \\
+2023-04-07 18:20:00 &    58 &    14 \\
+2023-04-07 18:30:00 &    69 &    20 \\
+2023-04-07 18:40:00 &    79 &    46 \\
+2023-04-07 18:50:00 &    92 &    72 \\
+2023-04-07 19:00:00 &     2 &    52 \\
+2023-04-07 19:10:00 &    19 &     8 \\
+2023-04-07 19:20:00 &    58 &    73 \\
+2023-04-07 19:30:00 &    35 &    51 \\
+2023-04-07 19:40:00 &    18 &    56 \\
+2023-04-07 19:50:00 &    89 &    25 \\
+2023-04-07 20:00:00 &    66 &    40 \\
+2023-04-07 20:10:00 &    18 &    34 \\
+2023-04-07 20:20:00 &    19 &    62 \\
+2023-04-07 20:30:00 &    95 &    24 \\
+2023-04-07 20:40:00 &    70 &    89 \\
+2023-04-07 20:50:00 &    51 &    74 \\
+2023-04-07 21:00:00 &    32 &    37 \\
+2023-04-07 21:10:00 &    39 &     1 \\
+2023-04-07 21:20:00 &    38 &     6 \\
+2023-04-07 21:30:00 &    81 &    81 \\
+2023-04-07 21:40:00 &     0 &    90 \\
+2023-04-07 21:50:00 &    10 &    33 \\
+2023-04-07 22:00:00 &    91 &    90 \\
+2023-04-07 22:10:00 &    56 &    16 \\
+2023-04-07 22:20:00 &    88 &    42 \\
+2023-04-07 22:30:00 &    49 &    58 \\
+2023-04-07 22:40:00 &    22 &    50 \\
+2023-04-07 22:50:00 &    30 &    53 \\
+2023-04-07 23:00:00 &    93 &    23 \\
+2023-04-07 23:10:00 &    41 &    24 \\
+2023-04-07 23:20:00 &    98 &    70 \\
+2023-04-07 23:30:00 &     6 &    51 \\
+2023-04-07 23:40:00 &    15 &    69 \\
+2023-04-07 23:50:00 &    89 &    87 \\
+2023-04-08 00:00:00 &    59 &    32 \\
+2023-04-08 00:10:00 &     1 &    48 \\
+2023-04-08 00:20:00 &     0 &    28 \\
+2023-04-08 00:30:00 &    47 &    62 \\
+2023-04-08 00:40:00 &    11 &    21 \\
+2023-04-08 00:50:00 &    68 &    25 \\
+2023-04-08 01:00:00 &    36 &    27 \\
+2023-04-08 01:10:00 &    31 &    84 \\
+2023-04-08 01:20:00 &     8 &    48 \\
+2023-04-08 01:30:00 &    98 &    70 \\
+2023-04-08 01:40:00 &    18 &    80 \\
+2023-04-08 01:50:00 &    47 &    83 \\
+2023-04-08 02:00:00 &    79 &    48 \\
+2023-04-08 02:10:00 &     2 &    19 \\
+2023-04-08 02:20:00 &    19 &    85 \\
+2023-04-08 02:30:00 &    23 &    91 \\
+2023-04-08 02:40:00 &    53 &    62 \\
+2023-04-08 02:50:00 &    32 &    60 \\
+2023-04-08 03:00:00 &    23 &    48 \\
+2023-04-08 03:10:00 &    74 &    70 \\
+2023-04-08 03:20:00 &    71 &     0 \\
+2023-04-08 03:30:00 &    35 &    95 \\
+2023-04-08 03:40:00 &    37 &    12 \\
+2023-04-08 03:50:00 &    83 &    93 \\
+2023-04-08 04:00:00 &    98 &    86 \\
+2023-04-08 04:10:00 &    88 &    50 \\
+2023-04-08 04:20:00 &    98 &    55 \\
+2023-04-08 04:30:00 &    24 &    82 \\
+2023-04-08 04:40:00 &    92 &    61 \\
+2023-04-08 04:50:00 &    17 &    31 \\
+2023-04-08 05:00:00 &    81 &    29 \\
+2023-04-08 05:10:00 &    65 &    28 \\
+2023-04-08 05:20:00 &    53 &    48 \\
+2023-04-08 05:30:00 &    34 &    44 \\
+2023-04-08 05:40:00 &    79 &    92 \\
+2023-04-08 05:50:00 &    60 &    29 \\
+2023-04-08 06:00:00 &    40 &    15 \\
+2023-04-08 06:10:00 &    99 &    39 \\
+2023-04-08 06:20:00 &    32 &    18 \\
+2023-04-08 06:30:00 &    67 &    17 \\
+2023-04-08 06:40:00 &    32 &     0 \\
+2023-04-08 06:50:00 &    13 &    77 \\
+2023-04-08 07:00:00 &    20 &    46 \\
+2023-04-08 07:10:00 &    47 &    65 \\
+2023-04-08 07:20:00 &    19 &    91 \\
+2023-04-08 07:30:00 &     7 &    93 \\
+2023-04-08 07:40:00 &     6 &    37 \\
+2023-04-08 07:50:00 &    66 &    50 \\
+2023-04-08 08:00:00 &    16 &    62 \\
+2023-04-08 08:10:00 &    32 &     3 \\
+2023-04-08 08:20:00 &    47 &     0 \\
+2023-04-08 08:30:00 &    75 &     7 \\
+2023-04-08 08:40:00 &    58 &    28 \\
+2023-04-08 08:50:00 &    85 &    54 \\
+2023-04-08 09:00:00 &    21 &     2 \\
+2023-04-08 09:10:00 &    29 &    31 \\
+2023-04-08 09:20:00 &    37 &     9 \\
+2023-04-08 09:30:00 &    50 &    73 \\
+2023-04-08 09:40:00 &    53 &    82 \\
+2023-04-08 09:50:00 &     7 &    33 \\
+2023-04-08 10:00:00 &    26 &    96 \\
+2023-04-08 10:10:00 &    26 &    86 \\
+2023-04-08 10:20:00 &    97 &    54 \\
+2023-04-08 10:30:00 &    20 &    91 \\
+2023-04-08 10:40:00 &    29 &    31 \\
+2023-04-08 10:50:00 &    96 &    49 \\
+2023-04-08 11:00:00 &    27 &     6 \\
+2023-04-08 11:10:00 &    63 &    92 \\
+2023-04-08 11:20:00 &    96 &     7 \\
+2023-04-08 11:30:00 &    68 &    64 \\
+2023-04-08 11:40:00 &    60 &    56 \\
+2023-04-08 11:50:00 &    47 &    66 \\
+2023-04-08 12:00:00 &    18 &    87 \\
+2023-04-08 12:10:00 &     3 &    86 \\
+2023-04-08 12:20:00 &    34 &    58 \\
+2023-04-08 12:30:00 &    63 &    71 \\
+2023-04-08 12:40:00 &    48 &    53 \\
+2023-04-08 12:50:00 &    16 &    66 \\
+2023-04-08 13:00:00 &    43 &    50 \\
+2023-04-08 13:10:00 &    91 &    96 \\
+2023-04-08 13:20:00 &    29 &    91 \\
+2023-04-08 13:30:00 &    92 &     7 \\
+2023-04-08 13:40:00 &    45 &    33 \\
+2023-04-08 13:50:00 &     5 &    34 \\
+2023-04-08 14:00:00 &    98 &    95 \\
+2023-04-08 14:10:00 &    36 &    87 \\
+2023-04-08 14:20:00 &    23 &    77 \\
+2023-04-08 14:30:00 &    92 &    31 \\
+2023-04-08 14:40:00 &    45 &    45 \\
+2023-04-08 14:50:00 &    52 &    15 \\
+2023-04-08 15:00:00 &    94 &    67 \\
+2023-04-08 15:10:00 &    98 &    36 \\
+2023-04-08 15:20:00 &    59 &    53 \\
+2023-04-08 15:30:00 &    96 &    84 \\
+2023-04-08 15:40:00 &    62 &    13 \\
+2023-04-08 15:50:00 &    84 &    94 \\
+2023-04-08 16:00:00 &    31 &    54 \\
+2023-04-08 16:10:00 &    86 &    47 \\
+2023-04-08 16:20:00 &    32 &    81 \\
+2023-04-08 16:30:00 &    66 &     6 \\
+2023-04-08 16:40:00 &    17 &    73 \\
+2023-04-08 16:50:00 &    24 &     6 \\
+2023-04-08 17:00:00 &    94 &    32 \\
+2023-04-08 17:10:00 &    53 &    22 \\
+2023-04-08 17:20:00 &    57 &    84 \\
+2023-04-08 17:30:00 &    66 &    18 \\
+2023-04-08 17:40:00 &    45 &    18 \\
+2023-04-08 17:50:00 &    23 &    35 \\
+2023-04-08 18:00:00 &    31 &    28 \\
+2023-04-08 18:10:00 &    46 &    59 \\
+2023-04-08 18:20:00 &    85 &    81 \\
+2023-04-08 18:30:00 &    22 &     1 \\
+2023-04-08 18:40:00 &    65 &     0 \\
+2023-04-08 18:50:00 &    26 &    46 \\
+2023-04-08 19:00:00 &     1 &    68 \\
+2023-04-08 19:10:00 &    89 &    19 \\
+2023-04-08 19:20:00 &    16 &    10 \\
+2023-04-08 19:30:00 &    32 &     1 \\
+2023-04-08 19:40:00 &     8 &    66 \\
+2023-04-08 19:50:00 &    42 &    86 \\
+2023-04-08 20:00:00 &    47 &    11 \\
+2023-04-08 20:10:00 &    38 &    19 \\
+2023-04-08 20:20:00 &    92 &     4 \\
+2023-04-08 20:30:00 &    41 &    36 \\
+2023-04-08 20:40:00 &    25 &    37 \\
+2023-04-08 20:50:00 &    98 &    93 \\
+2023-04-08 21:00:00 &    49 &     8 \\
+2023-04-08 21:10:00 &    24 &    97 \\
+2023-04-08 21:20:00 &    23 &    52 \\
+2023-04-08 21:30:00 &    12 &    43 \\
+2023-04-08 21:40:00 &    59 &    98 \\
+2023-04-08 21:50:00 &     6 &    85 \\
+2023-04-08 22:00:00 &    56 &    23 \\
+2023-04-08 22:10:00 &    35 &    80 \\
+2023-04-08 22:20:00 &    44 &    73 \\
+2023-04-08 22:30:00 &    19 &    29 \\
+2023-04-08 22:40:00 &    64 &    58 \\
+2023-04-08 22:50:00 &     7 &    86 \\
+2023-04-08 23:00:00 &    15 &    95 \\
+2023-04-08 23:10:00 &    13 &    80 \\
+2023-04-08 23:20:00 &    75 &    80 \\
+2023-04-08 23:30:00 &    86 &    13 \\
+2023-04-08 23:40:00 &    14 &     8 \\
+2023-04-08 23:50:00 &    91 &    39 \\
+2023-04-09 00:00:00 &    97 &    65 \\
+2023-04-09 00:10:00 &    65 &    24 \\
+2023-04-09 00:20:00 &    31 &    72 \\
+2023-04-09 00:30:00 &    86 &    21 \\
+2023-04-09 00:40:00 &    62 &     3 \\
+2023-04-09 00:50:00 &    85 &    25 \\
+2023-04-09 01:00:00 &    50 &    57 \\
+2023-04-09 01:10:00 &    24 &    28 \\
+2023-04-09 01:20:00 &    57 &    97 \\
+2023-04-09 01:30:00 &    62 &    86 \\
+2023-04-09 01:40:00 &    61 &    36 \\
+2023-04-09 01:50:00 &    21 &    74 \\
+2023-04-09 02:00:00 &    57 &    69 \\
+2023-04-09 02:10:00 &    57 &    17 \\
+2023-04-09 02:20:00 &    85 &    84 \\
+2023-04-09 02:30:00 &    48 &    41 \\
+2023-04-09 02:40:00 &    51 &    99 \\
+2023-04-09 02:50:00 &    41 &    40 \\
+2023-04-09 03:00:00 &    69 &    37 \\
+2023-04-09 03:10:00 &    14 &    33 \\
+2023-04-09 03:20:00 &    53 &    16 \\
+2023-04-09 03:30:00 &    59 &    36 \\
+2023-04-09 03:40:00 &    96 &    24 \\
+2023-04-09 03:50:00 &     7 &    75 \\
+2023-04-09 04:00:00 &    52 &    86 \\
+2023-04-09 04:10:00 &    59 &    85 \\
+2023-04-09 04:20:00 &     4 &    84 \\
+2023-04-09 04:30:00 &    67 &    26 \\
+2023-04-09 04:40:00 &     5 &    56 \\
+2023-04-09 04:50:00 &    95 &    30 \\
+2023-04-09 05:00:00 &    93 &     5 \\
+2023-04-09 05:10:00 &    46 &    90 \\
+2023-04-09 05:20:00 &    98 &    39 \\
+2023-04-09 05:30:00 &    54 &    97 \\
+2023-04-09 05:40:00 &    39 &    11 \\
+2023-04-09 05:50:00 &    51 &    52 \\
+2023-04-09 06:00:00 &    15 &    70 \\
+2023-04-09 06:10:00 &    12 &     9 \\
+2023-04-09 06:20:00 &    29 &    44 \\
+2023-04-09 06:30:00 &    18 &    16 \\
+2023-04-09 06:40:00 &    16 &    25 \\
+2023-04-09 06:50:00 &    62 &    84 \\
+2023-04-09 07:00:00 &    18 &    91 \\
+2023-04-09 07:10:00 &    91 &    61 \\
+2023-04-09 07:20:00 &    57 &    45 \\
+2023-04-09 07:30:00 &    54 &    63 \\
+2023-04-09 07:40:00 &    89 &     1 \\
+2023-04-09 07:50:00 &    89 &    53 \\
+2023-04-09 08:00:00 &    61 &    64 \\
+2023-04-09 08:10:00 &    22 &    50 \\
+2023-04-09 08:20:00 &     8 &    52 \\
+2023-04-09 08:30:00 &    11 &    35 \\
+2023-04-09 08:40:00 &     0 &    25 \\
+2023-04-09 08:50:00 &    57 &    28 \\
+2023-04-09 09:00:00 &     0 &    20 \\
+2023-04-09 09:10:00 &    33 &    10 \\
+2023-04-09 09:20:00 &    95 &    39 \\
+2023-04-09 09:30:00 &    47 &    10 \\
+2023-04-09 09:40:00 &    88 &    35 \\
+2023-04-09 09:50:00 &     0 &    58 \\
+2023-04-09 10:00:00 &    15 &    38 \\
+2023-04-09 10:10:00 &    60 &    98 \\
+2023-04-09 10:20:00 &    63 &    53 \\
+2023-04-09 10:30:00 &    62 &    97 \\
+2023-04-09 10:40:00 &    68 &    54 \\
+2023-04-09 10:50:00 &    21 &    23 \\
+2023-04-09 11:00:00 &    92 &    21 \\
+2023-04-09 11:10:00 &    66 &    68 \\
+2023-04-09 11:20:00 &    75 &    55 \\
+2023-04-09 11:30:00 &    25 &    32 \\
+2023-04-09 11:40:00 &    15 &    35 \\
+2023-04-09 11:50:00 &    50 &    19 \\
+2023-04-09 12:00:00 &    85 &    82 \\
+2023-04-09 12:10:00 &    56 &    98 \\
+2023-04-09 12:20:00 &    28 &    80 \\
+2023-04-09 12:30:00 &    77 &    61 \\
+2023-04-09 12:40:00 &    91 &    97 \\
+2023-04-09 12:50:00 &    68 &    72 \\
+2023-04-09 13:00:00 &    46 &    25 \\
+2023-04-09 13:10:00 &    93 &    65 \\
+2023-04-09 13:20:00 &    61 &    72 \\
+2023-04-09 13:30:00 &    68 &    72 \\
+2023-04-09 13:40:00 &    75 &    39 \\
+2023-04-09 13:50:00 &    15 &    16 \\
+2023-04-09 14:00:00 &    89 &     0 \\
+2023-04-09 14:10:00 &    89 &    88 \\
+2023-04-09 14:20:00 &    47 &    60 \\
+2023-04-09 14:30:00 &    84 &    42 \\
+2023-04-09 14:40:00 &    38 &    41 \\
+2023-04-09 14:50:00 &    99 &    24 \\
+2023-04-09 15:00:00 &    32 &    38 \\
+2023-04-09 15:10:00 &    93 &    34 \\
+2023-04-09 15:20:00 &    22 &     2 \\
+2023-04-09 15:30:00 &     9 &    43 \\
+2023-04-09 15:40:00 &    68 &    50 \\
+2023-04-09 15:50:00 &    99 &    93 \\
+2023-04-09 16:00:00 &    33 &    97 \\
+2023-04-09 16:10:00 &    51 &    11 \\
+2023-04-09 16:20:00 &    94 &    18 \\
+2023-04-09 16:30:00 &     9 &    43 \\
+2023-04-09 16:40:00 &    18 &    58 \\
+2023-04-09 16:50:00 &    57 &    48 \\
+2023-04-09 17:00:00 &    95 &    60 \\
+2023-04-09 17:10:00 &     0 &    16 \\
+2023-04-09 17:20:00 &    68 &    73 \\
+2023-04-09 17:30:00 &     3 &    56 \\
+2023-04-09 17:40:00 &    15 &    54 \\
+2023-04-09 17:50:00 &    23 &    46 \\
+2023-04-09 18:00:00 &    79 &    11 \\
+2023-04-09 18:10:00 &     1 &    61 \\
+2023-04-09 18:20:00 &    91 &    79 \\
+2023-04-09 18:30:00 &    31 &    87 \\
+2023-04-09 18:40:00 &    90 &    82 \\
+2023-04-09 18:50:00 &    83 &     7 \\
+2023-04-09 19:00:00 &    23 &    94 \\
+2023-04-09 19:10:00 &    11 &    20 \\
+2023-04-09 19:20:00 &    49 &    80 \\
+2023-04-09 19:30:00 &    34 &    86 \\
+2023-04-09 19:40:00 &    32 &    79 \\
+2023-04-09 19:50:00 &    32 &    69 \\
+2023-04-09 20:00:00 &    60 &    71 \\
+2023-04-09 20:10:00 &    50 &    24 \\
+2023-04-09 20:20:00 &    42 &    81 \\
+2023-04-09 20:30:00 &    11 &    88 \\
+2023-04-09 20:40:00 &    66 &    11 \\
+2023-04-09 20:50:00 &    64 &    14 \\
+2023-04-09 21:00:00 &    32 &    58 \\
+2023-04-09 21:10:00 &    39 &    25 \\
+2023-04-09 21:20:00 &    73 &    25 \\
+2023-04-09 21:30:00 &    42 &    46 \\
+2023-04-09 21:40:00 &    43 &    31 \\
+2023-04-09 21:50:00 &    28 &     9 \\
+2023-04-09 22:00:00 &    12 &    15 \\
+2023-04-09 22:10:00 &    11 &    70 \\
+2023-04-09 22:20:00 &    94 &    16 \\
+2023-04-09 22:30:00 &    45 &    22 \\
+2023-04-09 22:40:00 &     1 &    25 \\
+2023-04-09 22:50:00 &    34 &    84 \\
+2023-04-09 23:00:00 &    86 &    85 \\
+2023-04-09 23:10:00 &    80 &     6 \\
+2023-04-09 23:20:00 &    89 &    13 \\
+2023-04-09 23:30:00 &     7 &    78 \\
+2023-04-09 23:40:00 &    92 &     6 \\
+2023-04-09 23:50:00 &    25 &     8 \\
+2023-04-10 00:00:00 &    73 &    47 \\
+2023-04-10 00:10:00 &    89 &    71 \\
+2023-04-10 00:20:00 &    33 &    58 \\
+2023-04-10 00:30:00 &     6 &    86 \\
+2023-04-10 00:40:00 &    67 &    92 \\
+2023-04-10 00:50:00 &    57 &    81 \\
+2023-04-10 01:00:00 &    74 &    94 \\
+2023-04-10 01:10:00 &    28 &    93 \\
+2023-04-10 01:20:00 &    35 &    38 \\
+2023-04-10 01:30:00 &    88 &    98 \\
+2023-04-10 01:40:00 &    20 &    17 \\
+2023-04-10 01:50:00 &    35 &    58 \\
+2023-04-10 02:00:00 &     9 &    16 \\
+2023-04-10 02:10:00 &    72 &    13 \\
+2023-04-10 02:20:00 &    23 &    30 \\
+2023-04-10 02:30:00 &    63 &    23 \\
+2023-04-10 02:40:00 &    98 &    98 \\
+2023-04-10 02:50:00 &    48 &    59 \\
+2023-04-10 03:00:00 &    98 &    44 \\
+2023-04-10 03:10:00 &    35 &    97 \\
+2023-04-10 03:20:00 &    81 &     2 \\
+2023-04-10 03:30:00 &    95 &    36 \\
+2023-04-10 03:40:00 &    23 &    42 \\
+2023-04-10 03:50:00 &    22 &    39 \\
+2023-04-10 04:00:00 &    61 &    89 \\
+2023-04-10 04:10:00 &    95 &    54 \\
+2023-04-10 04:20:00 &    36 &    86 \\
+2023-04-10 04:30:00 &    11 &    38 \\
+2023-04-10 04:40:00 &    54 &    14 \\
+2023-04-10 04:50:00 &    12 &     3 \\
+2023-04-10 05:00:00 &    22 &    92 \\
+2023-04-10 05:10:00 &    88 &    85 \\
+2023-04-10 05:20:00 &    98 &    24 \\
+2023-04-10 05:30:00 &    29 &    12 \\
+2023-04-10 05:40:00 &    16 &    81 \\
+2023-04-10 05:50:00 &    61 &    32 \\
+2023-04-10 06:00:00 &    83 &    15 \\
+2023-04-10 06:10:00 &    88 &    41 \\
+2023-04-10 06:20:00 &    85 &    65 \\
+2023-04-10 06:30:00 &    12 &    54 \\
+2023-04-10 06:40:00 &    58 &    98 \\
+2023-04-10 06:50:00 &    18 &    41 \\
+2023-04-10 07:00:00 &    48 &    33 \\
+2023-04-10 07:10:00 &    99 &    29 \\
+2023-04-10 07:20:00 &    11 &    12 \\
+2023-04-10 07:30:00 &    60 &    12 \\
+2023-04-10 07:40:00 &    18 &    17 \\
+2023-04-10 07:50:00 &    75 &    31 \\
+2023-04-10 08:00:00 &     8 &    95 \\
+2023-04-10 08:10:00 &    70 &    98 \\
+2023-04-10 08:20:00 &    27 &    38 \\
+2023-04-10 08:30:00 &    77 &    45 \\
+2023-04-10 08:40:00 &    94 &    28 \\
+2023-04-10 08:50:00 &    51 &    61 \\
+2023-04-10 09:00:00 &    82 &    92 \\
+2023-04-10 09:10:00 &    15 &    61 \\
+2023-04-10 09:20:00 &    68 &    56 \\
+2023-04-10 09:30:00 &    98 &    15 \\
+2023-04-10 09:40:00 &    11 &    55 \\
+2023-04-10 09:50:00 &    24 &     9 \\
+2023-04-10 10:00:00 &    51 &    29 \\
+2023-04-10 10:10:00 &    84 &    24 \\
+2023-04-10 10:20:00 &    99 &    83 \\
+2023-04-10 10:30:00 &    52 &     4 \\
+2023-04-10 10:40:00 &    22 &    64 \\
+2023-04-10 10:50:00 &    15 &    93 \\
+2023-04-10 11:00:00 &    56 &    48 \\
+2023-04-10 11:10:00 &    38 &     2 \\
+2023-04-10 11:20:00 &    52 &    44 \\
+2023-04-10 11:30:00 &    41 &    13 \\
+2023-04-10 11:40:00 &    57 &    29 \\
+2023-04-10 11:50:00 &    38 &    67 \\
+2023-04-10 12:00:00 &    13 &    17 \\
+2023-04-10 12:10:00 &    94 &    61 \\
+2023-04-10 12:20:00 &     4 &    36 \\
+2023-04-10 12:30:00 &    34 &    24 \\
+2023-04-10 12:40:00 &    86 &    47 \\
+2023-04-10 12:50:00 &    92 &    64 \\
+2023-04-10 13:00:00 &    74 &    52 \\
+2023-04-10 13:10:00 &    17 &    78 \\
+2023-04-10 13:20:00 &    75 &    72 \\
+2023-04-10 13:30:00 &     8 &    14 \\
+2023-04-10 13:40:00 &    73 &    48 \\
+2023-04-10 13:50:00 &    57 &    87 \\
+2023-04-10 14:00:00 &    16 &    67 \\
+2023-04-10 14:10:00 &     6 &    11 \\
+2023-04-10 14:20:00 &    45 &    58 \\
+2023-04-10 14:30:00 &    12 &    36 \\
+2023-04-10 14:40:00 &    39 &    60 \\
+2023-04-10 14:50:00 &    41 &    42 \\
+2023-04-10 15:00:00 &     8 &    69 \\
+2023-04-10 15:10:00 &    49 &    38 \\
+2023-04-10 15:20:00 &    26 &    55 \\
+2023-04-10 15:30:00 &    65 &    62 \\
+2023-04-10 15:40:00 &     4 &    45 \\
+2023-04-10 15:50:00 &    28 &    87 \\
+2023-04-10 16:00:00 &    36 &    10 \\
+2023-04-10 16:10:00 &    37 &    61 \\
+2023-04-10 16:20:00 &    82 &    76 \\
+2023-04-10 16:30:00 &     7 &    97 \\
+2023-04-10 16:40:00 &    64 &    24 \\
+2023-04-10 16:50:00 &    85 &    70 \\
+2023-04-10 17:00:00 &    16 &    51 \\
+2023-04-10 17:10:00 &    70 &     3 \\
+2023-04-10 17:20:00 &    88 &    58 \\
+2023-04-10 17:30:00 &    44 &    71 \\
+2023-04-10 17:40:00 &     3 &    19 \\
+2023-04-10 17:50:00 &    35 &    92 \\
+2023-04-10 18:00:00 &    69 &    62 \\
+2023-04-10 18:10:00 &    30 &    53 \\
+2023-04-10 18:20:00 &    18 &    73 \\
+2023-04-10 18:30:00 &    60 &    97 \\
+2023-04-10 18:40:00 &    53 &    56 \\
+2023-04-10 18:50:00 &    38 &    89 \\
+2023-04-10 19:00:00 &    90 &    40 \\
+2023-04-10 19:10:00 &    73 &     2 \\
+2023-04-10 19:20:00 &    89 &     5 \\
+2023-04-10 19:30:00 &    18 &     4 \\
+2023-04-10 19:40:00 &    38 &     4 \\
+2023-04-10 19:50:00 &    66 &    53 \\
+2023-04-10 20:00:00 &    44 &    46 \\
+2023-04-10 20:10:00 &    12 &    86 \\
+2023-04-10 20:20:00 &    91 &    48 \\
+2023-04-10 20:30:00 &    57 &     8 \\
+2023-04-10 20:40:00 &    19 &    98 \\
+2023-04-10 20:50:00 &    91 &    19 \\
+2023-04-10 21:00:00 &    71 &    60 \\
+2023-04-10 21:10:00 &    60 &    34 \\
+2023-04-10 21:20:00 &    38 &    49 \\
+2023-04-10 21:30:00 &     0 &    81 \\
+2023-04-10 21:40:00 &     2 &    61 \\
+2023-04-10 21:50:00 &    76 &    16 \\
+2023-04-10 22:00:00 &    91 &    87 \\
+2023-04-10 22:10:00 &    61 &     2 \\
+2023-04-10 22:20:00 &    62 &    31 \\
+2023-04-10 22:30:00 &    24 &    98 \\
+2023-04-10 22:40:00 &    55 &    12 \\
+2023-04-10 22:50:00 &    32 &    88 \\
+2023-04-10 23:00:00 &    37 &    72 \\
+2023-04-10 23:10:00 &     5 &    67 \\
+2023-04-10 23:20:00 &    57 &    13 \\
+2023-04-10 23:30:00 &    43 &    97 \\
+2023-04-10 23:40:00 &    44 &    10 \\
+2023-04-10 23:50:00 &    31 &    55 \\
+2023-04-11 00:00:00 &    44 &    66 \\
+2023-04-11 00:10:00 &    60 &    91 \\
+2023-04-11 00:20:00 &    46 &    28 \\
+2023-04-11 00:30:00 &    20 &     8 \\
+2023-04-11 00:40:00 &    79 &    66 \\
+2023-04-11 00:50:00 &    84 &    24 \\
+2023-04-11 01:00:00 &    74 &    97 \\
+2023-04-11 01:10:00 &    35 &    75 \\
+2023-04-11 01:20:00 &    98 &    41 \\
+2023-04-11 01:30:00 &    18 &     8 \\
+2023-04-11 01:40:00 &    19 &    78 \\
+2023-04-11 01:50:00 &    56 &    39 \\
+2023-04-11 02:00:00 &    17 &    24 \\
+2023-04-11 02:10:00 &    46 &     4 \\
+2023-04-11 02:20:00 &    48 &    10 \\
+2023-04-11 02:30:00 &    13 &    58 \\
+2023-04-11 02:40:00 &    14 &    97 \\
+2023-04-11 02:50:00 &    30 &    87 \\
+2023-04-11 03:00:00 &     0 &    78 \\
+2023-04-11 03:10:00 &    53 &    37 \\
+2023-04-11 03:20:00 &     2 &    71 \\
+2023-04-11 03:30:00 &    15 &     4 \\
+2023-04-11 03:40:00 &    86 &    47 \\
+2023-04-11 03:50:00 &    56 &    89 \\
+2023-04-11 04:00:00 &    74 &    17 \\
+2023-04-11 04:10:00 &    11 &    69 \\
+2023-04-11 04:20:00 &    73 &    36 \\
+2023-04-11 04:30:00 &    95 &    59 \\
+2023-04-11 04:40:00 &    15 &    47 \\
+2023-04-11 04:50:00 &    71 &    76 \\
+2023-04-11 05:00:00 &    75 &    27 \\
+2023-04-11 05:10:00 &    23 &    68 \\
+2023-04-11 05:20:00 &    27 &    76 \\
+2023-04-11 05:30:00 &     7 &    80 \\
+2023-04-11 05:40:00 &    91 &    39 \\
+2023-04-11 05:50:00 &    35 &    44 \\
+2023-04-11 06:00:00 &    89 &    95 \\
+2023-04-11 06:10:00 &     7 &    61 \\
+2023-04-11 06:20:00 &    57 &    92 \\
+2023-04-11 06:30:00 &    59 &    57 \\
+2023-04-11 06:40:00 &    49 &    66 \\
+2023-04-11 06:50:00 &    27 &    55 \\
+2023-04-11 07:00:00 &    91 &    39 \\
+2023-04-11 07:10:00 &    40 &    97 \\
+2023-04-11 07:20:00 &    99 &    39 \\
+2023-04-11 07:30:00 &    63 &    90 \\
+2023-04-11 07:40:00 &    26 &    76 \\
+2023-04-11 07:50:00 &    62 &    32 \\
+2023-04-11 08:00:00 &    16 &     5 \\
+2023-04-11 08:10:00 &    72 &    87 \\
+2023-04-11 08:20:00 &    32 &    18 \\
+2023-04-11 08:30:00 &    83 &    79 \\
+2023-04-11 08:40:00 &    76 &    39 \\
+2023-04-11 08:50:00 &    91 &    91 \\
+2023-04-11 09:00:00 &    28 &    96 \\
+2023-04-11 09:10:00 &    12 &    58 \\
+2023-04-11 09:20:00 &    45 &    58 \\
+2023-04-11 09:30:00 &    34 &    47 \\
+2023-04-11 09:40:00 &     5 &    40 \\
+2023-04-11 09:50:00 &    81 &    12 \\
+2023-04-11 10:00:00 &    68 &    44 \\
+2023-04-11 10:10:00 &    46 &    88 \\
+2023-04-11 10:20:00 &    24 &    52 \\
+2023-04-11 10:30:00 &    65 &    41 \\
+2023-04-11 10:40:00 &     9 &    99 \\
+2023-04-11 10:50:00 &    55 &    62 \\
+2023-04-11 11:00:00 &    29 &    26 \\
+2023-04-11 11:10:00 &     4 &    37 \\
+2023-04-11 11:20:00 &    32 &    59 \\
+2023-04-11 11:30:00 &    64 &     6 \\
+2023-04-11 11:40:00 &    17 &     4 \\
+2023-04-11 11:50:00 &    95 &    44 \\
+2023-04-11 12:00:00 &    48 &    57 \\
+2023-04-11 12:10:00 &    10 &    30 \\
+2023-04-11 12:20:00 &    84 &    22 \\
+2023-04-11 12:30:00 &    25 &    41 \\
+2023-04-11 12:40:00 &    62 &     9 \\
+2023-04-11 12:50:00 &    88 &    31 \\
+2023-04-11 13:00:00 &    85 &    52 \\
+2023-04-11 13:10:00 &    58 &    29 \\
+2023-04-11 13:20:00 &    26 &    38 \\
+2023-04-11 13:30:00 &    48 &    30 \\
+2023-04-11 13:40:00 &    76 &    81 \\
+2023-04-11 13:50:00 &    32 &    99 \\
+2023-04-11 14:00:00 &    97 &     1 \\
+2023-04-11 14:10:00 &    98 &    77 \\
+2023-04-11 14:20:00 &     0 &    76 \\
+2023-04-11 14:30:00 &    20 &    92 \\
+2023-04-11 14:40:00 &    54 &    11 \\
+2023-04-11 14:50:00 &     5 &    38 \\
+2023-04-11 15:00:00 &    91 &    65 \\
+2023-04-11 15:10:00 &    80 &    95 \\
+2023-04-11 15:20:00 &    68 &    12 \\
+2023-04-11 15:30:00 &    94 &    45 \\
+2023-04-11 15:40:00 &     4 &    26 \\
+2023-04-11 15:50:00 &     2 &    16 \\
+2023-04-11 16:00:00 &    52 &    94 \\
+2023-04-11 16:10:00 &    22 &    97 \\
+2023-04-11 16:20:00 &    52 &    59 \\
+2023-04-11 16:30:00 &    36 &    63 \\
+2023-04-11 16:40:00 &    73 &    87 \\
+2023-04-11 16:50:00 &    73 &    34 \\
+2023-04-11 17:00:00 &    82 &    69 \\
+2023-04-11 17:10:00 &    16 &    82 \\
+2023-04-11 17:20:00 &    84 &    29 \\
+2023-04-11 17:30:00 &    77 &    70 \\
+2023-04-11 17:40:00 &    72 &    73 \\
+2023-04-11 17:50:00 &     0 &    95 \\
+2023-04-11 18:00:00 &    50 &    97 \\
+2023-04-11 18:10:00 &    44 &    62 \\
+2023-04-11 18:20:00 &    76 &    27 \\
+2023-04-11 18:30:00 &     3 &    59 \\
+2023-04-11 18:40:00 &    61 &    78 \\
+2023-04-11 18:50:00 &    64 &    93 \\
+2023-04-11 19:00:00 &    31 &    36 \\
+2023-04-11 19:10:00 &    33 &    92 \\
+2023-04-11 19:20:00 &    91 &    21 \\
+2023-04-11 19:30:00 &    94 &    67 \\
+2023-04-11 19:40:00 &    71 &    19 \\
+2023-04-11 19:50:00 &    38 &    95 \\
+2023-04-11 20:00:00 &    25 &    99 \\
+2023-04-11 20:10:00 &    33 &    67 \\
+2023-04-11 20:20:00 &    53 &    90 \\
+2023-04-11 20:30:00 &     2 &    63 \\
+2023-04-11 20:40:00 &    49 &    16 \\
+2023-04-11 20:50:00 &    11 &    11 \\
+2023-04-11 21:00:00 &    64 &    21 \\
+2023-04-11 21:10:00 &    53 &    16 \\
+2023-04-11 21:20:00 &     4 &     9 \\
+2023-04-11 21:30:00 &    93 &    64 \\
+2023-04-11 21:40:00 &    93 &    21 \\
+2023-04-11 21:50:00 &    56 &    89 \\
+2023-04-11 22:00:00 &    16 &    81 \\
+2023-04-11 22:10:00 &    46 &    49 \\
+2023-04-11 22:20:00 &    22 &    13 \\
+2023-04-11 22:30:00 &    78 &    63 \\
+2023-04-11 22:40:00 &    84 &    46 \\
+2023-04-11 22:50:00 &    13 &    28 \\
+2023-04-11 23:00:00 &    65 &    75 \\
+2023-04-11 23:10:00 &    74 &    35 \\
+2023-04-11 23:20:00 &    50 &    98 \\
+2023-04-11 23:30:00 &    37 &    51 \\
+2023-04-11 23:40:00 &    63 &    75 \\
+2023-04-11 23:50:00 &    97 &     6 \\
+2023-04-12 00:00:00 &    37 &    28 \\
+2023-04-12 00:10:00 &    49 &    10 \\
+2023-04-12 00:20:00 &    97 &    32 \\
+2023-04-12 00:30:00 &    81 &     5 \\
+2023-04-12 00:40:00 &    29 &    78 \\
+2023-04-12 00:50:00 &    78 &    31 \\
+2023-04-12 01:00:00 &    90 &    50 \\
+2023-04-12 01:10:00 &    50 &    74 \\
+2023-04-12 01:20:00 &    62 &    57 \\
+2023-04-12 01:30:00 &    97 &    86 \\
+2023-04-12 01:40:00 &    51 &    25 \\
+2023-04-12 01:50:00 &    37 &    97 \\
+2023-04-12 02:00:00 &    96 &    45 \\
+2023-04-12 02:10:00 &    87 &    97 \\
+2023-04-12 02:20:00 &    78 &    28 \\
+2023-04-12 02:30:00 &    29 &     3 \\
+2023-04-12 02:40:00 &    50 &    80 \\
+2023-04-12 02:50:00 &    80 &    98 \\
+2023-04-12 03:00:00 &     4 &    12 \\
+2023-04-12 03:10:00 &    28 &    38 \\
+2023-04-12 03:20:00 &     3 &    14 \\
+2023-04-12 03:30:00 &     9 &    28 \\
+2023-04-12 03:40:00 &    55 &    28 \\
+2023-04-12 03:50:00 &    16 &    74 \\
+2023-04-12 04:00:00 &    73 &    31 \\
+2023-04-12 04:10:00 &    16 &     1 \\
+2023-04-12 04:20:00 &    83 &    46 \\
+2023-04-12 04:30:00 &    87 &    77 \\
+2023-04-12 04:40:00 &    68 &    83 \\
+2023-04-12 04:50:00 &    33 &    21 \\
+2023-04-12 05:00:00 &     5 &    74 \\
+2023-04-12 05:10:00 &    52 &    26 \\
+2023-04-12 05:20:00 &    65 &    66 \\
+2023-04-12 05:30:00 &    76 &    80 \\
+2023-04-12 05:40:00 &    42 &    55 \\
+2023-04-12 05:50:00 &    74 &    91 \\
+2023-04-12 06:00:00 &    22 &    92 \\
+2023-04-12 06:10:00 &    54 &    20 \\
+2023-04-12 06:20:00 &    79 &    46 \\
+2023-04-12 06:30:00 &    94 &    79 \\
+2023-04-12 06:40:00 &    74 &    58 \\
+2023-04-12 06:50:00 &    15 &    83 \\
+2023-04-12 07:00:00 &     7 &     5 \\
+2023-04-12 07:10:00 &     3 &    18 \\
+2023-04-12 07:20:00 &     3 &    56 \\
+2023-04-12 07:30:00 &    55 &    68 \\
+2023-04-12 07:40:00 &    24 &     2 \\
+2023-04-12 07:50:00 &    66 &     0 \\
+2023-04-12 08:00:00 &    95 &    57 \\
+2023-04-12 08:10:00 &    66 &    37 \\
+2023-04-12 08:20:00 &    26 &    14 \\
+2023-04-12 08:30:00 &    92 &    33 \\
+2023-04-12 08:40:00 &    31 &    60 \\
+2023-04-12 08:50:00 &    49 &    34 \\
+2023-04-12 09:00:00 &    60 &    63 \\
+2023-04-12 09:10:00 &    50 &    24 \\
+2023-04-12 09:20:00 &    18 &    23 \\
+2023-04-12 09:30:00 &    20 &    11 \\
+2023-04-12 09:40:00 &     4 &    17 \\
+2023-04-12 09:50:00 &    81 &    14 \\
+2023-04-12 10:00:00 &    91 &    79 \\
+2023-04-12 10:10:00 &    41 &    26 \\
+2023-04-12 10:20:00 &    60 &    71 \\
+2023-04-12 10:30:00 &    21 &    59 \\
+2023-04-12 10:40:00 &    20 &    45 \\
+2023-04-12 10:50:00 &    69 &    88 \\
+2023-04-12 11:00:00 &     0 &    16 \\
+2023-04-12 11:10:00 &     4 &    92 \\
+2023-04-12 11:20:00 &    11 &    52 \\
+2023-04-12 11:30:00 &    89 &     7 \\
+2023-04-12 11:40:00 &    45 &    78 \\
+2023-04-12 11:50:00 &    33 &    26 \\
+2023-04-12 12:00:00 &    48 &    45 \\
+2023-04-12 12:10:00 &    77 &    49 \\
+2023-04-12 12:20:00 &    89 &    70 \\
+2023-04-12 12:30:00 &    44 &     2 \\
+2023-04-12 12:40:00 &    26 &    92 \\
+2023-04-12 12:50:00 &    72 &    63 \\
+2023-04-12 13:00:00 &    25 &    43 \\
+2023-04-12 13:10:00 &    46 &    52 \\
+2023-04-12 13:20:00 &    85 &    23 \\
+2023-04-12 13:30:00 &    55 &    59 \\
+2023-04-12 13:40:00 &    93 &     2 \\
+2023-04-12 13:50:00 &    62 &    19 \\
+2023-04-12 14:00:00 &    47 &    45 \\
+2023-04-12 14:10:00 &    60 &    14 \\
+2023-04-12 14:20:00 &    80 &    24 \\
+2023-04-12 14:30:00 &    25 &    93 \\
+2023-04-12 14:40:00 &    35 &    77 \\
+2023-04-12 14:50:00 &     0 &    70 \\
+2023-04-12 15:00:00 &     7 &    16 \\
+2023-04-12 15:10:00 &    98 &    83 \\
+2023-04-12 15:20:00 &    51 &    99 \\
+2023-04-12 15:30:00 &    78 &     8 \\
+2023-04-12 15:40:00 &    46 &    37 \\
+2023-04-12 15:50:00 &    55 &    47 \\
+2023-04-12 16:00:00 &    85 &    59 \\
+2023-04-12 16:10:00 &    13 &    62 \\
+2023-04-12 16:20:00 &    89 &    85 \\
+2023-04-12 16:30:00 &    27 &     1 \\
+2023-04-12 16:40:00 &    86 &    87 \\
+2023-04-12 16:50:00 &    77 &    71 \\
+2023-04-12 17:00:00 &    87 &    10 \\
+2023-04-12 17:10:00 &     1 &    63 \\
+2023-04-12 17:20:00 &    25 &    76 \\
+2023-04-12 17:30:00 &    13 &    80 \\
+2023-04-12 17:40:00 &    58 &    71 \\
+2023-04-12 17:50:00 &    55 &    20 \\
+2023-04-12 18:00:00 &     6 &    17 \\
+2023-04-12 18:10:00 &     2 &    93 \\
+2023-04-12 18:20:00 &    22 &    63 \\
+2023-04-12 18:30:00 &    17 &    81 \\
+2023-04-12 18:40:00 &    37 &    94 \\
+2023-04-12 18:50:00 &    98 &    37 \\
+2023-04-12 19:00:00 &    14 &    31 \\
+2023-04-12 19:10:00 &    63 &    10 \\
+2023-04-12 19:20:00 &    88 &    44 \\
+2023-04-12 19:30:00 &    27 &    88 \\
+2023-04-12 19:40:00 &    73 &    32 \\
+2023-04-12 19:50:00 &    38 &    40 \\
+2023-04-12 20:00:00 &    56 &     7 \\
+2023-04-12 20:10:00 &    16 &    10 \\
+2023-04-12 20:20:00 &    85 &    85 \\
+2023-04-12 20:30:00 &    89 &    50 \\
+2023-04-12 20:40:00 &    43 &    87 \\
+2023-04-12 20:50:00 &    24 &    40 \\
+2023-04-12 21:00:00 &    16 &    16 \\
+2023-04-12 21:10:00 &    12 &    75 \\
+2023-04-12 21:20:00 &    83 &    45 \\
+2023-04-12 21:30:00 &    24 &    31 \\
+2023-04-12 21:40:00 &    67 &    78 \\
+2023-04-12 21:50:00 &     9 &    79 \\
+2023-04-12 22:00:00 &    66 &    53 \\
+2023-04-12 22:10:00 &    17 &    85 \\
+2023-04-12 22:20:00 &    99 &    91 \\
+2023-04-12 22:30:00 &    85 &    19 \\
+2023-04-12 22:40:00 &    33 &    32 \\
+2023-04-12 22:50:00 &     7 &    73 \\
+2023-04-12 23:00:00 &    39 &    39 \\
+2023-04-12 23:10:00 &    82 &    31 \\
+2023-04-12 23:20:00 &    41 &    96 \\
+2023-04-12 23:30:00 &    40 &     1 \\
+2023-04-12 23:40:00 &     5 &    96 \\
+2023-04-12 23:50:00 &    51 &    32 \\
+2023-04-13 00:00:00 &    25 &    76 \\
+\bottomrule
+\end{tabular}
+
+\hypertarget{demo}{%
+\subsection{Demo}\label{demo}}
+
+\hypertarget{a-subjective-showdown-in-key-metrics}{%
+\subsection{A subjective showdown in key
+metrics}\label{a-subjective-showdown-in-key-metrics}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{learning curve}: no clear winner. Depends on starting point
+  pandas and matplotlib for most, but altair for people coming from r
+\item
+  \textbf{code simplicity} (for exploration): ++ pandas, ++ seaborn, +
+  altair, o plotly - matplotlib, - -bokeh
+\item
+  \textbf{iteration speed}: ++ pandas, ++ altair, + plotly, + seaborn, -
+  matplotlib, - - bokeh
+\item
+  \textbf{flexibility}: ++ matplotlib, ++ bokeh, + plotly, - seaborn, -
+  altair, - - pandas
+\item
+  \textbf{interactivity}: ++ bokeh, ++ plotly, ++ altair
+\item
+  \textbf{performance}: ++ matplotlib, ++ pandas, ++ seaborn, ++ bokeh,
+  + plotly (100ks or GPU), - altair (1ks)
+\item
+  \textbf{aesthetics} (out of the box): ++ seaborn, + altair, + bokeh, o
+  plotly, - pandas, - - matplotlib,\\
+\item
+  \textbf{community support \& documentation}: great for all the
+  compared libraries, matplotlib and pandas a bit stronger
+\end{itemize}
+
+\hypertarget{a-subjective-showdown-in-key-metrics-1}{%
+\subsection{A subjective showdown in key
+metrics}\label{a-subjective-showdown-in-key-metrics-1}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.4023}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1379}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0920}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.1034}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0805}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0920}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 12\tabcolsep) * \real{0.0920}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+Criteria
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Matplotlib
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pandas
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Seaborn
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bokeh
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Altair
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Plotly
+\end{minipage} \\
+\midrule()
+\endhead
+Learning Curve & 3 & 3 & 3 & 3 & 3 & 3 \\
+Code Simplicity (for exploration) & 2 & \textbf{5} & \textbf{5} & 1 & 4
+& 3 \\
+Iteration Speed & 2 & \textbf{5} & 4 & 1 & \textbf{5} & 4 \\
+Flexibility & \textbf{5} & 1 & 2 & \textbf{5} & 2 & 4 \\
+Interactivity & 1 & 1 & 1 & \textbf{5} & \textbf{5} & \textbf{5} \\
+Performance & \textbf{5} & \textbf{5} & \textbf{5} & \textbf{5} & 2 &
+4 \\
+Aesthetics (out of the box) & 1 & 2 & \textbf{5} & 4 & 4 & 3 \\
+Community Support \& Documentation & \textbf{5} & 4 & 3 & 3 & 3 & 3 \\
+----------------------------------- & ------------ & -------- &
+--------- & ------- & -------- & -------- \\
+Sum & 23 & 26 & \textbf{28} & 27 & 28 & \textbf{29} \\
+\bottomrule()
+\end{longtable}
+
+\hypertarget{where-to-start}{%
+\subsection{Where to start?}\label{where-to-start}}
+
+\begin{itemize}
+\tightlist
+\item
+  potential learning steps:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{pandas} for quick \& simple exploration (flexibility won't
+    be needed in the beginning)
+
+    \begin{itemize}
+    \tightlist
+    \item
+      \emph{tip 1}: utilize seaborn themes,
+      e.g.~sns.set\_theme(style=``darkgrid'')
+    \item
+      \emph{tip 2}: make pandas plots interactive with plotly,
+      e.g.~df.plot(backend=``plotly'')
+    \end{itemize}
+  \item
+    make it nicer quick with \textbf{seaborn}
+  \item
+    learn \textbf{matplotlib} for more control when needed\\
+  \end{itemize}
+\item
+  going further and interactive: \textbf{plotly} and or \textbf{altair}
+\end{itemize}
+
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
+
+
+
+\end{document}

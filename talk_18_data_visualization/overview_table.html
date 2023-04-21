@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-family: Arial, sans-serif;
+      font-size: 30px;
+    }
+    th, td {
+      border: 1px solid #ffffff;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #ffffff;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #f1eee3;
+    }
+  </style>
+</head>
+<body>
+  <table>
+    <tr>
+      <th>Matplotlib</th>
+      <th>Pandas plotting</th>
+      <th>Seaborn</th>
+    </tr>
+    <tr>
+      <td>
+        - low-level syntax, can get verbose<br>
+        - huge community<br>
+        - limited interactivity<br>
+        - for simple plots and quick exploration
+      </td>
+      <td>
+        - wrapper around matplotlib<br>
+        - high-level syntax<br>
+        - very quick plotting of series and dataframes<br>
+        - interactivity possible via plotly backend (or with additional altair backend)
+      </td>
+      <td>
+        - high-level syntax<br>
+        - large community<br>
+        - limited interactivity<br>
+        - for fast, presentable plots and statistical visualization
+      </td>
+    </tr>
+    <tr>
+      <th>Bokeh</th>
+      <th>Altair</th>
+      <th>Plotly</th>
+    </tr>
+    <tr>
+      <td>
+        - high- and low-level syntax<br>
+        - medium community<br>
+        - highly interactive<br>
+        - for interactive visualization of big data sets
+      </td>
+      <td>
+        - declarative high-level syntax. Follows grammar of graphics<br>
+        - interactive<br>
+        - medium community<br>
+        - for data exploration and interactive reports
+      </td>
+      <td>
+        - high- and low-level syntax<br>
+        - large community<br>
+        - highly interactive<br>
+        - for applications and dashboards
+      </td>
+    </tr>
+  </table>
+</body>
+</html>

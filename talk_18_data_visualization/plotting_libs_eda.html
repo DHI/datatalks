@@ -1,0 +1,3138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Clemens Cremer">
+
+<title>Python plotting libraries for exploratory data analysis</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="plotting_libs_eda_files/libs/clipboard/clipboard.min.js"></script>
+<script src="plotting_libs_eda_files/libs/quarto-html/quarto.js"></script>
+<script src="plotting_libs_eda_files/libs/quarto-html/popper.min.js"></script>
+<script src="plotting_libs_eda_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="plotting_libs_eda_files/libs/quarto-html/anchor.min.js"></script>
+<link href="plotting_libs_eda_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="plotting_libs_eda_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="plotting_libs_eda_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="plotting_libs_eda_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="plotting_libs_eda_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Python plotting libraries for exploratory data analysis</h1>
+<p class="subtitle lead">A comparative evaluation</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Clemens Cremer </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="section" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="section"></h2>
+<h1>
+Where do we start?
+</h1>
+</section>
+<section id="section-1" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="section-1"></h2>
+<h1>
+Where do we start?
+</h1>
+<h2 class="anchored">
+A short history of data visualization
+</h2>
+</section>
+<section id="the-early-days-of-data-visualization" class="level2" data-auto-animate="false">
+<h2 data-auto-animate="false" class="anchored" data-anchor-id="the-early-days-of-data-visualization">The early days of data visualization</h2>
+<p><img src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute img-fluid" data-bottom="0px" data-left="20" width="500"></p>
+<div class="r-stack">
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 20px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5;">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div style="position: absolute; bottom:360px; left:20px;">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+</div>
+<div class="notes">
+<p>This 17th century road strip map was created by John Ogilby as part of his 1675 Britannia Atlas. The map shows the route from London to Winchester via Staines, Reading and Basingstoke.</p>
+</div>
+</section>
+<section id="the-industrial-revolution-and-quantitative-data" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="the-industrial-revolution-and-quantitative-data">The industrial revolution and quantitative data</h2>
+<p><img src="images/Playfair_1821.png" class="absolute img-fluid" data-bottom="670" data-left="300" width="500"> <img src="images/binomial-quetelet-1846.jpg" class="absolute img-fluid" data-bottom="810" data-left="200" width="200"></p>
+<div class="r-stack">
+<div style="opacity: 0.5">
+<p><img src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute img-fluid" data-bottom="0px" data-left="20" width="500"></p>
+</div>
+<div style="position: absolute; bottom:360px; left:20px; opacity: 0.5">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 530px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div data-id="point2" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;">
+
+</div>
+<div style="position: absolute; bottom:520px; left:310px;">
+<p><b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts</p>
+</div>
+</div>
+</section>
+<section id="computer-aided-visualization" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="computer-aided-visualization">Computer aided visualization</h2>
+<p><img src="images/1970s_computer_graphics.png" class="absolute" data-bottom="0px" data-left="770" height="360"></p>
+<div class="r-stack">
+<div style="opacity: 0.5">
+<p><img src="images/binomial-quetelet-1846.jpg" class="absolute img-fluid" data-bottom="810" data-left="200" width="200"></p>
+</div>
+<div style="opacity: 0.5">
+<p><img src="images/Playfair_1821.png" class="absolute img-fluid" data-bottom="670" data-left="300" width="500"></p>
+</div>
+<div style="opacity: 0.5">
+<p><img src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute img-fluid" data-bottom="0px" data-left="20" width="500"></p>
+</div>
+<div style="position: absolute; bottom:360px; left:20px; opacity: 0.5">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 1050px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div data-id="point2" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;">
+
+</div>
+<div data-id="point3" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;">
+
+</div>
+<div style="position: absolute; bottom:520px; left:310px; opacity: 0.5">
+<p><b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts</p>
+</div>
+<div style="position: absolute; bottom:360px; left:770px;">
+<p><b>&gt;1960s</b><br> computer aided visualization</p>
+</div>
+</div>
+</section>
+<section id="the-next-dimension-and-new-golden-age" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="the-next-dimension-and-new-golden-age">The next dimension and new golden age?</h2>
+<p><img src="images/excel-for-windows-3.0-charts-and-graphs.png" class="absolute" data-bottom="670" data-left="1400" height="300"></p>
+<div class="r-stack">
+<div style="opacity: 0.5">
+<p><img src="images/1970s_computer_graphics.png" class="absolute" data-bottom="0px" data-left="770" height="360"></p>
+</div>
+<div style="opacity: 0.5">
+<p><img src="images/binomial-quetelet-1846.jpg" class="absolute img-fluid" data-bottom="810" data-left="200" width="200"></p>
+</div>
+<div style="opacity: 0.5">
+<p><img src="images/Playfair_1821.png" class="absolute img-fluid" data-bottom="670" data-left="300" width="500"></p>
+</div>
+<div style="opacity: 0.5">
+<p><img src="images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png" class="absolute img-fluid" data-bottom="0px" data-left="20" width="500"></p>
+</div>
+<div style="position: absolute; bottom:360px; left:20px; opacity: 0.5">
+<p><b>&lt; 17th century</b><br> maps</p>
+</div>
+<div data-id="timeline" data-auto-animate-delay="0" style="background: #51626F; width: 1800px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5">
+
+</div>
+<div data-id="point1" data-auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;">
+
+</div>
+<div data-id="point2" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;">
+
+</div>
+<div data-id="point3" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;">
+
+</div>
+<div data-id="point4" data-auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1560px;">
+
+</div>
+<div style="position: absolute; bottom:520px; left:310px; opacity: 0.5">
+<p><b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts</p>
+</div>
+<div style="position: absolute; bottom:360px; left:770px; opacity: 0.5">
+<p><b>&gt;1960s</b><br> computer aided visualization</p>
+</div>
+<div style="position: absolute; bottom:520px; left:1400px">
+<p><b>&gt;1980s</b><br> high dimension<br>dynamic visualizations</p>
+</div>
+</div>
+</section>
+<section id="where-are-we-now" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="where-are-we-now">Where are we now?</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>🚀 more data than ever before</li>
+<li>🛠️ more tools than ever before</li>
+<li>😊 greater ease of access than ever before</li>
+<li>🤯 this is not unambiguously a good thing <img src="images/perception_pie_charts.jpg" class="absolute img-fluid" data-bottom="300" data-left="1000" width="1000"></li>
+<li>🔧 <strong>picking the right tool(s) is important</strong>
+<ul class="incremental">
+<li>choice of tool not choice of chart is discussed here</li>
+</ul></li>
+</ul>
+</div>
+<div class="notes">
+<p>In the pre-computer visualization era you would think long and hard about your visualization. It was a specialists job. Now you can just throw a bunch of data at a computer and it will spit out a visualization. But that does not mean that the visualization is good. In fact, it is often the opposite. - With great power comes great responsibility</p>
+</div>
+</section>
+<section id="the-for-the-right-tool" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="the-for-the-right-tool">The 🔍 for the right tool</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="incremental">
+<ul class="incremental">
+<li>MATLAB: Unified plotting framework ✅</li>
+<li>R: R Graphics, ggplot2, … ✅</li>
+<li>Python: huge choice 🤯</li>
+</ul>
+</div>
+</div><div class="column fragment incremental" style="width:50%;">
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> wordcloud <span class="im">import</span> WordCloud, random_color_func</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List of library names</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>libraries <span class="op">=</span> [</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Matplotlib"</span>, <span class="st">"Pandas"</span>, <span class="st">"Seaborn"</span>, <span class="st">"Altair"</span>, <span class="st">"Bokeh"</span>, <span class="st">"Plotly"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ggplot"</span>, <span class="st">"Holoviews"</span>, <span class="st">"Geoplotlib"</span>, <span class="st">"Pygal"</span>, <span class="st">"pygwalker"</span>, <span class="st">"shiny"</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Join the library names into a single string</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">' '</span>.join(libraries)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom color function</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> custom_color_func(<span class="op">*</span>args, <span class="op">**</span>kwargs):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> random_color_func(<span class="op">*</span>args, <span class="op">**</span>kwargs)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate the word cloud</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>wordcloud <span class="op">=</span> WordCloud(</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">400</span>, background_color<span class="op">=</span><span class="st">'white'</span>, color_func<span class="op">=</span>custom_color_func</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>).generate(text)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the word cloud</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.imshow(wordcloud, interpolation<span class="op">=</span><span class="st">'bilinear'</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">'off'</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="plotting_libs_eda_files/figure-html/cell-2-output-1.png" width="758" height="389"></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="low-level-plotting-with-matplotlib" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="low-level-plotting-with-matplotlib">Low level plotting with matplotlib</h2>
+<ul>
+<li>grandfather of python plotting libraries</li>
+<li>based on Matlab to “lure away” Matlab users</li>
+<li>access to everything but might become verbose</li>
+</ul>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>plt.xkcd()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">2002</span>, <span class="dv">2019</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>established_years <span class="op">=</span> {</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'matplotlib'</span>: <span class="dv">2003</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pandas'</span>: <span class="dv">2008</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'seaborn'</span>: <span class="dv">2012</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'plotly'</span>: <span class="dv">2012</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'bokeh'</span>: <span class="dv">2013</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'altair'</span>: <span class="dv">2016</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">23</span>, <span class="dv">5</span>))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>ax.plot(years, [<span class="dv">0</span>] <span class="op">*</span> <span class="bu">len</span>(years), linestyle<span class="op">=</span><span class="st">'-'</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>ax.scatter(established_years.values(), [<span class="dv">0</span>] <span class="op">*</span> <span class="bu">len</span>(established_years), s<span class="op">=</span><span class="dv">200</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate with offset for Plotly</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>offsets <span class="op">=</span> {<span class="st">'plotly'</span>: (<span class="dv">0</span>, <span class="fl">0.1</span>)}</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lib, year <span class="kw">in</span> established_years.items():</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    dx, dy <span class="op">=</span> offsets.get(lib, (<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    ax.text(year <span class="op">+</span> dx, <span class="fl">0.1</span> <span class="op">+</span> dy, lib, fontsize<span class="op">=</span><span class="dv">20</span>, rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'left'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>ax.set_yticks([])</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(years)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(years, fontsize<span class="op">=</span><span class="dv">20</span>, rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="plotting_libs_eda_files/figure-html/cell-3-output-377.png" width="1730" height="470"></p>
+</div>
+</div>
+</section>
+<section id="high-and-mixed-level-libraries" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="high-and-mixed-level-libraries">High and mixed level libraries</h2>
+<ul>
+<li><strong>pandas</strong>: built into DataFrame &amp; Series objects, based on Matplotlib</li>
+<li><strong>seaborn</strong>: extends Matplotlib with improved styling, statistics focused</li>
+<li><strong>plotly</strong>: interactive and responsive visualizations with a high-level API, suitable for web applications and dashboards, supporting various chart types</li>
+<li><strong>bokeh</strong>: interactive and scalable visualizations with a powerful API; suitable for web applications and dashboards</li>
+<li><strong>altair</strong>: interactive plots. Declarative, following grammar of graphics*.</li>
+</ul>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb379"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb379-1"><a href="#cb379-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb379-2"><a href="#cb379-2" aria-hidden="true" tabindex="-1"></a>plt.xkcd()</span>
+<span id="cb379-3"><a href="#cb379-3" aria-hidden="true" tabindex="-1"></a>years <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">2002</span>, <span class="dv">2019</span>))</span>
+<span id="cb379-4"><a href="#cb379-4" aria-hidden="true" tabindex="-1"></a>established_years <span class="op">=</span> {</span>
+<span id="cb379-5"><a href="#cb379-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">'matplotlib'</span>: <span class="dv">2003</span>,</span>
+<span id="cb379-6"><a href="#cb379-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'pandas'</span>: <span class="dv">2008</span>,</span>
+<span id="cb379-7"><a href="#cb379-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'seaborn'</span>: <span class="dv">2012</span>,</span>
+<span id="cb379-8"><a href="#cb379-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'plotly'</span>: <span class="dv">2012</span>,</span>
+<span id="cb379-9"><a href="#cb379-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">'bokeh'</span>: <span class="dv">2013</span>,</span>
+<span id="cb379-10"><a href="#cb379-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">'altair'</span>: <span class="dv">2016</span></span>
+<span id="cb379-11"><a href="#cb379-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb379-12"><a href="#cb379-12" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">23</span>, <span class="dv">5</span>))</span>
+<span id="cb379-13"><a href="#cb379-13" aria-hidden="true" tabindex="-1"></a>ax.plot(years, [<span class="dv">0</span>] <span class="op">*</span> <span class="bu">len</span>(years), linestyle<span class="op">=</span><span class="st">'-'</span>, color<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb379-14"><a href="#cb379-14" aria-hidden="true" tabindex="-1"></a>ax.scatter(established_years.values(), [<span class="dv">0</span>] <span class="op">*</span> <span class="bu">len</span>(established_years), s<span class="op">=</span><span class="dv">200</span>, color<span class="op">=</span><span class="st">'red'</span>)</span>
+<span id="cb379-15"><a href="#cb379-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotate with offset for Plotly</span></span>
+<span id="cb379-16"><a href="#cb379-16" aria-hidden="true" tabindex="-1"></a>offsets <span class="op">=</span> {<span class="st">'plotly'</span>: (<span class="dv">0</span>, <span class="fl">0.1</span>)}</span>
+<span id="cb379-17"><a href="#cb379-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lib, year <span class="kw">in</span> established_years.items():</span>
+<span id="cb379-18"><a href="#cb379-18" aria-hidden="true" tabindex="-1"></a>    dx, dy <span class="op">=</span> offsets.get(lib, (<span class="dv">0</span>, <span class="dv">0</span>))</span>
+<span id="cb379-19"><a href="#cb379-19" aria-hidden="true" tabindex="-1"></a>    ax.text(year <span class="op">+</span> dx, <span class="fl">0.1</span> <span class="op">+</span> dy, lib, fontsize<span class="op">=</span><span class="dv">20</span>, rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'left'</span>, va<span class="op">=</span><span class="st">'bottom'</span>)</span>
+<span id="cb379-20"><a href="#cb379-20" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="fl">0.0</span>, <span class="fl">0.5</span>)</span>
+<span id="cb379-21"><a href="#cb379-21" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb379-22"><a href="#cb379-22" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb379-23"><a href="#cb379-23" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'bottom'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb379-24"><a href="#cb379-24" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'left'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb379-25"><a href="#cb379-25" aria-hidden="true" tabindex="-1"></a>ax.set_yticks([])</span>
+<span id="cb379-26"><a href="#cb379-26" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(years)</span>
+<span id="cb379-27"><a href="#cb379-27" aria-hidden="true" tabindex="-1"></a>ax.set_xticklabels(years, fontsize<span class="op">=</span><span class="dv">20</span>, rotation<span class="op">=</span><span class="dv">45</span>, ha<span class="op">=</span><span class="st">'right'</span>, va<span class="op">=</span><span class="st">'top'</span>)</span>
+<span id="cb379-28"><a href="#cb379-28" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'xkcd Script' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Humor Sans' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>findfont: Font family 'Comic Neue' not found.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="plotting_libs_eda_files/figure-html/cell-4-output-377.png" width="1730" height="470"></p>
+</div>
+</div>
+<div class="{footer}">
+<p>*grammar of graphics: vizualization as series of independent components, such as data, scales, axes, and geometries</p>
+</div>
+</section>
+<section id="how-to-find-the-right-data-viz-tool-introducing-some-metrics" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="how-to-find-the-right-data-viz-tool-introducing-some-metrics">How to find the “right” data-viz tool: introducing some metrics</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>learning curve</strong></li>
+<li><strong>code simplicity</strong></li>
+<li><strong>iteration speed</strong></li>
+<li><strong>flexibility</strong></li>
+<li><strong>interactivity</strong></li>
+<li><strong>performance</strong></li>
+<li><strong>aesthetics</strong></li>
+<li><strong>community support &amp; documentation</strong></li>
+</ul>
+</div>
+</section>
+<section id="a-selected-list-of-contenders-in-python" class="level2" data-auto-animate="false">
+<h2 data-auto-animate="false" class="anchored" data-anchor-id="a-selected-list-of-contenders-in-python">A selected list of contenders in python</h2>
+<table class="table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="https://matplotlib.org/stable/_static/logo2_compressed.svg" class="img-fluid" alt="matplotlib"></th>
+<th style="text-align: center;"><img src="https://pandas.pydata.org/docs/_static/pandas.svg" class="img-fluid" alt="pandas"></th>
+<th style="text-align: center;"><img src="https://seaborn.pydata.org/_static/logo-wide-lightbg.svg" class="img-fluid" alt="seaborn"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="https://static.bokeh.org/branding/logos/bokeh-logo.svg" class="img-fluid" alt="bokeh"></td>
+<td style="text-align: center;"><img src="https://altair-viz.github.io/_static/altair-logo-light.png" class="img-fluid" alt="altair"></td>
+<td style="text-align: center;"><img src="https://images.plot.ly/logo/new-branding/plotly-logomark.png" class="img-fluid" alt="plotly"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="a-brief-practical-comparison-dataset-and-evaluation" class="level2" data-auto-animate="false">
+<h2 data-auto-animate="false" class="anchored" data-anchor-id="a-brief-practical-comparison-dataset-and-evaluation">A brief practical comparison: Dataset and evaluation</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>using artificial “time series” data</li>
+<li>datetime index
+<ul>
+<li>2023-04-06 - 2023-04-13</li>
+<li>10 min intervals</li>
+</ul></li>
+<li><strong>minimal plot</strong> with components
+<ul>
+<li>labels,</li>
+<li>legend (if more than one class)</li>
+</ul></li>
+<li>on <strong>most common plot types</strong>
+<ul>
+<li>line,</li>
+<li>scatter,</li>
+<li>bar / histogram</li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb756"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb756-1"><a href="#cb756-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sample dataframe</span></span>
+<span id="cb756-2"><a href="#cb756-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb756-3"><a href="#cb756-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb756-4"><a href="#cb756-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb756-5"><a href="#cb756-5" aria-hidden="true" tabindex="-1"></a>date_rng <span class="op">=</span> pd.date_range(start<span class="op">=</span><span class="st">'4/06/2023'</span>, end<span class="op">=</span><span class="st">'4/13/2023'</span>, freq<span class="op">=</span><span class="st">'10T'</span>)</span>
+<span id="cb756-6"><a href="#cb756-6" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame(date_rng, columns<span class="op">=</span>[<span class="st">'date'</span>])</span>
+<span id="cb756-7"><a href="#cb756-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'wl a'</span>] <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">100</span>, size<span class="op">=</span>(<span class="bu">len</span>(date_rng)))</span>
+<span id="cb756-8"><a href="#cb756-8" aria-hidden="true" tabindex="-1"></a>df[<span class="st">'wl b'</span>] <span class="op">=</span> np.random.randint(<span class="dv">0</span>, <span class="dv">100</span>, size<span class="op">=</span>(<span class="bu">len</span>(date_rng)))</span>
+<span id="cb756-9"><a href="#cb756-9" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.set_index(<span class="st">'date'</span>)</span>
+<span id="cb756-10"><a href="#cb756-10" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>wl a</th>
+      <th>wl b</th>
+    </tr>
+    <tr>
+      <th>date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-04-06 00:00:00</th>
+      <td>51</td>
+      <td>63</td>
+    </tr>
+    <tr>
+      <th>2023-04-06 00:10:00</th>
+      <td>92</td>
+      <td>97</td>
+    </tr>
+    <tr>
+      <th>2023-04-06 00:20:00</th>
+      <td>14</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>2023-04-06 00:30:00</th>
+      <td>71</td>
+      <td>55</td>
+    </tr>
+    <tr>
+      <th>2023-04-06 00:40:00</th>
+      <td>60</td>
+      <td>58</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>2023-04-12 23:20:00</th>
+      <td>41</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <th>2023-04-12 23:30:00</th>
+      <td>40</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2023-04-12 23:40:00</th>
+      <td>5</td>
+      <td>96</td>
+    </tr>
+    <tr>
+      <th>2023-04-12 23:50:00</th>
+      <td>51</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>2023-04-13 00:00:00</th>
+      <td>25</td>
+      <td>76</td>
+    </tr>
+  </tbody>
+</table>
+<p>1009 rows × 2 columns</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="demo" class="level2">
+<h2 class="anchored" data-anchor-id="demo">Demo</h2>
+</section>
+<section id="a-subjective-showdown-in-key-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="a-subjective-showdown-in-key-metrics">A subjective showdown in key metrics</h2>
+<div class="incremental">
+<ul class="incremental">
+<li><strong>learning curve</strong>: no clear winner. Depends on starting point pandas and matplotlib for most, but altair for people coming from r</li>
+<li><strong>code simplicity</strong> (for exploration): ++ pandas, ++ seaborn, + altair, o plotly - matplotlib, - -bokeh</li>
+<li><strong>iteration speed</strong>: ++ pandas, ++ altair, + plotly, + seaborn, - matplotlib, - - bokeh</li>
+<li><strong>flexibility</strong>: ++ matplotlib, ++ bokeh, + plotly, - seaborn, - altair, - - pandas</li>
+<li><strong>interactivity</strong>: ++ bokeh, ++ plotly, ++ altair</li>
+<li><strong>performance</strong>: ++ matplotlib, ++ pandas, ++ seaborn, ++ bokeh, + plotly (100ks or GPU), - altair (1ks)</li>
+<li><strong>aesthetics</strong> (out of the box): ++ seaborn, + altair, + bokeh, o plotly, - pandas, - - matplotlib,<br>
+</li>
+<li><strong>community support &amp; documentation</strong>: great for all the compared libraries, matplotlib and pandas a bit stronger</li>
+</ul>
+</div>
+</section>
+<section id="a-subjective-showdown-in-key-metrics-1" class="level2">
+<h2 class="anchored" data-anchor-id="a-subjective-showdown-in-key-metrics-1">A subjective showdown in key metrics</h2>
+<table class="table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 13%">
+<col style="width: 9%">
+<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 9%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criteria</th>
+<th>Matplotlib</th>
+<th>Pandas</th>
+<th>Seaborn</th>
+<th>Bokeh</th>
+<th>Altair</th>
+<th>Plotly</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Learning Curve</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Code Simplicity (for exploration)</td>
+<td>2</td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+<td>1</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>Iteration Speed</td>
+<td>2</td>
+<td><strong>5</strong></td>
+<td>4</td>
+<td>1</td>
+<td><strong>5</strong></td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Flexibility</td>
+<td><strong>5</strong></td>
+<td>1</td>
+<td>2</td>
+<td><strong>5</strong></td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Interactivity</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+</tr>
+<tr class="even">
+<td>Performance</td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+<td><strong>5</strong></td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Aesthetics (out of the box)</td>
+<td>1</td>
+<td>2</td>
+<td><strong>5</strong></td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>Community Support &amp; Documentation</td>
+<td><strong>5</strong></td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>———————————–</td>
+<td>————</td>
+<td>——–</td>
+<td>———</td>
+<td>——-</td>
+<td>——–</td>
+<td>——–</td>
+</tr>
+<tr class="even">
+<td>Sum</td>
+<td>23</td>
+<td>26</td>
+<td><strong>28</strong></td>
+<td>27</td>
+<td>28</td>
+<td><strong>29</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="where-to-start" class="level2" data-auto-animate="false">
+<h2 data-auto-animate="false" class="anchored" data-anchor-id="where-to-start">Where to start?</h2>
+<div class="incremental">
+<ul class="incremental">
+<li>potential learning steps:
+<ul class="incremental">
+<li><strong>pandas</strong> for quick &amp; simple exploration (flexibility won’t be needed in the beginning)
+<ul class="incremental">
+<li><em>tip 1</em>: utilize seaborn themes, e.g.&nbsp;sns.set_theme(style=“darkgrid”)</li>
+<li><em>tip 2</em>: make pandas plots interactive with plotly, e.g.&nbsp;df.plot(backend=“plotly”)</li>
+</ul></li>
+<li>make it nicer quick with <strong>seaborn</strong></li>
+<li>learn <strong>matplotlib</strong> for more control when needed<br>
+</li>
+</ul></li>
+<li>going further and interactive: <strong>plotly</strong> and or <strong>altair</strong></li>
+</ul>
+</div>
+</section>
+<section id="summary" class="level2" data-auto-animate="false">
+<h2 data-auto-animate="false" class="anchored" data-anchor-id="summary">Summary</h2>
+
+<iframe width="1800" height="900" src="overview_table.html" title="Table"></iframe>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
