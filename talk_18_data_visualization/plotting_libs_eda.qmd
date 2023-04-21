@@ -1,0 +1,425 @@
+---
+title: "Python plotting libraries for exploratory data analysis"
+subtitle: "A comparative evaluation"
+author: "Clemens Cremer"
+format: 
+  revealjs:
+      theme: [default, assets/dhi_light.scss]
+      width: 1920
+      height: 1080
+      margin: 0.1
+      incremental: false
+      transition: slide
+      footer: Data Talk 18
+      logo: assets/DHI_Logo_Pos_RGB_noMargin.png
+  html:
+      df-print: paged
+---
+## {auto-animate=true}
+
+<h1> Where do we start? </h1>
+
+
+
+## {auto-animate=true}
+
+<h1>Where do we start? </h1>
+<h2>A short history of data visualization</h2> 
+
+
+
+## The early days of data visualization {auto-animate=false}
+
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+
+::: {.r-stack}
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 20px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5;"}
+:::
+
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+
+:::{style="position: absolute; bottom:360px; left:20px;"}
+<b>< 17th century</b><br> maps
+:::
+:::
+
+::: notes
+This 17th century road strip map was created by John Ogilby as part of his 1675 Britannia Atlas. The map shows the route from London to Winchester via Staines, Reading and Basingstoke.
+:::
+
+
+
+## The industrial revolution and quantitative data {auto-animate=true}
+
+![](images/Playfair_1821.png){.absolute bottom=670 left=300 width="500"}
+![](images/binomial-quetelet-1846.jpg){.absolute bottom=810 left=200 width="200"}
+
+::: {.r-stack}
+:::{style="opacity: 0.5"}
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+:::
+::: {style="position: absolute; bottom:360px; left:20px; opacity: 0.5"}
+<b>< 17th century</b><br> maps
+:::
+
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 530px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5"}
+:::
+
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+
+::: {data-id="point2" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;"}
+:::
+
+::: {style="position: absolute; bottom:520px; left:310px;"}
+<b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts
+:::
+:::
+
+
+
+## Computer aided visualization {auto-animate=true} 
+
+
+![](images/1970s_computer_graphics.png){.absolute bottom=0px left=770 height="360"}
+
+::: {.r-stack}
+::: {style="opacity: 0.5"}
+![](images/binomial-quetelet-1846.jpg){.absolute bottom=810 left=200 width="200"}
+:::
+:::{style="opacity: 0.5"}
+![](images/Playfair_1821.png){.absolute bottom=670 left=300 width="500"}
+:::
+:::{style="opacity: 0.5"}
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+:::
+::: {style="position: absolute; bottom:360px; left:20px; opacity: 0.5"}
+<b>< 17th century</b><br> maps
+:::
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 1050px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5"}
+:::
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+::: {data-id="point2" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;"}
+:::
+::: {data-id="point3" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;"}
+:::
+::: {style="position: absolute; bottom:520px; left:310px; opacity: 0.5"}
+<b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts
+:::
+::: {style="position: absolute; bottom:360px; left:770px;"}
+<b>>1960s</b><br> computer aided visualization
+:::
+:::
+
+
+## The next dimension and new golden age? {auto-animate=true}
+
+![](images/excel-for-windows-3.0-charts-and-graphs.png){.absolute bottom=670 left=1400 height="300"}
+
+::: {.r-stack}
+::: {style="opacity: 0.5"}
+![](images/1970s_computer_graphics.png){.absolute bottom=0px left=770 height="360"}
+:::
+::: {style="opacity: 0.5"}
+![](images/binomial-quetelet-1846.jpg){.absolute bottom=810 left=200 width="200"}
+:::
+:::{style="opacity: 0.5"}
+![](images/Playfair_1821.png){.absolute bottom=670 left=300 width="500"}
+:::
+:::{style="opacity: 0.5"}
+![](images/1675-Ogilby-The_Road_From_LONDON_to_the_LANDS_END.png){.absolute bottom=0px left=20 width="500"}
+:::
+::: {style="position: absolute; bottom:360px; left:20px; opacity: 0.5"}
+<b>< 17th century</b><br> maps
+:::
+::: {data-id="timeline" auto-animate-delay="0" style="background: #51626F; width: 1800px; height: 5px; position: absolute; bottom:500px; left:0px; opacity: 0.5"}
+:::
+::: {data-id="point1" auto-animate-delay="0" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:20px;"}
+:::
+::: {data-id="point2" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:530px;"}
+:::
+::: {data-id="point3" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1050px;"}
+:::
+::: {data-id="point4" auto-animate-delay=".8" style="background: #004165; width: 25px; height: 25px; border-radius: 25px; position: absolute; bottom:490px; left:1560px;"}
+:::
+::: {style="position: absolute; bottom:520px; left:310px; opacity: 0.5"}
+<b>18th - early 20th century</b><br> statistical mapping. <br>First bar graphs, pie charts
+:::
+::: {style="position: absolute; bottom:360px; left:770px; opacity: 0.5"}
+<b>>1960s</b><br> computer aided visualization
+:::
+::: {style="position: absolute; bottom:520px; left:1400px"}
+<b>>1980s</b><br> high dimension<br>dynamic visualizations
+:::
+:::
+
+
+
+## Where are we now? {auto-animate=true}
+
+::: {.incremental}
+* 🚀 more data than ever before
+* 🛠️ more tools than ever before
+* 😊 greater ease of access than ever before
+* 🤯 this is not unambiguously a good thing
+![](images/perception_pie_charts.jpg){.absolute bottom=300 left=1000 width="1000"}
+* 🔧 **picking the right tool(s) is important**
+    * choice of tool not choice of chart is discussed here
+:::
+
+
+::: notes
+In the pre-computer visualization era you would think long and hard about your visualization. It was a specialists job. Now you can just throw a bunch of data at a computer and it will spit out a visualization. But that does not mean that the visualization is good. In fact, it is often the opposite.
+- With great power comes great responsibility
+:::
+
+## The 🔍 for the right tool {auto-animate=true}
+::::: {.columns}
+
+::: {.column width="50%"}
+
+::: {.incremental}
+* MATLAB: Unified plotting framework ✅
+* R: R Graphics, ggplot2, ... ✅
+* Python: huge choice 🤯
+:::
+
+:::
+
+::: {.column width="50%" .fragment .incremental}
+```{python}
+from wordcloud import WordCloud, random_color_func
+import matplotlib.pyplot as plt
+
+# List of library names
+libraries = [
+    "Matplotlib", "Pandas", "Seaborn", "Altair", "Bokeh", "Plotly",
+    "ggplot", "Holoviews", "Geoplotlib", "Pygal", "pygwalker", "shiny"
+]
+
+# Join the library names into a single string
+text = ' '.join(libraries)
+
+# Custom color function
+def custom_color_func(*args, **kwargs):
+    return random_color_func(*args, **kwargs)
+
+# Generate the word cloud
+wordcloud = WordCloud(
+    width=800, height=400, background_color='white', color_func=custom_color_func
+).generate(text)
+
+# Display the word cloud
+plt.figure(figsize=(10, 5))
+plt.imshow(wordcloud, interpolation='bilinear')
+plt.axis('off')
+plt.show()
+
+```
+
+:::
+
+:::::
+
+
+## Low level plotting with matplotlib {auto-animate=true}
+
+* grandfather of python plotting libraries
+* based on Matlab to "lure away" Matlab users
+* access to everything but might become verbose
+
+``` {python}
+import matplotlib.pyplot as plt
+plt.xkcd()
+years = list(range(2002, 2019))
+established_years = {
+    'matplotlib': 2003,
+    'pandas': 2008,
+    'seaborn': 2012,
+    'plotly': 2012,
+    'bokeh': 2013,
+    'altair': 2016
+}
+fig, ax = plt.subplots(figsize=(23, 5))
+ax.plot(years, [0] * len(years), linestyle='-', color='black', linewidth=2)
+ax.scatter(established_years.values(), [0] * len(established_years), s=200, color='red')
+# Annotate with offset for Plotly
+offsets = {'plotly': (0, 0.1)}
+for lib, year in established_years.items():
+    dx, dy = offsets.get(lib, (0, 0))
+    ax.text(year + dx, 0.1 + dy, lib, fontsize=20, rotation=45, ha='left', va='bottom')
+ax.set_ylim(0.0, 0.5)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.set_yticks([])
+ax.set_xticks(years)
+ax.set_xticklabels(years, fontsize=20, rotation=45, ha='right', va='top')
+plt.show()
+
+```
+
+## High and mixed level libraries {auto-animate=true}
+
+* **pandas**: built into DataFrame & Series objects, based on Matplotlib
+* **seaborn**: extends Matplotlib with improved styling, statistics focused
+* **plotly**: interactive and responsive visualizations with a high-level API, suitable for web applications and dashboards, supporting various chart types
+* **bokeh**: interactive and scalable visualizations with a powerful API; suitable for web applications and dashboards
+* **altair**: interactive plots. Declarative, following grammar of graphics*. 
+
+``` {python}
+import matplotlib.pyplot as plt
+plt.xkcd()
+years = list(range(2002, 2019))
+established_years = {
+    'matplotlib': 2003,
+    'pandas': 2008,
+    'seaborn': 2012,
+    'plotly': 2012,
+    'bokeh': 2013,
+    'altair': 2016
+}
+fig, ax = plt.subplots(figsize=(23, 5))
+ax.plot(years, [0] * len(years), linestyle='-', color='black', linewidth=2)
+ax.scatter(established_years.values(), [0] * len(established_years), s=200, color='red')
+# Annotate with offset for Plotly
+offsets = {'plotly': (0, 0.1)}
+for lib, year in established_years.items():
+    dx, dy = offsets.get(lib, (0, 0))
+    ax.text(year + dx, 0.1 + dy, lib, fontsize=20, rotation=45, ha='left', va='bottom')
+ax.set_ylim(0.0, 0.5)
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.spines['bottom'].set_visible(False)
+ax.spines['left'].set_visible(False)
+ax.set_yticks([])
+ax.set_xticks(years)
+ax.set_xticklabels(years, fontsize=20, rotation=45, ha='right', va='top')
+plt.show()
+
+```
+
+::: {footer}
+ *grammar of graphics: vizualization as series of independent components, such as data, scales, axes, and geometries
+:::
+
+
+## How to find the "right" data-viz tool: introducing some metrics {auto-animate=true}
+
+::: {.incremental}
+- **learning curve**
+- **code simplicity** 
+- **iteration speed**
+- **flexibility**
+- **interactivity**
+- **performance**
+- **aesthetics** 
+- **community support & documentation**
+:::
+
+
+## A selected list of contenders in python {auto-animate=false}
+
+
+| ![matplotlib](https://matplotlib.org/stable/_static/logo2_compressed.svg) | ![pandas](https://pandas.pydata.org/docs/_static/pandas.svg) | ![seaborn](https://seaborn.pydata.org/_static/logo-wide-lightbg.svg) |
+|:---:|:---:|:---:|
+| ![bokeh](https://static.bokeh.org/branding/logos/bokeh-logo.svg) | ![altair](https://altair-viz.github.io/_static/altair-logo-light.png) | ![plotly](https://images.plot.ly/logo/new-branding/plotly-logomark.png) |
+
+
+
+## A brief practical comparison: Dataset and evaluation {auto-animate=false}
+
+
+::::: {.columns} 
+
+::: {.column width="50%"}
+
+- using artificial "time series" data
+- datetime index 
+    - 2023-04-06 - 2023-04-13
+    - 10 min intervals
+- **minimal plot** with components 
+    - labels, 
+    - legend (if more than one class)
+- on **most common plot types** 
+    - line, 
+    - scatter, 
+    - bar / histogram
+
+:::
+
+::: {.column width="50%"}
+
+```{python}	
+# Create a sample dataframe
+import pandas as pd
+import numpy as np
+np.random.seed(42)
+date_rng = pd.date_range(start='4/06/2023', end='4/13/2023', freq='10T')
+df = pd.DataFrame(date_rng, columns=['date'])
+df['wl a'] = np.random.randint(0, 100, size=(len(date_rng)))
+df['wl b'] = np.random.randint(0, 100, size=(len(date_rng)))
+df = df.set_index('date')
+df
+```
+
+:::
+
+:::::
+
+## Demo
+
+
+## A subjective showdown in key metrics
+
+::: {.incremental}
+- **learning curve**: no clear winner. Depends on starting point pandas and matplotlib for most, but altair for people coming from r
+- **code simplicity** (for exploration):  ++ pandas, ++ seaborn, + altair, o plotly - matplotlib, - -bokeh
+- **iteration speed**: ++ pandas, ++ altair, + plotly, + seaborn, - matplotlib, - - bokeh
+- **flexibility**: ++ matplotlib, ++ bokeh, + plotly, - seaborn, - altair, - - pandas
+- **interactivity**: ++ bokeh, ++ plotly, ++ altair
+- **performance**: ++ matplotlib, ++ pandas, ++ seaborn, ++ bokeh, + plotly (100ks or GPU), - altair (1ks)
+- **aesthetics** (out of the box): ++ seaborn, + altair, + bokeh, o plotly, - pandas, - - matplotlib,  
+- **community support & documentation**: great for all the compared libraries, matplotlib and pandas a bit stronger
+:::
+
+## A subjective showdown in key metrics
+
+| Criteria                          | Matplotlib | Pandas | Seaborn | Bokeh | Altair | Plotly |
+|-----------------------------------|------------|--------|---------|-------|--------|--------|
+| Learning Curve                    | 3          | 3      | 3       | 3     | 3      | 3      |
+| Code Simplicity (for exploration) | 2          | **5**      | **5**       | 1     | 4      | 3      |
+| Iteration Speed                   | 2          | **5**      | 4       | 1     | **5**      | 4      |
+| Flexibility                       | **5**          | 1      | 2       | **5**     | 2      | 4      |
+| Interactivity                     | 1          | 1      | 1       | **5**     | **5**      | **5**      |
+| Performance                       | **5**          | **5**      | **5**       | **5**     | 2      | 4      |
+| Aesthetics (out of the box)       | 1          | 2      | **5**       | 4     | 4      | 3      |
+| Community Support & Documentation | **5**          | 4      | 3       | 3     | 3      | 3      |
+|-----------------------------------|------------|--------|---------|-------|--------|--------|
+| Sum                               | 23         | 26     | **28**      | 27    | 28     | **29**     |
+
+
+
+## Where to start? {auto-animate=false}
+
+::: {.incremental}
+- potential learning steps:
+    - **pandas** for quick & simple exploration (flexibility won't be needed in the beginning)
+        - *tip 1*: utilize seaborn themes, e.g. sns.set_theme(style="darkgrid") 
+        - *tip 2*: make pandas plots interactive with plotly, e.g. df.plot(backend="plotly")
+    - make it nicer quick with **seaborn**
+    - learn **matplotlib** for more control when needed  
+- going further and interactive: **plotly** and or **altair**
+:::
+
+
+
+
+## Summary {auto-animate=false}
+
+```{=html}	
+<iframe width="1800" height="900" src="overview_table.html" title="Table"></iframe>
+```
