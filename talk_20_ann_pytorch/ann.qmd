@@ -9,6 +9,7 @@ format:
     slide-number: true
     theme: [default]
     footer: Introduction to Artificial Neural Networks using PyTorch
+    incremental: true
 
 jupyter: python3
 execute: 
@@ -30,15 +31,24 @@ execute:
 * Deep learning models are often trained using GPUs.
 * Deep learning models are often trained using large amounts of data.
 
-## PyTorch
+## Deep learning frameworks
 
-* PyTorch is a Python library for deep learning.
+
+* PyTorch is a Python library for deep learning. 
 * Tensorflow is another popular Python library for deep learning.
+* fast.ai is a high-level deep learning library built on top of PyTorch.
+
+. . .
+
+![](trends.png)
 
 ## Tensors
 
 * Similar to NumPy arrays, PyTorch tensors are multi-dimensional arrays.
 * PyTorch tensors can be used to store data and parameters in deep learning models.
+* An important difference is that between NumPy arrays and PyTorch tensors is the ability to use GPUs for computation.
+
+. . .
 
 ```{python}
 import torch
@@ -50,6 +60,22 @@ z = W @ x  # matrix multiplication
 z
 ```
 
+## Gradient descent
+
+* Gradient descent is an optimization algorithm used to train deep learning models.
+* The goal of gradient descent is to minimize a loss function.
+* Finite differences can be used to approximate the gradient of a function, but this is very slow.
+* The gradient of a function can be computed numerically using automatic differentiation.
+* Manual differentiation is tedious and error-prone, and automatic differentiation is therefore used in deep learning frameworks.
+
+## Stochastic gradient descent
+
+* With many examples, computing the gradient of the loss function can be very slow.
+* Stochastic gradient descent (SGD) uses a single randomly selected example to compute the gradient.
+* This is much faster, but the gradient is noisy and the optimization can be unstable.
+* A compromise between SGD and batch gradient descent is mini-batch gradient descent.
+
+
 ## Activation functions
 
 * Activation functions are used to introduce non-linearities in deep learning models.
@@ -58,7 +84,10 @@ z
 * For binary classification the activation function is often the sigmoid function.
 
 
+## Activation functions
+
 ```{python}
+# | echo: false
 import torch
 import matplotlib.pyplot as plt
 
@@ -70,58 +99,103 @@ y_tanh = torch.tanh(x)
 plt.plot(x, y_relu, label="relu")
 plt.plot(x, y_sigmoid, label="sigmoid")
 plt.plot(x, y_tanh, label="tanh", linestyle="--")
-plt.legend()
+_ = plt.legend()
 ```
 
-```{note}
+::: {.notes}
 A sigmoid function outputs values between 0 and 1, useful for binary classification.
+:::
+
+
+## Classification
+
+![]https://www.oreilly.com/content/wp-content/uploads/sites/2/2020/01/Figure_1-71076f8ac360d6a065cf19c6923310d2.jpg) [^1]: O'Reilly: Screenshot from the “Not Hotdog” app courtesy of Ankur Desai.
+
+
+## Classification
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+* Satellite images can be used to classify land cover.
+* Based on expert knowledge or ground truth I have classified pixels as two types of forest and farmland.
+* The goal is to train a model that can classify pixels as forest or not forest based on the red, green, and blue values of the pixels.
+
+:::
+
+::: {.column width="50%"}
+
+![](classification.png)
+
+:::
+
+::::
+
+
+## Forest / not forest
+
+```{python}
+import pandas as pd
+
+df = pd.read_csv("ground_truth.csv")
+df.sample(5)
 ```
 
-## {background-iframe="https://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4&seed=0.31132&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false&problem_hide=true&noise_hide=true&showTestData_hide=true&discretize_hide=true&resetButton_hide=false&regularization_hide=true&dataset_hide=false&batchSize_hide=true&playButton_hide=false&learningRate_hide=true&regularizationRate_hide=true&percTrainData_hide=true"}
-
-## Replicate in PyTorch
+## Red, green, blue
 
 ```{python}
 # | echo: false
-from sklearn.datasets import make_circles, make_moons
+import plotly.express as px
 
-X, y = make_moons(n_samples=500, noise=0.1)
+df["forest"] = df["class"] != 3
 
-X = X * 6.0
-
-# train/test split
-X_train, X_test = X[:400], X[400:]
-y_train, y_test = y[:400], y[400:]
-
-plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train)
-plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, marker="x")
-
-X_train = torch.tensor(X_train, dtype=torch.float32)
-y_train = torch.tensor(y_train, dtype=torch.float32).reshape(-1, 1)
-X_test = torch.tensor(X_test, dtype=torch.float32)
-y_test = torch.tensor(y_test, dtype=torch.float32).reshape(-1, 1)
+fig = px.scatter_3d(df, x="green", y="red", z="blue", color="forest")
+fig.show()
 ```
 
+## PyTorch
 
-
-
-## 
+* Inputs need to be scaled to be in the range [-1, 1].
+* By dividing by 255, the inputs are in the range [0, 1].
 
 ```{python}
 import torch
+from sklearn.model_selection import train_test_split
+
+X = torch.tensor(df[["red", "green", "blue"]].values, dtype=torch.float32) / 255
+y = torch.Tensor(df.forest).reshape(-1, 1)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+```
+
+## A classifier
+
+* 3 inputs (red, green, blue)
+* ReLU activation function
+* 1 hidden layer with 4 neurons
+* 1 output (forest or not forest)
+* Sigmoid activation function
+
+. . .
+
+```{python}
 import torch.nn as nn
+
+model = nn.Sequential(nn.Linear(3, 4), nn.ReLU(), nn.Linear(4, 1), nn.Sigmoid())
+model
+```
+
+## Training the model
+    
+```{python}
+# | echo: false
 import torch.optim as optim
 
-model = nn.Sequential(nn.Linear(2, 4), nn.Tanh(), nn.Linear(4, 1), nn.Sigmoid())
+loss_fn = nn.BCELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
 
-
-def loss_fn(y_pred, y):
-    return -torch.mean(y * torch.log(y_pred) + (1 - y) * torch.log(1 - y_pred))
-
-
-optimizer = optim.Adam(model.parameters(), lr=0.03)
-
-for epoch in range(500):
+for epoch in range(10000):
     optimizer.zero_grad()
     y_pred = model(X_train)
     loss = loss_fn(y_pred, y_train)
@@ -129,63 +203,37 @@ for epoch in range(500):
     optimizer.step()
 ```
 
-## 
+```{.python code-line-numbers="|3|4|6|7-12"}
+import torch.optim as optim
 
-```{python}
-# predict the value at y=1.0 and x range -8 to 13
-x = torch.ones(100, 2)
-x[:, 0] = torch.linspace(-8, 13, 100)
-y_pred = model(x).detach().numpy()
+loss_fn = nn.BCELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.01)
 
-plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train)
-# add a line at y=1.0
-plt.axhline(1.0, linestyle="--", color="grey")
+for epoch in range(10000):
+    optimizer.zero_grad()
+    y_pred = model(X_train)
+    loss = loss_fn(y_pred, y_train)
+    loss.backward()
+    optimizer.step()
 ```
+
 . . .
 
-```{python}
-plt.plot(x[:, 0], y_pred)
-plt.axhline(0.5, linestyle="--", color="grey")
-plt.scatter(X_train[:, 0], y_train, c=y_train)
-```
-
-
-## 
-
-
-
-
-
-
-
-
-
-
-
+* In this case we are using the full training set to compute the gradient.
+* For larger datasets, this should be replaced by mini-batch gradient descent.
 
 ## A simple ANN for regression
 
-1. \# of inputs = \# of features
-2. \# of outputs = 1
-3. \# of hidden layers = 1
-4. \# of neurons in hidden layer = 10
+* 1 input (x)
+* Tanh activation function
+* 1 hidden layer with 10 neurons
+* 1 output (y)
+* Linear activation function
 
 ```{python}
-import torch
-import torch.nn as nn
 
-
-class FNN(nn.Module):
-    def __init__(self, input_dim):
-        super().__init__()
-        self.l1 = nn.Linear(input_dim, 10)
-        self.l2 = nn.Linear(10, 1)
-
-    def forward(self, x):
-        x = torch.tanh(self.l1(x))
-        x = self.l2(x)
-        return x
-
+reg_model = nn.Sequential(nn.Linear(1, 10), nn.Tanh(), nn.Linear(10, 1))
+reg_model
 
 ```
 
@@ -195,43 +243,16 @@ class FNN(nn.Module):
 
 ```{python}
 X = torch.tensor([[1], [2]], dtype=torch.float32)
-model = FNN(input_dim=1)
-y = model(X)
+y = reg_model(X)
 
-print(f"Shape of layer 1 weights: {model.l1.weight.shape}")
-print(f"Shape of layer 2 weights: {model.l2.weight.shape}")
-print("Total number of parameters:", sum(p.numel() for p in model.parameters()))
+
 ```
 
 
-## Training a deep learning model with PyTorch
-
-1. Define the model
-2. Define the loss function
-    * For regression: Mean Squared Error (MSE)
-    * For classification: Cross Entropy Loss
-3. The parameters are initialized randomly.
-4. The PyTorch framework automatically computes the gradients of the loss function with respect to the parameters.
-5. The gradients are used to update the parameters using gradient descent.
-
-## Stochastic Gradient Descent
-
-* TODO
-* TODO
-
-
-## Training a deep learning model with PyTorch
+## Regression model
 
 ```{python}
-import torch
-import torch.nn as nn
-import torch.optim as optim
-
-optimizer = optim.SGD(model.parameters(), lr=0.01)  # or Adam
-loss_fn = nn.MSELoss(reduction="mean")
-
-
-# periodic function with amplitude fading away from zero
+# | echo: false
 def f(x):
     amplitude = 2 * torch.exp(-6 * x**2)
     period = 0.5
@@ -241,50 +262,51 @@ def f(x):
 
 xx = torch.linspace(-1, 1, 100)[:, None]
 yy = f(xx) + 0.1 * torch.randn(100, 1)
+```
 
-# select 10 % of the data to try to overfit
-xxs = xx[::10]
-yys = yy[::10]
+
+```{python}
+# | echo: false
+optimizer = optim.Adam(reg_model.parameters(), lr=0.01)
+loss_fn = nn.MSELoss()
 
 history = []
 
 for i in range(10000):
     optimizer.zero_grad()
-    y_pred = model(xxs)
-    loss = loss_fn(y_pred, yys)
+    y_pred = reg_model(xx)
+    loss = loss_fn(y_pred, yy)
     loss.backward()
     optimizer.step()
     history.append(loss.item())
 ```
 
+```{.python code-line-numbers="|2"}
+optimizer = optim.Adam(reg_model.parameters(), lr=0.01)
+loss_fn = nn.MSELoss()
 
----
-
-```{python}
-plt.plot(history)
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
+for i in range(10000):
+    optimizer.zero_grad()
+    y_pred = reg_model(xx)
+    loss = loss_fn(y_pred, yy)
+    loss.backward()
+    optimizer.step()
 ```
 
+::: {.notes}
+For regression problems, the loss function is usually the mean squared error (MSE). But PyTorch is extremely flexible and allows you to define your own loss functions.
+:::
+
+## Predictions
+
 ```{python}
+# | echo: false
 x_test = torch.linspace(-1.2, 1.2, 100)
-y_pred = model(x_test[:, None])
+y_pred = reg_model(x_test[:, None])
 plt.plot(x_test, y_pred.detach().numpy(), label="Prediction", linewidth=1)
-plt.scatter(xx, yy, label="All data", marker=".", alpha=0.5)
-plt.scatter(xxs, yys, label="Training data", marker="x", color="red")
-# plt.plot(x_test, f(x_test), label="True function", linestyle="--")
+plt.scatter(xx, yy, label="Data", marker=".", alpha=0.5)
 plt.ylim(-2, 3)
 
-# add a shaded area to indicate the training data
-plt.fill_between(
-    x_test,
-    -2,
-    3,
-    where=(x_test > -1) & (x_test < 1),
-    alpha=0.5,
-    label="Interpolation region",
-    color="beige",
-)
 plt.legend()
 ```
 
@@ -293,7 +315,7 @@ plt.legend()
 To save the model in PyTorch native format:
 
 ```{python}
-torch.save(model, "model.pth")
+torch.save(reg_model, "model.pth")
 
 predictor = torch.load("model.pth")
 ```
@@ -303,5 +325,30 @@ predictor = torch.load("model.pth")
 We can also save the model in [ONNX](https://onnx.ai/) format:
 
 ```{python}
-torch.onnx.export(model, xx, "model.onnx")
+torch.onnx.export(reg_model, xx, "model.onnx")
 ```
+
+## Neural network architectures
+
+* Feed-forward neural networks (FFNN)
+* Convolutional neural networks (CNN)
+* Recurrent neural networks (RNN)
+* Transformers
+
+::: {.notes}
+This talk focuses on FFNNs. CNNs are used for image classification, RNNs for text and time series data, and transformers for text.
+:::
+
+
+## Summary
+
+* **Tensors**: multi-dimensional arrays.
+* **Activation function**: introduces non-linearity in the model.
+* **Gradient descent**: optimization algorithm for finding the minimum of a function.
+* Artificial neural networks (ANN) can do both classification and regression.
+* For simple applications, you don't need special hardware to train deep learning models.
+* For more complex applications, e.g. image classification, GPUs make a big difference.
+
+## Playground
+
+[Tensorflow Playground](https://playground.tensorflow.org/)
