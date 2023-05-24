@@ -1,4 +1,4 @@
-# A brief introduction to Neural Networks with PyTorch"
+# A brief introduction to Neural Networks with PyTorch
 
 By Henrik Andersson
 
