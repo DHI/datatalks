@@ -5,6 +5,7 @@ date: 2023-05-25
 date-format: long
 format: 
   revealjs:
+    embed-resources: true
     margin: 0.1
     slide-number: true
     theme: [default]
@@ -19,34 +20,51 @@ execute:
 
 ## Artificial Neural Networks
 
-* Artificial Neural Networks (ANNs) are a class of machine learning models inspired by the human brain.
-* ANNs are a class of models that can learn non-linear relationships between inputs and outputs.
-* The number of trainable parameters in an ANN can be very large, and the models are therefore prone to overfitting.
-* ANNs are often used for image classification, speech recognition, and natural language processing.
-
-## Deep Learning
-
-* Deep learning is a subfield of machine learning that uses ANNs to learn from data.
-* A deep learning model is an ANN with many layers.
-* Deep learning models are often trained using GPUs.
-* Deep learning models are often trained using large amounts of data.
+* Inspired by the human brain.
+* Possible to learn non-linear relationships between inputs and outputs.
+* Number of trainable parameters *can* be very large, be aware of overfitting.
+* State of the art for image classification, speech recognition, and natural language processing.
+* A *deep learning* model is a network with many layers.
 
 ## Deep learning frameworks
 
+:::: {.columns}
 
-* PyTorch is a Python library for deep learning. 
-* Tensorflow is another popular Python library for deep learning.
-* fast.ai is a high-level deep learning library built on top of PyTorch.
+::: {.column width="50%"}
 
-. . .
+
+::: {.nonincremental}
+
+* [PyTorch](https://pytorch.org) is a Python library for deep learning. 
+* [Tensorflow](https://www.tensorflow.org) is another popular Python library for deep learning.
+* [fastai](https://docs.fast.ai/) is a high-level deep learning library built on top of PyTorch.
+
+:::
+
+:::
+
+::: {.column width="50%"}
 
 ![](trends.png)
 
+:::
+::::
+
+
+::: {.notes}
+There are other deep learning libraries, but these are the most popular ones.
+:::
+
 ## Tensors
 
-* Similar to NumPy arrays, PyTorch tensors are multi-dimensional arrays.
-* PyTorch tensors can be used to store data and parameters in deep learning models.
-* An important difference is that between NumPy arrays and PyTorch tensors is the ability to use GPUs for computation.
+::: {.nonincremental}
+
+* Similar to NumPy arrays.
+* Stores data and parameters in deep learning models.
+* PyTorch tensors can use GPUs for computation.
+* Tensors typically use single precision (32-bit).
+
+:::
 
 . . .
 
@@ -54,19 +72,25 @@ execute:
 import torch
 
 x = torch.tensor([1.0, 2.0, 3.0], dtype=torch.float32)
-W = torch.randn(2, 3, dtype=torch.float32)
+W = torch.randn(2, 3, dtype=torch.float32, requires_grad=True)
+b = torch.zeros(2, dtype=torch.float32, requires_grad=True)
 
-z = W @ x  # matrix multiplication
+z = x @ W.T + b
 z
 ```
+
+::: {.notes}
+The `requires_grad` argument is used to indicate that the tensor will be used to compute gradients.
+This is only used for tensors that are learnable parameters in a deep learning model.
+:::
+
 
 ## Gradient descent
 
 * Gradient descent is an optimization algorithm used to train deep learning models.
 * The goal of gradient descent is to minimize a loss function.
-* Finite differences can be used to approximate the gradient of a function, but this is very slow.
+* Finite differences is too slow with large number of parameters.
 * The gradient of a function can be computed numerically using automatic differentiation.
-* Manual differentiation is tedious and error-prone, and automatic differentiation is therefore used in deep learning frameworks.
 
 ## Stochastic gradient descent
 
@@ -78,10 +102,11 @@ z
 
 ## Activation functions
 
-* Activation functions are used to introduce non-linearities in deep learning models.
+* Introduces non-linearities in deep learning models.
 * Without activation functions, a deep learning model would be a linear model 😟
-* For regression the activation function of the final layer is often the identity (*linear*) function.
+* Different functions in between layers vs the output layer.
 * For binary classification the activation function is often the sigmoid function.
+* For multi-class classification the activation function is often the softmax function.
 
 
 ## Activation functions
@@ -99,6 +124,8 @@ y_tanh = torch.tanh(x)
 plt.plot(x, y_relu, label="relu")
 plt.plot(x, y_sigmoid, label="sigmoid")
 plt.plot(x, y_tanh, label="tanh", linestyle="--")
+plt.xlabel("input")
+plt.ylabel("output")
 _ = plt.legend()
 ```
 
@@ -109,7 +136,9 @@ A sigmoid function outputs values between 0 and 1, useful for binary classificat
 
 ## Classification
 
-![]https://www.oreilly.com/content/wp-content/uploads/sites/2/2020/01/Figure_1-71076f8ac360d6a065cf19c6923310d2.jpg) [^1]: O'Reilly: Screenshot from the “Not Hotdog” app courtesy of Ankur Desai.
+![](hotdog.jpg){height="500"}
+
+*O'Reilly: Screenshot from the “Not Hotdog” app*
 
 
 ## Classification
@@ -119,7 +148,7 @@ A sigmoid function outputs values between 0 and 1, useful for binary classificat
 ::: {.column width="50%"}
 
 * Satellite images can be used to classify land cover.
-* Based on expert knowledge or ground truth I have classified pixels as two types of forest and farmland.
+* Based on ground truth some pixels labelled as two types of forest and farmland.
 * The goal is to train a model that can classify pixels as forest or not forest based on the red, green, and blue values of the pixels.
 
 :::
@@ -139,6 +168,7 @@ A sigmoid function outputs values between 0 and 1, useful for binary classificat
 import pandas as pd
 
 df = pd.read_csv("ground_truth.csv")
+df["forest"] = df["class"] != 3
 df.sample(5)
 ```
 
@@ -148,28 +178,31 @@ df.sample(5)
 # | echo: false
 import plotly.express as px
 
-df["forest"] = df["class"] != 3
-
 fig = px.scatter_3d(df, x="green", y="red", z="blue", color="forest")
 fig.show()
 ```
 
 ## PyTorch
 
+::: {.nonincremental}
 * Inputs need to be scaled to be in the range [-1, 1].
 * By dividing by 255, the inputs are in the range [0, 1].
+
+:::
 
 ```{python}
 import torch
 from sklearn.model_selection import train_test_split
 
-X = torch.tensor(df[["red", "green", "blue"]].values, dtype=torch.float32) / 255
+feats = ["red", "green", "blue"]
+
+X = torch.tensor(df[feats].values, dtype=torch.float32) / 255
 y = torch.Tensor(df.forest).reshape(-1, 1)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y)
 ```
 
-## A classifier
+## A classifier {.smaller}
 
 * 3 inputs (red, green, blue)
 * ReLU activation function
@@ -230,22 +263,11 @@ for epoch in range(10000):
 * 1 output (y)
 * Linear activation function
 
-```{python}
+. . .
 
+```{python}
 reg_model = nn.Sequential(nn.Linear(1, 10), nn.Tanh(), nn.Linear(10, 1))
 reg_model
-
-```
-
----
-
-* The weights and biases of the model are initialized randomly.
-
-```{python}
-X = torch.tensor([[1], [2]], dtype=torch.float32)
-y = reg_model(X)
-
-
 ```
 
 
@@ -301,18 +323,19 @@ For regression problems, the loss function is usually the mean squared error (MS
 
 ```{python}
 # | echo: false
-x_test = torch.linspace(-1.2, 1.2, 100)
+x_test = torch.linspace(-1.2, 1.2, 200)
 y_pred = reg_model(x_test[:, None])
 plt.plot(x_test, y_pred.detach().numpy(), label="Prediction", linewidth=1)
 plt.scatter(xx, yy, label="Data", marker=".", alpha=0.5)
 plt.ylim(-2, 3)
-
-plt.legend()
+plt.xlabel("input")
+plt.ylabel("output")
+plt.legend();
 ```
 
-# Save and load the model
+# Save the trained model
 
-To save the model in PyTorch native format:
+PyTorch native format:
 
 ```{python}
 torch.save(reg_model, "model.pth")
@@ -322,11 +345,13 @@ predictor = torch.load("model.pth")
 
 . . .
 
-We can also save the model in [ONNX](https://onnx.ai/) format:
+[Open Neural Network Exchange (ONNX)](https://onnx.ai/) format:
 
 ```{python}
 torch.onnx.export(reg_model, xx, "model.onnx")
 ```
+
+[Deploy ONNX models on Azure](https://learn.microsoft.com/en-us/azure/machine-learning/concept-onnx?view=azureml-api-2)
 
 ## Neural network architectures
 
@@ -336,7 +361,7 @@ torch.onnx.export(reg_model, xx, "model.onnx")
 * Transformers
 
 ::: {.notes}
-This talk focuses on FFNNs. CNNs are used for image classification, RNNs for text and time series data, and transformers for text.
+This talk focused on FFNNs. CNNs are used for image classification, RNNs for text and time series data, and transformers for text.
 :::
 
 
@@ -352,3 +377,5 @@ This talk focuses on FFNNs. CNNs are used for image classification, RNNs for tex
 ## Playground
 
 [Tensorflow Playground](https://playground.tensorflow.org/)
+
+![](playground.png)
