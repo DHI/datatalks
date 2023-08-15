@@ -118,6 +118,22 @@ $$
 * **option**: a flag that modifies the behaviour of the program (optional)
 * **argument**: a mandatory input to the program
 
+## Subcommands
+
+An exampe of a command with subcommands is `git`
+
+::: {.nonincremental}
+
+* `git init`
+* `git add`
+* `git commit`
+* `git push`
+
+:::
+
+Each subcommand has its own set of options and arguments.
+
+
 
 ## A minimal command line application {.smaller}
 
@@ -204,9 +220,189 @@ $ python fancy.py Oresund2D.dfsu json
 
 . . .
 
-A few problems:
+A few problems with the UX ☹️ 
+ 
 * what are the arguments (e.g. filename, output format)
 * what are the valid values for the second argument (e.g. json,...)
 
 
 ## Typer, a library for command line applications
+
+## `dfsks` - DFS Kitchen sink {.smaller}
+
+```{.python filename=dfsks.py code-line-numbers="|7-12|14-16 "}
+import typer
+import mikeio
+import mikeio.generic as mg
+
+app = typer.Typer()
+
+@app.command()
+def list(filename: str):
+    dfs = mikeio.open(filename)
+
+    for item in dfs.items:
+        print(f"* {item.name} ({item.unit.name})")
+
+@app.command()
+def extract(item: str, infilename: str, outfilename: str):
+    mg.extract(infilename=infilename, outfilename=outfilename, items=item)
+
+    
+if __name__ == "__main__":
+    app()
+```
+
+## `dfsks` - DFS Kitchen sink {.smaller}
+
+```bash
+$ python dfsks.py --help
+ Usage: dfsks.py [OPTIONS] COMMAND [ARGS]...
+
+╭─ Options ────────────────────────────────────╮
+│ --help          Show this message and exit.  │
+╰──────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────╮
+│ extract                                      │
+│ list                                         │
+╰──────────────────────────────────────────────╯
+```
+
+. . . 
+
+
+```bash
+$ python dfsks.py list --help
+ Usage: dfsks.py list [OPTIONS] FILENAME
+
+╭─ Arguments ──────────────────────────────────╮
+│ *    filename      TEXT  [default: None]     │
+│                          [required]          │
+╰──────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────╮
+│ --help          Show this message and exit.  │
+╰──────────────────────────────────────────────╯
+```
+
+# Extract a subset of a file {.smaller}
+
+```bash
+$ python dfsks.py extract "Surface elevation" Oresund2D.dfsu Oresund2D_surface_elevation.dfsu
+ ```
+
+Because of the space in the name of the variable we need to use quotes around the name. `"Surface elevation"`
+
+. . .
+```bash
+$ python dfsks.py list Oresund2D_surface_elevation.dfsu
+* Surface elevation (meter)
+```
+
+# More flexible extract command {.smaller}
+
+* Specify item to extract, default is all items
+* Specify start time, default is first time step
+* Specify end time, default is last time step
+
+
+```{.python filename=dfsks.py}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[str] = None,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+# More flexible extract command {.smaller}
+
+```bash
+$ python dfsks.py extract --help
+ Usage: dfsks.py extract [OPTIONS] INFILENAME OUTFILENAME
+
+╭─ Arguments ──────────────────────────────────────────────────────────────────────╮
+│ *    infilename       TEXT  [default: None] [required]                           │
+│ *    outfilename      TEXT  [default: None] [required]                           │
+╰──────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────────────────────────────────────────╮
+│ --item         TEXT                             [default: None]                  │
+│ --start        [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-  [default: None]                  │
+│                %m-%d %H:%M:%S]                                                   │
+│ --end          [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-  [default: None]                  │
+│                %m-%d %H:%M:%S]                                                   │
+│ --help                                          Show this message and exit.      │
+╰──────────────────────────────────────────────────────────────────────────────────╯
+```
+
+::: {.notes}
+
+We now have a rather flexible extraction tool, that we could hand over to a colleague.
+But it is not clear, what the default behavior for the optional commands are.
+
+:::
+
+## Adding more help text
+
+The standard way to document Python code is docstrings.
+
+```{.python code-line-numbers=|1}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[str] = None,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    """Extract a subset of a dfs file
+    
+    The default is to extract all items and all time steps.
+    """
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+::: {.notes}
+Mention Python package development course in November
+:::
+
+## Installation
+
+
+Some options:
+
+**Windows**:
+
+Create a `.cmd` file in folder in the PATH
+
+```{}.cmd filename="C:\Users\JAN\bin\dfsks.cmd"}
+C:\Users\JAN\AppData\Local\miniforge3\python.exe C:\Users\JAN\scripts\dfsks.py
+```
+
+**Linux (e.g. WSL)**
+1. Add a special first line `#!/usr/bin/env python`
+
+```{.python filename=~/bin/dfsks.py"}
+#!/usr/bin/env python
+from datetime import datetime
+from typing import Optional
+import typer
+...
+
+2. Create a symbolic link `ln -s dfsks.py dfsks`
+3. Make it executable `chmod +x dfsks`
+
