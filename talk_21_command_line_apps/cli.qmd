@@ -1,0 +1,212 @@
+---
+title: Command line applications in Python
+author: Henrik Andersson
+date: 2023-05-25
+date-format: long
+format: 
+  revealjs:
+    embed-resources: true
+    margin: 0.1
+    slide-number: true
+    theme: [default]
+    footer: Command line applications in Python
+    incremental: true
+---
+
+
+## What is a command line application?
+
+## Why use command line applications?
+
+## Example: NetCDF kitchen sink {.smaller}
+
+Get a summary of the contents of a NetCDF file
+
+```{.bash code-line-numbers="1|2-100"}
+$ ncks -M ERA5_waves_102017.nc
+netcdf ERA5_waves_102017 {
+  dimensions:
+    latitude = 361 ;
+    longitude = 720 ;
+    time = 72 ;
+
+  variables:
+    float latitude(latitude) ;
+    float longitude(longitude) ;
+    short mp2(time,latitude,longitude) ;
+    short mwd(time,latitude,longitude) ;
+    short mwp(time,latitude,longitude) ;
+    short pp1d(time,latitude,longitude) ;
+    short swh(time,latitude,longitude) ;
+    int time(time) ;
+ ...
+```
+
+## Example: NetCDF kitchen sink {.smaller}
+
+Inspect the `mwd` variable
+
+```{.bash code-line-numbers="1|2-100|14-15"}
+$ ncks -m -v mwd ERA5_waves_102017.nc
+netcdf ERA5_waves_102017 {
+  dimensions:
+    latitude = 361 ;
+    longitude = 720 ;
+    time = 72 ;
+
+  variables:
+    short mwd(time,latitude,longitude) ;
+      mwd:scale_factor = 0.00549346915195891 ;
+      mwd:add_offset = 179.999010366662 ;
+      mwd:_FillValue = -32767s ;
+      mwd:missing_value = -32767s ;
+      mwd:units = "Degree true" ;
+      mwd:long_name = "Mean wave direction" ;
+
+    int time(time) ;
+      time:units = "hours since 1900-01-01 00:00:00.0" ;
+      time:long_name = "time" ;
+      time:calendar = "gregorian" ;
+} // group /
+```
+
+## Example: NetCDF kitchen sink {.smaller}
+
+Extract two variables, significant wave height and mean wave period
+
+```{.bash code-line-numbers="1|1,2-100"}
+$ ncks -v swh,mwp ERA5_waves_102017.nc ERA5_waves_102017_swh_mwp.nc
+```
+. . .
+  
+This command runs succcessfully, there is no output to the terminal.
+ 
+. . . 
+
+Inspect the contents of the new file
+
+```{.bash code-line-numbers="1|1,11-12"}
+$ ncks -M ERA5_waves_102017_swh_mwp.nc
+netcdf ERA5_waves_102017_swh_mwp {
+  dimensions:
+    latitude = 361 ;
+    longitude = 720 ;
+    time = 72 ;
+
+  variables:
+    float latitude(latitude) ;
+    float longitude(longitude) ;
+    short mwp(time,latitude,longitude) ;
+    short swh(time,latitude,longitude) ;
+...
+```
+
+## Parts of a command line
+
+```bash
+$ ncks -M ERA5_waves_102017_swh_mwp.nc
+```
+
+$$
+\underbrace{\text{ncks}}_{command}~\underbrace{\text{-M}}_{option}~\underbrace{\text{ERA5_waves_102017_swh_mwp.nc}}_{argument}
+$$
+
+. . .
+
+
+* **command**: the name of the "program" to run
+* **option**: a flag that modifies the behaviour of the program (optional)
+* **argument**: a mandatory input to the program
+
+
+## A minimal command line application {.smaller}
+
+Using the built-in `sys` module
+
+```{.python filename=main.py code-line-numbers="|4"}
+import mikeio
+import sys
+
+filename = sys.argv[1]
+
+dfs = mikeio.open(filename)
+
+for item in dfs.items:
+    print(f"* {item.name} ({item.unit.name})")
+```
+
+. . .
+
+Run the script
+
+```bash
+$ python main.py Oresund2D.dfsu
+* Surface elevation (meter)
+* Total water depth (meter)
+* U velocity (meter_per_sec)
+* V velocity (meter_per_sec)
+* Wind U velocity (meter_per_sec)
+* Wind V velocity (meter_per_sec)
+* Air pressure (pascal)
+```
+
+## A minimal command line application {.smaller}
+
+What happens if we run the script without any argument?
+
+```bash
+$ python main.py
+Traceback (most recent call last):
+  File "/home/jan/src/datatalks/talk_21_command_line_apps/main.py", line 4, in <module>
+    filename = sys.argv[1]
+               ~~~~~~~~^^^
+IndexError: list index out of range
+```
+
+## Fancy output {.smaller}
+
+```{.python filename=fancy.py code-line-numbers="|5-6"}
+import mikeio
+import sys
+import json
+
+filename = sys.argv[1]
+out_format = sys.argv[2]
+
+dfs = mikeio.open(filename)
+
+if out_format == "json":
+    res = []
+    for item in dfs.items:
+        res.append({"name": item.name, "unit": item.unit.name})
+    print(json.dumps(res))
+
+else:
+    for item in dfs.items:
+        print(f"* {item.name} ({item.unit.name})")
+```
+
+## Fancy output {.smaller}
+
+```bash
+$ python fancy.py Oresund2D.dfsu json
+[
+  {
+    "name": "Surface elevation",
+    "unit": "meter"
+  },
+  {
+    "name": "Total water depth",
+    "unit": "meter"
+  },
+...
+```
+
+. . .
+
+A few problems:
+* what are the arguments (e.g. filename, output format)
+* what are the valid values for the second argument (e.g. json,...)
+
+
+## Typer, a library for command line applications
