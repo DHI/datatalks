@@ -13,10 +13,64 @@ format:
     incremental: true
 ---
 
+### Command-Line Interface
 
-## What is a command line application?
+::: {.nonincremental}
 
-## Why use command line applications?
+- Text-based commands.
+- Efficient for automation.
+- Preferred by tech experts.
+
+:::
+
+:::
+
+::: {.column width="50%"}
+
+### Graphical User Interface
+
+::: {.nonincremental}
+
+- Visual elements (icons, windows).
+- User-friendly.
+- Immediate visual feedback.
+- Common for everyday tasks.
+
+:::
+
+:::
+
+::::
+
+## Evolution of Computer Interfaces {.smaller}
+
+- **1969**: UNIX introduces Command Line Interface (CLI)
+- **1980**: MS-DOS popularizes Command Line Interface (CLI)
+- **1984**: Apple Macintosh brings GUI to mainstream
+- **1985**: Microsoft introduces Windows 1.0, a graphical user interface (GUI).
+- **1991**: Linux introduces CLI to open source
+- **1995**: Windows 95 merges GUI and CLI
+- **2001**: Mac OS X merges Unix and GUI
+- **2004**: Ubuntu simplifies Linux CLI 
+- **2011**: Docker boosts use of CLI for container management
+- **2020s**: CLI continues its indispensable role, supporting automation, scripting, and advanced tasks. 
+
+
+## Advantages of CLI Apps
+
+1. **Efficiency**: Quick task execution.
+2. **Automation**: Easily script repetitive tasks.
+3. **Remote Control**: Manage systems remotely.
+4. **Resource Efficient**: Lower system resource usage.
+5. **Reproducibility**: Document and share commands.
+
+##
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+
 
 ## Example: NetCDF kitchen sink {.smaller}
 
@@ -284,7 +338,7 @@ $ python dfsks.py list --help
 ╰──────────────────────────────────────────────╯
 ```
 
-# Extract a subset of a file {.smaller}
+## Extract a subset of a file {.smaller}
 
 ```bash
 $ python dfsks.py extract "Surface elevation" Oresund2D.dfsu Oresund2D_surface_elevation.dfsu
@@ -298,7 +352,7 @@ $ python dfsks.py list Oresund2D_surface_elevation.dfsu
 * Surface elevation (meter)
 ```
 
-# More flexible extract command {.smaller}
+## More flexible extract command {.smaller}
 
 * Specify item to extract, default is all items
 * Specify start time, default is first time step
@@ -323,7 +377,7 @@ def extract(
     )
 ```
 
-# More flexible extract command {.smaller}
+## More flexible extract command {.smaller}
 
 ```bash
 $ python dfsks.py extract --help
@@ -350,11 +404,11 @@ But it is not clear, what the default behavior for the optional commands are.
 
 :::
 
-## Adding more help text
+## Adding more help text {.smaller}
 
 The standard way to document Python code is docstrings.
 
-```{.python code-line-numbers=|1}
+```{.python code-line-numbers=|9-11}
 @app.command()
 def extract(
     infilename: str,
@@ -380,21 +434,127 @@ def extract(
 Mention Python package development course in November
 :::
 
+## More help text {.smaller}
+
+```{.python code-line-numbers=|5}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[str] = typer.Option(None,"---item", "-i",help="Item name, default is all items") ,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    """Extract a subset of a dfs file"""
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+## More help text {.smaller}
+
+
+```{.bash code-line-numbers=|11}
+$ python dfsks.py extract --help
+ Usage: dfsks.py extract [OPTIONS] INFILENAME OUTFILENAME
+
+ Extract a subset of a dfs file
+
+╭─ Arguments ────────────────────────────────────────────────────────────────────────────────────╮
+│ *    infilename       TEXT  [default: None] [required]                                         │
+│ *    outfilename      TEXT  [default: None] [required]                                         │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ──────────────────────────────────────────────────────────────────────────────────────╮
+│ ---item  -i      TEXT                                   Item name, default is all items        │
+│                                                         [default: None]                        │
+│ --start          [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d   [default: None]                        │
+│                  %H:%M:%S]                                                                     │
+│ --end            [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d   [default: None]                        │
+│                  %H:%M:%S]                                                                     │
+│ --help                                                  Show this message and exit.            │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+## Options {.smaller} 
+
+Let's revisit the list with json output
+
+```{.python code-line-numbers=|1-3|6|11,15}
+class OutputFormat(str, Enum):
+    raw = "raw"
+    json = "json"
+    
+@app.command()
+def list(path: Path, format: OutputFormat = OutputFormat.raw):
+  """List the contents of a dfs file"""
+
+    dfs = mikeio.open(path)
+
+    if format == OutputFormat.raw:
+        for item in dfs.items:
+            print(f"* {item.name} ({item.unit.name})")
+
+    elif format == OutputFormat.json:
+        res = [{"name": item.name, "unit": item.unit.name} for item in dfs.items]
+        print(json.dumps(res, indent=2))
+```
+
+## Extract multiple items {.smaller}
+
+```{.python code-line-numbers=|5}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[List[str]] = typer.Option(None,"---item", "-i",help="Item name, default is all items") ,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    """Extract a subset of a dfs file"""
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+## Extract multiple items {.smaller}
+
+Similar to `ncks`, not quite as full-featured yet 😊
+
+```bash
+$ python dfsks.py extract oresundHD_run1.dfsu out.dfsu -i "Surface elevation" -i "Total water depth"
+ ```
+. . .
+
+Check the output
+
+```bash
+$ python dfsks.py list out.dfsu
+* Surface elevation (meter)
+* Total water depth (meter)
+```
+
+
 ## Installation
-
-
-Some options:
 
 **Windows**:
 
 Create a `.cmd` file in folder in the PATH
 
-```{}.cmd filename="C:\Users\JAN\bin\dfsks.cmd"}
+```{.cmd filename="C:\Users\JAN\bin\dfsks.cmd"}
 C:\Users\JAN\AppData\Local\miniforge3\python.exe C:\Users\JAN\scripts\dfsks.py
 ```
 
+## Installation
+
 **Linux (e.g. WSL)**
-1. Add a special first line `#!/usr/bin/env python`
 
 ```{.python filename=~/bin/dfsks.py"}
 #!/usr/bin/env python
@@ -402,7 +562,33 @@ from datetime import datetime
 from typing import Optional
 import typer
 ...
+```
 
+1. Add a special first line `#!/usr/bin/env python`
 2. Create a symbolic link `ln -s dfsks.py dfsks`
 3. Make it executable `chmod +x dfsks`
 
+. . .
+
+Another option is to create a Python installable package
+
+::: {.notes}
+
+Python package development course in November
+
+:::
+
+
+## Caveats
+
+* The command line tool is not a standalone executable
+* Python needs to be installed on the system
+* All dependencies need to be installed, `mikeio`, `typer`, etc
+
+## Conclusions
+
+* Command line applications can be useful for common tasks
+* Command line applications can be used as building blocks for more complex workflows
+* It is possible to create command line applications in Python
+* The `typer` library makes it possible to create professional command line applications in Python
+* Creating an installable Python package makes it easier to distribute the application
