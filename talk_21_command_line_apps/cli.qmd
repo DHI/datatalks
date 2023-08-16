@@ -10,12 +10,16 @@ format:
     slide-number: true
     theme: [default]
     footer: Command line applications in Python
-    incremental: true
+    incremental: false
 ---
 
-### Command-Line Interface
 
-::: {.nonincremental}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### Command-Line Interface
 
 - Text-based commands.
 - Efficient for automation.
@@ -23,20 +27,14 @@ format:
 
 :::
 
-:::
-
 ::: {.column width="50%"}
 
 ### Graphical User Interface
-
-::: {.nonincremental}
 
 - Visual elements (icons, windows).
 - User-friendly.
 - Immediate visual feedback.
 - Common for everyday tasks.
-
-:::
 
 :::
 
@@ -55,6 +53,23 @@ format:
 - **2011**: Docker boosts use of CLI for container management
 - **2020s**: CLI continues its indispensable role, supporting automation, scripting, and advanced tasks. 
 
+## Terminal vs Shell {.smaller}
+
+- **Terminal**: A program that runs a shell
+- **Shell**: A program that interprets commands
+- **Bash**: The most common shell on Linux and macOS
+- **PowerShell**: The most common shell on Windows
+- **Cmd**: The legacy shell on Windows
+
+
+
+## Windows Terminal
+
+A new terminal application for Windows 10
+
+![](terminal.png)
+
+
 
 ## Advantages of CLI Apps
 
@@ -63,13 +78,6 @@ format:
 3. **Remote Control**: Manage systems remotely.
 4. **Resource Efficient**: Lower system resource usage.
 5. **Reproducibility**: Document and share commands.
-
-##
-
-:::: {.columns}
-
-::: {.column width="50%"}
-
 
 
 ## Example: NetCDF kitchen sink {.smaller}
@@ -176,14 +184,10 @@ $$
 
 An exampe of a command with subcommands is `git`
 
-::: {.nonincremental}
-
 * `git init`
 * `git add`
 * `git commit`
 * `git push`
-
-:::
 
 Each subcommand has its own set of options and arguments.
 
@@ -280,7 +284,36 @@ A few problems with the UX ☹️
 * what are the valid values for the second argument (e.g. json,...)
 
 
-## Typer, a library for command line applications
+##
+
+![](https://typer.tiangolo.com/img/logo-margin/logo-margin-vector.svg)
+
+* A library for creating command line applications
+* Developed by the author of FastAPI
+* Uses type hints to infer the command line interface
+* Built on top of the reliable `click` library
+
+
+## Python type hints
+
+Python is a dynamically typed language -> the type of a variable is determined at runtime.
+
+. . .
+
+But we can add type hints to help the reader (and the code editor).
+
+```python
+def is_operable(height: float, period: float) -> bool:
+    ...
+```
+
+`Typer` uses these type hints to convert the command line arguments (text) to the correct type.
+
+## Auto-completion
+
+Type hints enable auto-completion in code editors
+
+![](vscode.png)
 
 ## `dfsks` - DFS Kitchen sink {.smaller}
 
@@ -441,7 +474,7 @@ Mention Python package development course in November
 def extract(
     infilename: str,
     outfilename: str,
-    item: Optional[str] = typer.Option(None,"---item", "-i",help="Item name, default is all items") ,
+    item: Optional[str] = typer.Option(None, "---item", "-i", help="Item name, default is all items") ,
     start: Optional[datetime] = None,
     end: Optional[datetime] = None,
 ):
@@ -510,7 +543,7 @@ def list(path: Path, format: OutputFormat = OutputFormat.raw):
 def extract(
     infilename: str,
     outfilename: str,
-    item: Optional[List[str]] = typer.Option(None,"---item", "-i",help="Item name, default is all items") ,
+    item: Optional[List[str]] = typer.Option(None, "---item", "-i", help="Item name, default is all items") ,
     start: Optional[datetime] = None,
     end: Optional[datetime] = None,
 ):
