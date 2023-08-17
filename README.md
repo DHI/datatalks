@@ -23,6 +23,7 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 * Data Talk 18: Python plotting libraries for exploratory data analysis (CLCR)
 * Data Talk 19: MIKE 3D Studio - 3D Visualization with Blender (DERE)
 * Data Talk 20: Neural networks with PyTorch (JAN)
+* Data Talk 21: Command line applications (JAN)
 
 
 ## Resources 

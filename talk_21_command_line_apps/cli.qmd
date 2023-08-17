@@ -1,0 +1,671 @@
+---
+title: Command line applications in Python
+author: Henrik Andersson
+date: 2023-05-25
+date-format: long
+format: 
+  revealjs:
+    embed-resources: true
+    margin: 0.1
+    slide-number: true
+    theme: [default]
+    footer: Command line applications in Python
+    incremental: false
+---
+
+
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+### Command-Line Interface
+
+- Text-based commands.
+- Efficient for automation.
+- Preferred by tech experts.
+
+:::
+
+::: {.column width="50%"}
+
+### Graphical User Interface
+
+- Visual elements (icons, windows).
+- User-friendly.
+- Immediate visual feedback.
+- Common for everyday tasks.
+
+:::
+
+::::
+
+
+## Evolution of Computer Interfaces {.smaller}
+
+- **1969**: UNIX introduces Command Line Interface (CLI)
+- **1980**: MS-DOS popularizes Command Line Interface (CLI)
+- **1984**: Apple Macintosh brings GUI to mainstream
+- **1985**: Microsoft introduces Windows 1.0, a graphical user interface (GUI).
+- **1991**: Linux introduces CLI to open source
+- **1995**: Windows 95 merges GUI and CLI
+- **2001**: Mac OS X merges Unix and GUI
+- **2004**: Ubuntu simplifies Linux CLI 
+- **2011**: Docker boosts use of CLI for container management
+- **2020s**: CLI continues its indispensable role, supporting automation, scripting, and advanced tasks. 
+
+## Terminal vs Shell {.smaller}
+
+- **Terminal**: A program that runs a shell
+- **Shell**: A program that interprets commands
+- **Bash**: The most common shell on Linux and macOS
+- **PowerShell**: The most common shell on Windows
+- **Cmd**: The legacy shell on Windows
+
+
+
+## Windows Terminal
+
+A new terminal application for Windows 10
+
+![](terminal.png)
+
+
+
+## Advantages of CLI Apps
+
+1. **Efficiency**: Quick task execution.
+2. **Automation**: Easily script repetitive tasks.
+3. **Remote Control**: Manage systems remotely.
+4. **Resource Efficient**: Lower system resource usage.
+5. **Reproducibility**: Document and share commands.
+
+
+## Example: NetCDF kitchen sink {.smaller}
+
+Get a summary of the contents of a NetCDF file
+
+```{.bash code-line-numbers="1|2-100"}
+$ ncks -M ERA5_waves_102017.nc
+netcdf ERA5_waves_102017 {
+  dimensions:
+    latitude = 361 ;
+    longitude = 720 ;
+    time = 72 ;
+
+  variables:
+    float latitude(latitude) ;
+    float longitude(longitude) ;
+    short mp2(time,latitude,longitude) ;
+    short mwd(time,latitude,longitude) ;
+    short mwp(time,latitude,longitude) ;
+    short pp1d(time,latitude,longitude) ;
+    short swh(time,latitude,longitude) ;
+    int time(time) ;
+ ...
+```
+
+## Example: NetCDF kitchen sink {.smaller}
+
+Inspect the `mwd` variable
+
+```{.bash code-line-numbers="1|2-100|14-15"}
+$ ncks -m -v mwd ERA5_waves_102017.nc
+netcdf ERA5_waves_102017 {
+  dimensions:
+    latitude = 361 ;
+    longitude = 720 ;
+    time = 72 ;
+
+  variables:
+    short mwd(time,latitude,longitude) ;
+      mwd:scale_factor = 0.00549346915195891 ;
+      mwd:add_offset = 179.999010366662 ;
+      mwd:_FillValue = -32767s ;
+      mwd:missing_value = -32767s ;
+      mwd:units = "Degree true" ;
+      mwd:long_name = "Mean wave direction" ;
+
+    int time(time) ;
+      time:units = "hours since 1900-01-01 00:00:00.0" ;
+      time:long_name = "time" ;
+      time:calendar = "gregorian" ;
+} // group /
+```
+
+## Example: NetCDF kitchen sink {.smaller}
+
+Extract two variables, significant wave height and mean wave period
+
+```{.bash code-line-numbers="1|1,2-100"}
+$ ncks -v swh,mwp ERA5_waves_102017.nc ERA5_waves_102017_swh_mwp.nc
+```
+. . .
+  
+This command runs succcessfully, there is no output to the terminal.
+ 
+. . . 
+
+Inspect the contents of the new file
+
+```{.bash code-line-numbers="1|1,11-12"}
+$ ncks -M ERA5_waves_102017_swh_mwp.nc
+netcdf ERA5_waves_102017_swh_mwp {
+  dimensions:
+    latitude = 361 ;
+    longitude = 720 ;
+    time = 72 ;
+
+  variables:
+    float latitude(latitude) ;
+    float longitude(longitude) ;
+    short mwp(time,latitude,longitude) ;
+    short swh(time,latitude,longitude) ;
+...
+```
+
+## Parts of a command line
+
+```bash
+$ ncks -M ERA5_waves_102017_swh_mwp.nc
+```
+
+$$
+\underbrace{\text{ncks}}_{command}~\underbrace{\text{-M}}_{option}~\underbrace{\text{ERA5_waves_102017_swh_mwp.nc}}_{argument}
+$$
+
+. . .
+
+
+* **command**: the name of the "program" to run
+* **option**: a flag that modifies the behaviour of the program (optional)
+* **argument**: a mandatory positional input to the program
+
+## Subcommands
+
+An exampe of a command with subcommands is `git`
+
+* `git init`
+* `git add`
+* `git commit`
+* `git push`
+
+Each subcommand has its own set of options and arguments.
+
+
+
+## A minimal command line application {.smaller}
+
+Using the built-in `sys` module
+
+```{.python filename=main.py code-line-numbers="|4"}
+import mikeio
+import sys
+
+filename = sys.argv[1]
+
+dfs = mikeio.open(filename)
+
+for item in dfs.items:
+    print(f"* {item.name} ({item.unit.name})")
+```
+
+. . .
+
+Run the script
+
+```bash
+$ python main.py Oresund2D.dfsu
+* Surface elevation (meter)
+* Total water depth (meter)
+* U velocity (meter_per_sec)
+* V velocity (meter_per_sec)
+* Wind U velocity (meter_per_sec)
+* Wind V velocity (meter_per_sec)
+* Air pressure (pascal)
+```
+
+## A minimal command line application {.smaller}
+
+What happens if we run the script without any argument?
+
+```bash
+$ python main.py
+Traceback (most recent call last):
+  File "/home/jan/src/datatalks/talk_21_command_line_apps/main.py", line 4, in <module>
+    filename = sys.argv[1]
+               ~~~~~~~~^^^
+IndexError: list index out of range
+```
+
+## Fancy output {.smaller}
+
+```{.python filename=fancy.py code-line-numbers="|5-6"}
+import mikeio
+import sys
+import json
+
+filename = sys.argv[1]
+out_format = sys.argv[2]
+
+dfs = mikeio.open(filename)
+
+if out_format == "json":
+    res = []
+    for item in dfs.items:
+        res.append({"name": item.name, "unit": item.unit.name})
+    print(json.dumps(res))
+
+else:
+    for item in dfs.items:
+        print(f"* {item.name} ({item.unit.name})")
+```
+
+## Fancy output {.smaller}
+
+```bash
+$ python fancy.py Oresund2D.dfsu json
+[
+  {
+    "name": "Surface elevation",
+    "unit": "meter"
+  },
+  {
+    "name": "Total water depth",
+    "unit": "meter"
+  },
+...
+```
+
+. . .
+
+A few problems with the UX ☹️ 
+ 
+* what are the arguments (e.g. filename, output format)
+* what are the valid values for the second argument (e.g. json,...)
+
+
+##
+
+![](https://typer.tiangolo.com/img/logo-margin/logo-margin-vector.svg)
+
+* A library for creating command line applications
+* Developed by the author of FastAPI
+* Uses type hints to infer the command line interface
+* Built on top of the reliable `click` library
+
+
+## Python type hints
+
+Python is a dynamically typed language -> the type of a variable is determined at runtime.
+
+. . .
+
+But we can add type hints to help the reader (and the code editor).
+
+```python
+def is_operable(height: float, period: float) -> bool:
+    ...
+```
+
+`Typer` uses these type hints to convert the command line arguments (text) to the correct type.
+
+## Auto-completion
+
+Type hints enable auto-completion in code editors
+
+![](vscode.png)
+
+## `dfsks` - DFS Kitchen sink {.smaller}
+
+```{.python filename=dfsks.py code-line-numbers="|7-12|14-16 "}
+import typer
+import mikeio
+import mikeio.generic as mg
+
+app = typer.Typer()
+
+@app.command()
+def list(filename: str):
+    dfs = mikeio.open(filename)
+
+    for item in dfs.items:
+        print(f"* {item.name} ({item.unit.name})")
+
+@app.command()
+def extract(item: str, infilename: str, outfilename: str):
+    mg.extract(infilename=infilename, outfilename=outfilename, items=item)
+
+    
+if __name__ == "__main__":
+    app()
+```
+
+## `dfsks` - DFS Kitchen sink {.smaller}
+
+```bash
+$ python dfsks.py --help
+ Usage: dfsks.py [OPTIONS] COMMAND [ARGS]...
+
+╭─ Options ────────────────────────────────────╮
+│ --help          Show this message and exit.  │
+╰──────────────────────────────────────────────╯
+╭─ Commands ───────────────────────────────────╮
+│ extract                                      │
+│ list                                         │
+╰──────────────────────────────────────────────╯
+```
+
+. . . 
+
+
+```bash
+$ python dfsks.py list --help
+ Usage: dfsks.py list [OPTIONS] FILENAME
+
+╭─ Arguments ──────────────────────────────────╮
+│ *    filename      TEXT  [default: None]     │
+│                          [required]          │
+╰──────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────╮
+│ --help          Show this message and exit.  │
+╰──────────────────────────────────────────────╯
+```
+
+## Extract a subset of a file {.smaller}
+
+```bash
+$ python dfsks.py extract "Surface elevation" Oresund2D.dfsu Oresund2D_surface_elevation.dfsu
+ ```
+
+Because of the space in the name of the variable we need to use quotes around the name. `"Surface elevation"`
+
+. . .
+```bash
+$ python dfsks.py list Oresund2D_surface_elevation.dfsu
+* Surface elevation (meter)
+```
+
+## More flexible extract command {.smaller}
+
+* Specify item to extract, default is all items
+* Specify start time, default is first time step
+* Specify end time, default is last time step
+
+
+```{.python filename=dfsks.py}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[str] = None,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+## More flexible extract command {.smaller}
+
+```bash
+$ python dfsks.py extract --help
+ Usage: dfsks.py extract [OPTIONS] INFILENAME OUTFILENAME
+
+╭─ Arguments ──────────────────────────────────────────────────────────────────────╮
+│ *    infilename       TEXT  [default: None] [required]                           │
+│ *    outfilename      TEXT  [default: None] [required]                           │
+╰──────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ────────────────────────────────────────────────────────────────────────╮
+│ --item         TEXT                             [default: None]                  │
+│ --start        [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-  [default: None]                  │
+│                %m-%d %H:%M:%S]                                                   │
+│ --end          [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-  [default: None]                  │
+│                %m-%d %H:%M:%S]                                                   │
+│ --help                                          Show this message and exit.      │
+╰──────────────────────────────────────────────────────────────────────────────────╯
+```
+
+::: {.notes}
+
+We now have a rather flexible extraction tool, that we could hand over to a colleague.
+But it is not clear, what the default behavior for the optional commands are.
+
+:::
+
+## Adding more help text {.smaller}
+
+The standard way to document Python code is docstrings.
+
+```{.python code-line-numbers=|9-11}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[str] = None,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    """Extract a subset of a dfs file
+    
+    The default is to extract all items and all time steps.
+    """
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+::: {.notes}
+Mention Python package development course in November
+:::
+
+## More help text {.smaller}
+
+```{.python code-line-numbers=|5}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[str] = typer.Option(None, "---item", "-i", help="Item name, default is all items") ,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    """Extract a subset of a dfs file"""
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+## More help text {.smaller}
+
+
+```{.bash code-line-numbers=|11}
+$ python dfsks.py extract --help
+ Usage: dfsks.py extract [OPTIONS] INFILENAME OUTFILENAME
+
+ Extract a subset of a dfs file
+
+╭─ Arguments ────────────────────────────────────────────────────────────────────────────────────╮
+│ *    infilename       TEXT  [default: None] [required]                                         │
+│ *    outfilename      TEXT  [default: None] [required]                                         │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ──────────────────────────────────────────────────────────────────────────────────────╮
+│ ---item  -i      TEXT                                   Item name, default is all items        │
+│                                                         [default: None]                        │
+│ --start          [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d   [default: None]                        │
+│                  %H:%M:%S]                                                                     │
+│ --end            [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d   [default: None]                        │
+│                  %H:%M:%S]                                                                     │
+│ --help                                                  Show this message and exit.            │
+╰────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+## Options {.smaller} 
+
+Let's revisit the list with json output
+
+```{.python code-line-numbers=|1-3|6|11,15}
+class OutputFormat(str, Enum):
+    raw = "raw"
+    json = "json"
+    
+@app.command()
+def list(path: Path, format: OutputFormat = OutputFormat.raw):
+  """List the contents of a dfs file"""
+
+    dfs = mikeio.open(path)
+
+    if format == OutputFormat.raw:
+        for item in dfs.items:
+            print(f"* {item.name} ({item.unit.name})")
+
+    elif format == OutputFormat.json:
+        res = [{"name": item.name, "unit": item.unit.name} for item in dfs.items]
+        print(json.dumps(res, indent=2))
+```
+
+## Pretty print {.smaller}
+
+```{.python code-line-numbers="|1,2,5|7-10|20-24" filename="dfsks.py"}
+from rich.console import Console
+from rich.table import Table
+
+app = typer.Typer(add_completion=False)
+console = Console()
+
+class OutputFormat(str, Enum):
+    raw = "raw"
+    json = "json"
+    table = "table"
+
+@app.command()
+def list(path: Path, format: OutputFormat = OutputFormat.raw):
+
+  ...
+    if format == OutputFormat.raw:
+      ...
+    elif format == OutputFormat.json:
+      ...
+    elif format == OutputFormat.table:
+        table = Table("Name", "Unit")
+        for item in dfs.items:
+            table.add_row(item.name, item.unit.name)
+        console.print(table)
+```
+
+## Pretty print
+
+```bash
+$  python dfsks.py list data/oresundHD_run1.dfsu --format table
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Name              ┃ Unit          ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ Surface elevation │ meter         │
+│ Total water depth │ meter         │
+│ U velocity        │ meter_per_sec │
+│ V velocity        │ meter_per_sec │
+└───────────────────┴───────────────┘
+```
+
+## Extract multiple items {.smaller}
+
+```{.python code-line-numbers=|5}
+@app.command()
+def extract(
+    infilename: str,
+    outfilename: str,
+    item: Optional[List[str]] = typer.Option(None, "---item", "-i", help="Item name, default is all items") ,
+    start: Optional[datetime] = None,
+    end: Optional[datetime] = None,
+):
+    """Extract a subset of a dfs file"""
+    mg.extract(
+        infilename=infilename,
+        outfilename=outfilename,
+        items=item,
+        start=start,
+        end=end,
+    )
+```
+
+## Extract multiple items {.smaller}
+
+Similar to `ncks`, not quite as full-featured yet 😊
+
+```bash
+$ python dfsks.py extract oresundHD_run1.dfsu out.dfsu -i "Surface elevation" -i "Total water depth"
+ ```
+. . .
+
+Check the output
+
+```bash
+$ python dfsks.py list out.dfsu
+* Surface elevation (meter)
+* Total water depth (meter)
+```
+
+
+## Installation
+
+**Windows**:
+
+Create a `.cmd` file in folder in the PATH
+
+```{.cmd filename="C:\Users\JAN\bin\dfsks.cmd"}
+C:\Users\JAN\AppData\Local\miniforge3\python.exe C:\Users\JAN\scripts\dfsks.py
+```
+
+## Installation
+
+**Linux (e.g. WSL)**
+
+```{.python filename=~/bin/dfsks.py"}
+#!/usr/bin/env python
+from datetime import datetime
+from typing import Optional
+import typer
+...
+```
+
+1. Add a special first line `#!/usr/bin/env python`
+2. Create a symbolic link `ln -s dfsks.py dfsks`
+3. Make it executable `chmod +x dfsks`
+
+. . .
+
+Another option is to create a Python installable package
+
+::: {.notes}
+
+Python package development course in November
+
+:::
+
+
+## Caveats
+
+* The command line tool is not a standalone executable
+* Python needs to be installed on the system
+* All dependencies need to be installed, `mikeio`, `typer`, etc
+
+## Conclusions
+
+* Command line applications can be useful for common tasks
+* Command line applications can be used as building blocks for more complex workflows
+* It is possible to create command line applications in Python
+* The `typer` library makes it possible to create professional command line applications in Python
+* Creating an installable Python package makes it easier to distribute the application
