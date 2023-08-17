@@ -5,16 +5,21 @@ from typing import Annotated, Optional, List
 from pathlib import Path
 import json
 import typer
+from rich.console import Console
+from rich.table import Table
+
 import mikeio
 import mikeio.generic as mg
 
 
 app = typer.Typer(add_completion=False)
+console = Console()
 
 
 class OutputFormat(str, Enum):
     raw = "raw"
     json = "json"
+    table = "table"
 
 
 @app.command()
@@ -37,6 +42,12 @@ def list(path: Path, format: OutputFormat = OutputFormat.raw):
         for item in dfs.items:
             res.append({"name": item.name, "unit": item.unit.name})
         print(json.dumps(res, indent=2))
+    elif format == OutputFormat.table:
+        table = Table("Name", "Unit")
+        for item in dfs.items:
+            table.add_row(item.name, item.unit.name)
+        console.print(table)
+
 
 
 @app.command()

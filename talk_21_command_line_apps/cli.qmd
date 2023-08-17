@@ -40,6 +40,7 @@ format:
 
 ::::
 
+
 ## Evolution of Computer Interfaces {.smaller}
 
 - **1969**: UNIX introduces Command Line Interface (CLI)
@@ -178,7 +179,7 @@ $$
 
 * **command**: the name of the "program" to run
 * **option**: a flag that modifies the behaviour of the program (optional)
-* **argument**: a mandatory input to the program
+* **argument**: a mandatory positional input to the program
 
 ## Subcommands
 
@@ -534,6 +535,49 @@ def list(path: Path, format: OutputFormat = OutputFormat.raw):
     elif format == OutputFormat.json:
         res = [{"name": item.name, "unit": item.unit.name} for item in dfs.items]
         print(json.dumps(res, indent=2))
+```
+
+## Pretty print {.smaller}
+
+```{.python code-line-numbers="|1,2,5|7-10|20-24" filename="dfsks.py"}
+from rich.console import Console
+from rich.table import Table
+
+app = typer.Typer(add_completion=False)
+console = Console()
+
+class OutputFormat(str, Enum):
+    raw = "raw"
+    json = "json"
+    table = "table"
+
+@app.command()
+def list(path: Path, format: OutputFormat = OutputFormat.raw):
+
+  ...
+    if format == OutputFormat.raw:
+      ...
+    elif format == OutputFormat.json:
+      ...
+    elif format == OutputFormat.table:
+        table = Table("Name", "Unit")
+        for item in dfs.items:
+            table.add_row(item.name, item.unit.name)
+        console.print(table)
+```
+
+## Pretty print
+
+```bash
+$  python dfsks.py list data/oresundHD_run1.dfsu --format table
+┏━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━┓
+┃ Name              ┃ Unit          ┃
+┡━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━┩
+│ Surface elevation │ meter         │
+│ Total water depth │ meter         │
+│ U velocity        │ meter_per_sec │
+│ V velocity        │ meter_per_sec │
+└───────────────────┴───────────────┘
 ```
 
 ## Extract multiple items {.smaller}
