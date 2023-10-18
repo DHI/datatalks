@@ -1,0 +1,58 @@
+---
+title: Read, write, and modify Pfs files with MIKE IO
+author: Jesper Sandvig Mariegaard
+date: 2023-10-19
+date-format: long
+format: 
+  revealjs:
+    embed-resources: true
+    margin: 0.1
+    slide-number: true
+    theme: [default]
+    footer: Read, write, and modify Pfs files with MIKE IO
+    incremental: true
+
+jupyter: python3
+execute: 
+  echo: true
+  freeze: auto
+---
+
+
+## Pfs files
+
+* Text files with a simple nested structure.
+* Used to store settings for MIKE by DHI software.
+
+
+
+## Pfs file structure
+
+```
+[TARGET1]
+   keywordA = parameterA
+   [SECTION1]
+      keywordB = parameterB
+      keywordC = parameterC
+      [SECTION2]
+         keywordD = parameterD         
+      EndSect  // SECTION2 
+   EndSect  // SECTION1 
+EndSect  // TARGET1
+
+[TARGET2]
+   keywordE = parameterE 
+   [SECTION3]
+      keywordF = parameterF
+   EndSect  // SECTION3 
+EndSect  // TARGET2
+```
+
+
+## Note on non-uniqueness
+
+
+
+
+## Summary
+
