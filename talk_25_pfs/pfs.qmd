@@ -64,35 +64,78 @@ EndSect  // TARGET2
 ```
 
 
+## Pfs file example
+
+```{.smaller}
+// Created     : 2020-03-11 15:24:53
+// DLL         : C:\Program Files (x86)\DHI\2020\bin\x64\pfs2004.dll
+// Version     : 18.1.0.14067
+
+[txconc]
+   CLSID = 'TxConc.dll'
+   TypeName = 'txconc'
+   CREATEDTIME = '2020-03-11T15:24:45'
+   MODIFIEDTIME = '2020-03-11T15:24:45'
+   NOTES = ''
+   [Setup]
+      Name = 'Setup Name'
+      NumberFiles = 2
+      NumberDimensions = 1
+      NumberItems = 1
+      InsertDelIfGabs = 0
+      UseTimeRange = 1
+      TimeRange = 0, 145, 1
+      FirstFileTimeDef = 0
+      OverwriteWithLatest = 1
+      [File_1]
+         InputFile = |.\tide1.dfs1|
+         Items = 1
+      EndSect  // File_1
+
+      [File_2]
+         InputFile = |.\tide2.dfs1|
+         Items = 1
+      EndSect  // File_2
+
+      [File_Out]
+         OutputFile = |.\txconc.dfs1|
+         OutputFileTitle = ''
+      EndSect  // File_Out
+
+   EndSect  // Setup
+
+EndSect  // txconc
+```
+
+
 ## Pfs in MIKE IO
 
 * Uses a different parser than MIKE Core!
 * Uses a dictonary-like structure internally
-* PfsSection class (corresponds to a section in a Pfs file)
-* PfsDocument class (corresponds to a Pfs file)
-    - inherits from PfsSection
+* `PfsSection` class (corresponds to a section in a Pfs file)
+* `PfsDocument` class (corresponds to a Pfs file)
+    - inherits from `PfsSection`
     - can be saved to file
     - has additional properties and methods
 
 
 ## Note on non-uniqueness
 
-* The PFS system allows 
-   - non-unique *keywords* within a section
-   - non-unique *sections* within a section
-* This makes it different from a Python dictionary
-* MIKE IO allows users to decide how to handle non-uniqueness
-   - mikeio.read_pfs(..., unique_keywords=True)
-   - by default unique_keywords=False
-
+* The PFS system allows non-unique... 
+   - *keywords* within a section
+   - *sections* within a section
+* This makes it different from a Python dictionary! 
+* MIKE IO has a special class for this: `PfsNonUniqueList`
+* Users can decide how to handle non-uniqueness
+   - `mikeio.read_pfs(..., unique_keywords=True)`
+   - by default `unique_keywords=False`
 
 
 ## Working with MIKE21/3 Pfs files
 
 * All sections and keywords are unique
-* MIKE IO PfsDocument has aliases for process modules (e.g. HD and MT)
-    - `pfs.HD` instead of `pfs.FEMEngineHD.HYDRODYNAMIC_MODULE` 
-
+* MIKE IO `PfsDocument` has aliases for process modules (e.g. HD and MT)
+    - `pfs.HD` instead of `pfs.FemEngineHD.HYDRODYNAMIC_MODULE` 
 
 
 ## Known issues/special considerations
