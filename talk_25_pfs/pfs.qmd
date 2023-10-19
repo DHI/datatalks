@@ -19,6 +19,17 @@ execute:
 ---
 
 
+## Agenda
+
+* What is a Pfs file?
+* Pfs in MIKE IO
+* Basic usage
+* Searching 
+* Exporting to DataFrame
+* Templating
+
+
+
 ## Pfs files
 
 * Text files with a simple nested structure.
@@ -30,9 +41,9 @@ execute:
 
 
 
-## Pfs file structure[.smaller]
+## Pfs file structure
 
-```
+```{.smaller}
 [TARGET1]
    keywordA = parameterA
    [SECTION1]
@@ -56,6 +67,7 @@ EndSect  // TARGET2
 ## Pfs in MIKE IO
 
 * Uses a different parser than MIKE Core!
+* Uses a dictonary-like structure internally
 * PfsSection class (corresponds to a section in a Pfs file)
 * PfsDocument class (corresponds to a Pfs file)
     - inherits from PfsSection
@@ -83,7 +95,15 @@ EndSect  // TARGET2
 
 
 
+## Known issues/special considerations
+
+* Read-write of non-unique keywords/section will change order (MIKE SHE)
+* Expressions with line breaks
+* Strings which look like scientific notation floats
+* In some cases, CLOB
+* In some cases, comma in strings
+* See GitHub issues for more details
 
 
-## Summary
+## Demo
 
