@@ -1,0 +1,152 @@
+---
+title: Read, write, and modify Pfs files with MIKE IO
+author: Jesper Sandvig Mariegaard
+date: 2023-10-19
+date-format: long
+format: 
+  revealjs:
+    embed-resources: true
+    margin: 0.1
+    slide-number: true
+    theme: [default]
+    footer: Read, write, and modify Pfs files with MIKE IO
+    incremental: true
+
+jupyter: python3
+execute: 
+  echo: true
+  freeze: auto
+---
+
+
+## Agenda
+
+* What is a Pfs file?
+* Pfs in MIKE IO
+* Basic usage
+* Searching 
+* Exporting to DataFrame
+* Templating
+
+
+
+## Pfs files
+
+* Text files with a simple nested structure.
+* Used to store settings for MIKE by DHI software.
+   - MIKE 21/3, MIKE Zero, MIKE SHE, MIKE HYDRO, ...
+* The root elements are called *targets*
+* Below sections are called *PFS Sections* 
+   - and contain key-value pairs called *keywords* and *parameters*
+
+
+
+## Pfs file structure
+
+```{.smaller}
+[TARGET1]
+   keywordA = parameterA
+   [SECTION1]
+      keywordB = parameterB
+      keywordC = parameterC
+      [SECTION2]
+         keywordD = parameterD         
+      EndSect  // SECTION2 
+   EndSect  // SECTION1 
+EndSect  // TARGET1
+
+[TARGET2]
+   keywordE = parameterE 
+   [SECTION3]
+      keywordF = parameterF
+   EndSect  // SECTION3 
+EndSect  // TARGET2
+```
+
+
+## Pfs file example
+
+```{.smaller}
+// Created     : 2020-03-11 15:24:53
+// DLL         : C:\Program Files (x86)\DHI\2020\bin\x64\pfs2004.dll
+// Version     : 18.1.0.14067
+
+[txconc]
+   CLSID = 'TxConc.dll'
+   TypeName = 'txconc'
+   CREATEDTIME = '2020-03-11T15:24:45'
+   MODIFIEDTIME = '2020-03-11T15:24:45'
+   NOTES = ''
+   [Setup]
+      Name = 'Setup Name'
+      NumberFiles = 2
+      NumberDimensions = 1
+      NumberItems = 1
+      InsertDelIfGabs = 0
+      UseTimeRange = 1
+      TimeRange = 0, 145, 1
+      FirstFileTimeDef = 0
+      OverwriteWithLatest = 1
+      [File_1]
+         InputFile = |.\tide1.dfs1|
+         Items = 1
+      EndSect  // File_1
+
+      [File_2]
+         InputFile = |.\tide2.dfs1|
+         Items = 1
+      EndSect  // File_2
+
+      [File_Out]
+         OutputFile = |.\txconc.dfs1|
+         OutputFileTitle = ''
+      EndSect  // File_Out
+
+   EndSect  // Setup
+
+EndSect  // txconc
+```
+
+
+## Pfs in MIKE IO
+
+* Uses a different parser than MIKE Core!
+* Uses a dictonary-like structure internally
+* `PfsSection` class (corresponds to a section in a Pfs file)
+* `PfsDocument` class (corresponds to a Pfs file)
+    - inherits from `PfsSection`
+    - can be saved to file
+    - has additional properties and methods
+
+
+## Note on non-uniqueness
+
+* The PFS system allows non-unique... 
+   - *keywords* within a section
+   - *sections* within a section
+* This makes it different from a Python dictionary! 
+* MIKE IO has a special class for this: `PfsNonUniqueList`
+* Users can decide how to handle non-uniqueness
+   - `mikeio.read_pfs(..., unique_keywords=True)`
+   - by default `unique_keywords=False`
+
+
+## Working with MIKE21/3 Pfs files
+
+* All sections and keywords are unique
+* MIKE IO `PfsDocument` has aliases for process modules (e.g. HD and MT)
+    - `pfs.HD` instead of `pfs.FemEngineHD.HYDRODYNAMIC_MODULE` 
+
+
+## Known issues/special considerations
+
+* Read-write of non-unique keywords/section will change order (MIKE SHE)
+* Expressions with line breaks
+* Strings which look like scientific notation floats
+* In some cases, CLOB
+* In some cases, comma in strings
+* See GitHub issues for more details
+
+
+## Demo
+
