@@ -28,7 +28,7 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 * Data Talk 23: Wave Analytics (DACA, STKI)
 * Data Talk 24: Cloud-based notebooks (JAN)
 * Data Talk 25: Read, modify, and write PFS files with MIKE IO (JEM) 
-* Data Talk 26: DEMs (KEGR)
+* Data Talk 26: DEMs (NISI,PACO)
 * Data Talk 27: Model validation with ModelSkill (JEM)
 
 ## Resources 
