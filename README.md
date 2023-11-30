@@ -29,7 +29,9 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 * Data Talk 24: Cloud-based notebooks (JAN)
 * Data Talk 25: Read, modify, and write PFS files with MIKE IO (JEM) 
 * Data Talk 26: DEMs (NISI,PACO)
-* Data Talk 27: Model validation with ModelSkill (JEM)
+* Data Talk 27: Manipulate text files with command-line tools (BJB)
+* Data Talk 28: Model validation with ModelSkill (JEM)
+
 
 ## Resources 
 
