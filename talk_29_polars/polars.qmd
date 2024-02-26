@@ -1,18 +1,163 @@
 ---
 title: Data science with Polars
 format: revealjs
+echo: true
 ---
 
 ## What is Polars?
 
+* Fast
+* Memory efficient
+* Out-of-core processing (larger than memory)
+* Parallel processing
+* Readable code
+
 ## Data import
+
+```{python}
+import polars as pl
+
+airports = pl.read_csv("data/airports.csv")
+airports.head()
+```
+
+---
+
+Zipped files are also supported:
+
+```{python}
+flights = pl.read_csv("data/flights.csv.zip")
+flights.head()
+```
 
 ## Selecting data
 
+Use the `select` method to select columns:
+
+```{python}
+(flights
+    .select(["origin", "dest", "arr_delay"])
+    .head()
+)
+```
+
 ## Filtering data
+
+Use the `filter` method to filter rows:
+
+```{python}
+flights.filter(pl.col("arr_delay") > 60).head()
+```
+
+---
+
+Use multiple conditions:
+
+```{python}
+flights_jan_1 = (flights.
+    filter((pl.col("month") == 1) & (pl.col("day") == 1) & pl.col("arr_delay").is_not_null())
+)
+```
+
+## Sorting data
+
+Use the `sort` method to sort rows:
+
+```{python}
+(flights_jan_1
+    .select(["origin", "dest", "arr_delay"])
+    .sort("arr_delay", descending=True)
+    .head()
+)
+
+```
+
+## Transforming data
+
+*Did the flight catch up during the flight?*
+
+```{python}
+(flights
+    .with_columns(
+        (pl.col("arr_delay") - pl.col("dep_delay")).alias("gain")
+        )
+    .select(["origin", "dest","arr_delay", "dep_delay", "gain"])
+    .head()
+)
+```
 
 ## Aggregating data
 
+*Which **destination** has the most flights?*
+
+```{python}
+top_dest = (flights.
+    group_by("dest").
+    agg(pl.count("dest").alias("n_flights")).
+    sort("n_flights", descending=True)
+    .head()
+)
+top_dest
+```
 ## Joining data
 
+Find out more about top destinations:
+
+```{python}
+flights_airports = (flights
+    .join(airports, left_on="dest", right_on="faa")
+)
+```
+
+---
+
+```{python}
+top_airports =(top_dest
+    .join(airports, left_on="dest", right_on="faa")
+    .select(["dest", "name", "alt","n_flights"])
+    .sort("n_flights", descending=True)
+    .head()
+)
+```
+
 ## Visualizing data
+
+```{python}
+import plotly.express as px
+
+px.bar(top_airports, x="name", y="n_flights", title="Top destinations")
+```
+
+--- 
+
+```{python}
+
+fl_ap = (flights
+    .join(airports, left_on="dest", right_on="faa")
+    .group_by("dest")
+    .agg(
+        pl.col("name").first(),
+        pl.count("dest").alias("n_flights"), 
+        pl.first("alt").alias("altitude")
+    )
+)
+
+px.scatter(fl_ap, x="n_flights", y="altitude", hover_name="name")
+```
+
+## Formatted tables
+
+Using the `great_tables` package:
+
+```{python}
+from great_tables import GT
+
+formatted = (top_airports.
+        select([
+            pl.col("name").alias("Airport"),
+            pl.col("n_flights").alias("No. of flights")
+            ])
+)
+
+GT(formatted)
+```
