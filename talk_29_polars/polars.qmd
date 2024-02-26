@@ -1,10 +1,13 @@
 ---
 title: Data science with Polars
+author: Henrik Andersson
+date: 2024-03-07
 format: revealjs
 echo: true
 ---
 
-## What is Polars?
+##
+![](polars.svg)
 
 * Fast
 * Memory efficient
@@ -29,6 +32,24 @@ Zipped files are also supported:
 flights = pl.read_csv("data/flights.csv.zip")
 flights.head()
 ```
+
+## Data wrangling
+
+selection
+:   selecting columns *"SELECT ... FROM ..."*
+
+filtering
+:   selecting rows *"WHERE ..."*
+
+sorting
+:   ordering rows *"ORDER BY ..."*
+
+aggregation
+:   summarizing data, count, sum, mean, etc. *"GROUP BY ..."*
+
+. . .
+
+Typical database operations, supported by Polars.
 
 ## Selecting data
 
@@ -55,7 +76,11 @@ Use multiple conditions:
 
 ```{python}
 flights_jan_1 = (flights.
-    filter((pl.col("month") == 1) & (pl.col("day") == 1) & pl.col("arr_delay").is_not_null())
+    filter(
+        (pl.col("month") == 1) & 
+        (pl.col("day") == 1) & 
+        pl.col("arr_delay").is_not_null()
+        )
 )
 ```
 
@@ -64,12 +89,12 @@ flights_jan_1 = (flights.
 Use the `sort` method to sort rows:
 
 ```{python}
+#| output-location: slide
 (flights_jan_1
     .select(["origin", "dest", "arr_delay"])
     .sort("arr_delay", descending=True)
     .head()
 )
-
 ```
 
 ## Transforming data
@@ -77,6 +102,7 @@ Use the `sort` method to sort rows:
 *Did the flight catch up during the flight?*
 
 ```{python}
+#| output-location: slide
 (flights
     .with_columns(
         (pl.col("arr_delay") - pl.col("dep_delay")).alias("gain")
@@ -91,10 +117,12 @@ Use the `sort` method to sort rows:
 *Which **destination** has the most flights?*
 
 ```{python}
-top_dest = (flights.
-    group_by("dest").
-    agg(pl.count("dest").alias("n_flights")).
-    sort("n_flights", descending=True)
+#| output-location: slide
+top_dest = (
+    flights
+    .group_by("dest")
+    .agg(pl.count("dest").alias("n_flights"))
+    .sort("n_flights", descending=True)
     .head()
 )
 top_dest
@@ -120,6 +148,35 @@ top_airports =(top_dest
 )
 ```
 
+## More complex query
+
+```{python}
+small_df = (flights
+    .filter(pl.col("dest").is_in(['ATL','LAX']))
+    .filter(pl.col("month").is_in([1,2]))
+)
+```
+---
+```{python}
+(small_df
+    .group_by("dest", "month")
+    .agg(pl.col("arr_delay").max())
+    .sort("dest","month","arr_delay")
+)
+```
+
+## Data export
+
+```{python}
+top_airports.write_csv("data/top_airports.csv")
+```
+
+. . .
+
+```{python}
+! head data/top_airports.csv
+```
+
 ## Visualizing data
 
 ```{python}
@@ -131,6 +188,7 @@ px.bar(top_airports, x="name", y="n_flights", title="Top destinations")
 --- 
 
 ```{python}
+#| output-location: column
 
 fl_ap = (flights
     .join(airports, left_on="dest", right_on="faa")
@@ -149,15 +207,59 @@ px.scatter(fl_ap, x="n_flights", y="altitude", hover_name="name")
 
 Using the `great_tables` package:
 
+
 ```{python}
+#| output-location: slide
 from great_tables import GT
 
-formatted = (top_airports.
+formatted = (
+    top_airports.
         select([
             pl.col("name").alias("Airport"),
             pl.col("n_flights").alias("No. of flights")
             ])
 )
 
-GT(formatted)
+GT(formatted, rowname_col="Airport")
 ```
+
+## Lazy
+
+```python
+lazy_flights = pl.scan_csv("data/flights.csv.zip") # 😒
+```
+
+---
+
+```{python}
+pl.read_csv("data/flights.csv.zip").write_parquet("data/flights.parquet")
+```
+
+---
+
+```{python}
+lazy_flights = pl.scan_parquet("data/flights.parquet")
+type(lazy_flights)
+```
+
+
+---
+
+```{python}
+(lazy_flights
+    .select("dest","arr_delay")
+    .group_by("dest")
+    .agg(pl.col("arr_delay").max())
+    .filter(pl.col("arr_delay") > 1000)
+    .sort("arr_delay", descending=True)
+    .collect()
+)
+```   
+
+## Conclusions
+
+* Support for all database-like operations
+* Simple Input/output
+* Visualization & formatted tables not part of polars (use dedicated libraries)
+* Group by operations returns a regular dataframe (no multi-index)
+* Lazy evaluation for efficient data processing 
