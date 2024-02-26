@@ -47,6 +47,8 @@ sorting
 aggregation
 :   summarizing data, count, sum, mean, etc. *"GROUP BY ..."*
 
+join
+:   combining data *"JOIN ... ON ..."*
 . . .
 
 Typical database operations, supported by Polars.
@@ -129,11 +131,57 @@ top_dest
 ```
 ## Joining data
 
+:::: {.columns}
+
+::: {.column}
+
+| year | dest | origin | delay |
+|------|------|--------|-----------|
+| 2013 |  IAH | EWR    | 2         |
+| 2013 |  NYC | LGA    | 4         |
+
+:  Flight data
+:::
+
+::: {.column}
+
+| *faa* | lat | lon | 
+|-------|-----|-----|
+| EWR | 40.69 | -74.16
+| LGA | 40.77 | -73.87 |
+| IAH | 29.98 | -95.34 |
+
+:  Airport data
+:::
+
+::::
+
+## Join strategies
+
+::: {.incremental}
+
+inner
+:   keep only rows that match in both dataframes
+
+left
+:   keep all rows from the left dataframe
+
+right
+:   keep all rows from the right dataframe
+
+outer
+:   keep all rows from both dataframes
+
+:::
+
+---
+
 Find out more about top destinations:
 
 ```{python}
-flights_airports = (flights
-    .join(airports, left_on="dest", right_on="faa")
+flights_airports = (
+    flights
+    .join(airports, left_on="dest", right_on="faa", how="inner")
 )
 ```
 
@@ -188,24 +236,30 @@ px.bar(top_airports, x="name", y="n_flights", title="Top destinations")
 --- 
 
 ```{python}
-#| output-location: column
+#| output-location: slide 
 
 fl_ap = (flights
     .join(airports, left_on="dest", right_on="faa")
     .group_by("dest")
     .agg(
+        pl.col("lon").first(),
+        pl.col("lat").first(),
         pl.col("name").first(),
-        pl.count("dest").alias("n_flights"), 
-        pl.first("alt").alias("altitude")
+        pl.count("dest").alias("n_flights").cast(pl.Float64)
     )
 )
 
-px.scatter(fl_ap, x="n_flights", y="altitude", hover_name="name")
+fig = px.scatter_mapbox(fl_ap, lat="lat", lon="lon", size="n_flights", color="n_flights", hover_name="name", title="Top destinations", zoom=3)
+fig.update_layout(mapbox_style="open-street-map")
+fig.show()
 ```
+
 
 ## Formatted tables
 
-Using the `great_tables` package:
+Not part of `polars` ...
+
+Use the `great_tables` package:
 
 
 ```{python}
@@ -220,7 +274,17 @@ formatted = (
             ])
 )
 
-GT(formatted, rowname_col="Airport")
+(
+    GT(formatted, rowname_col="Airport")
+    .data_color(palette=["yellow","red"])
+    .tab_header(
+        title="Top flight destinations from NYC",
+        subtitle="2013"
+    )
+     .tab_source_note(
+        source_note="Data from the `nycflights` package"
+    )
+)
 ```
 
 ## Lazy
@@ -230,10 +294,17 @@ lazy_flights = pl.scan_csv("data/flights.csv.zip") # 😒
 ```
 
 ---
-
 ```{python}
 pl.read_csv("data/flights.csv.zip").write_parquet("data/flights.parquet")
 ```
+
+**Parquet**
+* *columnar* storage format
+* binary format
+* much faster than csv
+* smaller file size
+* mathces the polars data model
+* data types are preserved (date, int, float, etc.)
 
 ---
 
