@@ -287,6 +287,76 @@ formatted = (
 )
 ```
 
+## Time series data
+
+```{python}
+danube = pl.read_csv("data/danube.csv", try_parse_dates=True)
+```
+
+---
+
+Using **parquet** would be better:
+* smaller file size
+* faster read/write
+* no need to parse dates
+
+```python
+danube = pl.read_parquet("data/danube.parquet")
+```
+
+## Filter by date
+
+Filtering on date/datetime is similar to any other filter:
+
+```{python}
+import datetime
+
+(danube
+    .filter(pl.col("date") >= datetime.date(2007, 1, 1))
+    .filter(pl.col("date") <= datetime.date(2007, 1, 7))
+)
+```
+
+## Temporal aggregation
+
+Yearly max Q:
+
+```{python}
+#| output-location: slide
+(danube
+    .set_sorted("date") # we know the data is sorted, otherwise use .sort("date")
+    .group_by_dynamic("date", every="1y")
+    .agg(pl.col("discharge").max())
+)
+```
+
+---
+
+
+```{python}
+(danube
+    .set_sorted("date")
+    .group_by_dynamic("date", every="1y")
+    .agg(pl.col("discharge").max())
+    .pipe(px.bar, x="date", y="discharge")
+)
+```
+
+
+---
+
+Re-do, but this time only for the spring months:
+
+
+```{python}
+(danube
+    .set_sorted("date")
+    .group_by_dynamic("date", every="1y", offset="1mo", period="3mo")
+    .agg(pl.col("discharge").max())
+    .pipe(px.bar, x="date", y="discharge", title="Spring max discharge")
+)
+```
+
 ## Lazy
 
 ```python
@@ -326,6 +396,35 @@ type(lazy_flights)
     .collect()
 )
 ```   
+
+
+## Missing data
+
+```{python}
+from datetime import date
+df = pl.DataFrame({
+    "date": [date(2022, 1, 1), None, date(2022, 1, 3), date(2022, 1, 4)],
+    "a": [1, 2, None, 4],
+    "b": [None, 2.0, 3.0, None],
+    "d": [True, False, None, True],
+    "e": ["and", "so", "on", None]
+
+})
+df
+```
+
+---
+
+---
+```{python}
+df.null_count()
+```
+
+---
+
+```{python}
+df.drop_nulls("a")
+```
 
 ## Conclusions
 
