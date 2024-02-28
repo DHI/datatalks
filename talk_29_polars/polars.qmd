@@ -3,7 +3,9 @@ title: Data science with Polars
 author: Henrik Andersson
 date: 2024-03-07
 format: revealjs
+slide-number: true
 echo: true
+code-annotations: hover
 ---
 
 ##
@@ -21,7 +23,7 @@ echo: true
 import polars as pl
 
 airports = pl.read_csv("data/airports.csv")
-airports.head()
+airports.columns
 ```
 
 ---
@@ -30,7 +32,7 @@ Zipped files are also supported:
 
 ```{python}
 flights = pl.read_csv("data/flights.csv.zip")
-flights.head()
+flights.columns[:5]
 ```
 
 ## Data wrangling
@@ -49,28 +51,28 @@ aggregation
 
 join
 :   combining data *"JOIN ... ON ..."*
-. . .
 
-Typical database operations, supported by Polars.
 
-## Selecting data
-
-Use the `select` method to select columns:
+## Selecting columns (`select`)
 
 ```{python}
 (flights
-    .select(["origin", "dest", "arr_delay"])
+    .select(["origin", "dest", "arr_delay"]) # <1>
     .head()
 )
 ```
+1. `select`
 
-## Filtering data
-
-Use the `filter` method to filter rows:
-
+## Filtering data (`filter`)
+  
 ```{python}
-flights.filter(pl.col("arr_delay") > 60).head()
+(flights
+    .select("month","day", "dest", "origin", "arr_delay") 
+    .filter(pl.col("arr_delay") > 60)                     # <1>
+    .head()
+)
 ```
+1. `filter`
 
 ---
 
@@ -236,20 +238,21 @@ px.bar(top_airports, x="name", y="n_flights", title="Top destinations")
 --- 
 
 ```{python}
-#| output-location: slide 
+#| output-location: slide
 
 fl_ap = (flights
-    .join(airports, left_on="dest", right_on="faa")
-    .group_by("dest")
-    .agg(
+.join(airports, left_on="dest", right_on="faa")
+.group_by("dest")
+.agg(
         pl.col("lon").first(),
         pl.col("lat").first(),
         pl.col("name").first(),
-        pl.count("dest").alias("n_flights").cast(pl.Float64)
+        pl.count("dest").alias("n")
     )
 )
 
-fig = px.scatter_mapbox(fl_ap, lat="lat", lon="lon", size="n_flights", color="n_flights", hover_name="name", title="Top destinations", zoom=3)
+fig = px.scatter_mapbox(fl_ap, lat="lat", lon="lon", size="n",
+                        hover_name="name", zoom=3)
 fig.update_layout(mapbox_style="open-street-map")
 fig.show()
 ```
@@ -257,13 +260,13 @@ fig.show()
 
 ## Formatted tables
 
-Not part of `polars` ...
+🤔 Not part of `polars`
 
-Use the `great_tables` package:
-
+👍 Use `great_tables` package:
 
 ```{python}
 #| output-location: slide
+
 from great_tables import GT
 
 formatted = (
@@ -274,17 +277,7 @@ formatted = (
             ])
 )
 
-(
-    GT(formatted, rowname_col="Airport")
-    .data_color(palette=["yellow","red"])
-    .tab_header(
-        title="Top flight destinations from NYC",
-        subtitle="2013"
-    )
-     .tab_source_note(
-        source_note="Data from the `nycflights` package"
-    )
-)
+GT(formatted, rowname_col="Airport").data_color(palette=["yellow","red"])
 ```
 
 ## Time series data
@@ -296,6 +289,7 @@ danube = pl.read_csv("data/danube.csv", try_parse_dates=True)
 ---
 
 Using **parquet** would be better:
+
 * smaller file size
 * faster read/write
 * no need to parse dates
@@ -306,7 +300,6 @@ danube = pl.read_parquet("data/danube.parquet")
 
 ## Filter by date
 
-Filtering on date/datetime is similar to any other filter:
 
 ```{python}
 import datetime
@@ -324,7 +317,7 @@ Yearly max Q:
 ```{python}
 #| output-location: slide
 (danube
-    .set_sorted("date") # we know the data is sorted, otherwise use .sort("date")
+    .set_sorted("date") # data is sorted, otherwise use .sort("date")
     .group_by_dynamic("date", every="1y")
     .agg(pl.col("discharge").max())
 )
@@ -338,16 +331,14 @@ Yearly max Q:
     .set_sorted("date")
     .group_by_dynamic("date", every="1y")
     .agg(pl.col("discharge").max())
-    .pipe(px.bar, x="date", y="discharge")
+    .pipe(px.bar, x="date", y="discharge", title="Yearly max discharge")
 )
 ```
 
 
 ---
 
-Re-do, but this time only for the spring months:
-
-
+ 
 ```{python}
 (danube
     .set_sorted("date")
@@ -356,6 +347,80 @@ Re-do, but this time only for the spring months:
     .pipe(px.bar, x="date", y="discharge", title="Spring max discharge")
 )
 ```
+
+## Lagged & rolling operations
+
+```{python}
+#| output-location: slide
+(danube.
+    select(
+        pl.col("date"),
+        pl.col("discharge"),
+        pl.col("discharge").shift(1).alias("discharge_m1"),
+        pl.col("precipitation"),
+        pl.col("precipitation").rolling_median("1w", by="date").alias("precipitation_rm")
+    )
+    .drop_nulls() # more on this later
+    .head()
+)
+```
+
+## Derived variables
+
+Setting a constant value:
+
+```{python}
+#| error: true
+    danube["continent"] = "Europe" # 💥
+```
+
+---
+
+Use `with_columns`:
+
+```{python}
+(danube.
+    with_columns(
+        pl.lit("Europe").alias("continent"),
+    )
+).head()
+```
+
+---
+
+Categorize discharge in low, medium & high:
+
+```{python}
+#| output-location: slide
+(danube.
+    with_columns(
+        pl.col("discharge").cut(breaks=[1000, 10000], 
+        labels=["low", "medium", "high"]).alias("Qcat")
+    )
+).sample(10)
+```
+
+
+---
+
+Create category "hot&dry" or normal
+
+```{python}
+#| output-location: slide
+(danube
+    .with_columns(
+        pl.when(
+            (pl.col("temperature") > 20) & 
+            (pl.col("discharge") < 1000)
+        )
+        .then(pl.lit("hot&dry"))
+        .otherwise(pl.lit("normal"))
+        .alias("weather")
+    )
+)
+```
+
+
 
 ## Lazy
 
