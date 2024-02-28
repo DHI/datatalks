@@ -426,6 +426,34 @@ df.null_count()
 df.drop_nulls("a")
 ```
 
+## Is Polars supported by other libraries?
+
+```{python}
+#| output-location: slide
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.pipeline import make_pipeline
+
+pipe = make_pipeline(StandardScaler(), KMeans(n_clusters=3))
+cl = pipe.fit_predict(danube)
+
+plt.scatter(danube['temperature'], danube['discharge'], c=cl, cmap='viridis')
+plt.xlabel('Temperature')
+plt.ylabel('Discharge');
+```
+
+---
+
+```{python}
+import mikeio
+
+ts = mikeio.read("data/danube.dfs0")
+pd_df = ts.to_dataframe().reset_index(names="observed_at") # 🐼
+df = pl.from_pandas(pd_df) # 🐻‍❄️
+df.head()
+```
+
 ## Conclusions
 
 * Support for all database-like operations
