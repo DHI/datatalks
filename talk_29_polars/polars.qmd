@@ -8,6 +8,67 @@ echo: true
 code-annotations: hover
 ---
 
+## Data frame history lesson
+
+::: {.columns}
+
+::: {.column}
+
+**Base R**
+```{.R}
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+> df = data.frame(x=c(1,2,3), 
++                 y=c("A", "B", "C"))
+> df[df$x>1,]
+  x y
+2 2 B
+3 3 C
+> df[df$x>1,"x"]  = 0
+> df
+  x y
+1 1 A
+2 0 B
+3 0 C
+```
+
+:::
+
+::: {.column}
+**Pandas**
+```{.python}
+Python 3.12.1 (main, Dec 10 2023, 15:07:36) [GCC 11.4.0] on linux
+>>> df = pd.DataFrame({"x":[1,2,3],
+...                    "y":["A","B","C"]})
+>>> df[df.x>1]
+   x  y
+1  2  B
+2  3  C
+>>> df.loc[df.x>1,"x"] = 0
+>>> df
+   x  y
+0  1  A
+1  0  B
+2  0  C
+```
+
+:::
+
+::::
+
+
+::: {.notes}
+* ~2008: Wes McKinney starts developing pandas modelled after R dataframes
+:::
+
+## Drawbacks of Pandas
+
+* Single-threaded
+* Memory inefficient (some data types)
+* Complex API
+* Confusing behavior when modifying data
+* ...
+
+
 ##
 ![](polars.svg)
 
@@ -160,8 +221,6 @@ top_dest
 
 ## Join strategies
 
-::: {.incremental}
-
 inner
 :   keep only rows that match in both dataframes
 
@@ -173,8 +232,6 @@ right
 
 outer
 :   keep all rows from both dataframes
-
-:::
 
 ---
 
@@ -194,8 +251,9 @@ top_airports =(top_dest
     .join(airports, left_on="dest", right_on="faa")
     .select(["dest", "name", "alt","n_flights"])
     .sort("n_flights", descending=True)
-    .head()
+    .head(3)
 )
+top_airports
 ```
 
 ## More complex query
@@ -257,28 +315,6 @@ fig.update_layout(mapbox_style="open-street-map")
 fig.show()
 ```
 
-
-## Formatted tables
-
-🤔 Not part of `polars`
-
-👍 Use `great_tables` package:
-
-```{python}
-#| output-location: slide
-
-from great_tables import GT
-
-formatted = (
-    top_airports.
-        select([
-            pl.col("name").alias("Airport"),
-            pl.col("n_flights").alias("No. of flights")
-            ])
-)
-
-GT(formatted, rowname_col="Airport").data_color(palette=["yellow","red"])
-```
 
 ## Time series data
 
@@ -358,7 +394,7 @@ Yearly max Q:
         pl.col("discharge"),
         pl.col("discharge").shift(1).alias("discharge_m1"),
         pl.col("precipitation"),
-        pl.col("precipitation").rolling_median("1w", by="date").alias("precipitation_rm")
+        pl.col("precipitation").rolling_median("1w", by="date").alias("prec_rm")
     )
     .drop_nulls() # more on this later
     .head()
@@ -434,6 +470,7 @@ pl.read_csv("data/flights.csv.zip").write_parquet("data/flights.parquet")
 ```
 
 **Parquet**
+
 * *columnar* storage format
 * binary format
 * much faster than csv
@@ -480,12 +517,15 @@ df
 
 ---
 
----
+Overview of missing data per columns is cheap and easy
+
 ```{python}
 df.null_count()
 ```
 
 ---
+
+We can get rid of rows with missing data:
 
 ```{python}
 df.drop_nulls("a")
