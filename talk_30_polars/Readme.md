@@ -1,4 +1,4 @@
-# Talk 29 - Data science with Polars
+# Talk 30 - Data science with Polars
 
 Polars is a modern Dataframe library, that solves many of the pain points of pandas. It is faster, more memory efficient, and has a more modern API.
 
