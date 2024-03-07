@@ -1,0 +1,568 @@
+---
+title: Data science with Polars
+author: Henrik Andersson
+date: 2024-03-07
+format: revealjs
+slide-number: true
+echo: true
+code-annotations: hover
+---
+
+## Data frame history lesson
+
+::: {.columns}
+
+::: {.column}
+
+**Base R**
+```{.R}
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+> df = data.frame(x=c(1,2,3), 
++                 y=c("A", "B", "C"))
+> df[df$x>1,]
+  x y
+2 2 B
+3 3 C
+> df[df$x>1,"x"]  = 0
+> df
+  x y
+1 1 A
+2 0 B
+3 0 C
+```
+
+:::
+
+::: {.column}
+**Pandas**
+```{.python}
+Python 3.12.1 (main, Dec 10 2023, 15:07:36) [GCC 11.4.0] on linux
+>>> df = pd.DataFrame({"x":[1,2,3],
+...                    "y":["A","B","C"]})
+>>> df[df.x>1]
+   x  y
+1  2  B
+2  3  C
+>>> df.loc[df.x>1,"x"] = 0
+>>> df
+   x  y
+0  1  A
+1  0  B
+2  0  C
+```
+
+:::
+
+::::
+
+
+::: {.notes}
+* ~2008: Wes McKinney starts developing pandas modelled after R dataframes
+:::
+
+## Drawbacks of Pandas
+
+* Single-threaded
+* Memory inefficient (some data types)
+* Complex API
+* Confusing behavior when modifying data
+* ...
+
+
+##
+![](polars.svg)
+
+* Fast
+* Memory efficient
+* Out-of-core processing (larger than memory)
+* Parallel processing
+* Readable code
+
+## Data import
+
+```{python}
+import polars as pl
+
+airports = pl.read_csv("data/airports.csv")
+airports.columns
+```
+
+---
+
+Zipped files are also supported:
+
+```{python}
+flights = pl.read_csv("data/flights.csv.zip")
+flights.columns[:5]
+```
+
+## Data wrangling
+
+selection
+:   selecting columns *"SELECT ... FROM ..."*
+
+filtering
+:   selecting rows *"WHERE ..."*
+
+sorting
+:   ordering rows *"ORDER BY ..."*
+
+aggregation
+:   summarizing data, count, sum, mean, etc. *"GROUP BY ..."*
+
+join
+:   combining data *"JOIN ... ON ..."*
+
+
+## Selecting columns (`select`)
+
+```{python}
+(flights
+    .select(["origin", "dest", "arr_delay"]) # <1>
+    .head()
+)
+```
+1. `select`
+
+## Filtering data (`filter`)
+  
+```{python}
+(flights
+    .select("month","day", "dest", "origin", "arr_delay") 
+    .filter(pl.col("arr_delay") > 60)                     # <1>
+    .head()
+)
+```
+1. `filter`
+
+---
+
+Use multiple conditions:
+
+```{python}
+flights_jan_1 = (flights.
+    filter(
+        (pl.col("month") == 1) & 
+        (pl.col("day") == 1) & 
+        pl.col("arr_delay").is_not_null()
+        )
+)
+```
+
+## Sorting data
+
+Use the `sort` method to sort rows:
+
+```{python}
+#| output-location: slide
+(flights_jan_1
+    .select(["origin", "dest", "arr_delay"])
+    .sort("arr_delay", descending=True)
+    .head()
+)
+```
+
+## Transforming data
+
+*Did the flight catch up during the flight?*
+
+```{python}
+#| output-location: slide
+(flights
+    .with_columns(
+        (pl.col("arr_delay") - pl.col("dep_delay")).alias("gain")
+        )
+    .select(["origin", "dest","arr_delay", "dep_delay", "gain"])
+    .head()
+)
+```
+
+## Aggregating data
+
+*Which **destination** has the most flights?*
+
+```{python}
+#| output-location: slide
+top_dest = (
+    flights
+    .group_by("dest")
+    .agg(pl.count("dest").alias("n_flights"))
+    .sort("n_flights", descending=True)
+    .head()
+)
+top_dest
+```
+## Joining data
+
+:::: {.columns}
+
+::: {.column}
+
+| year | dest | origin | delay |
+|------|------|--------|-----------|
+| 2013 |  IAH | EWR    | 2         |
+| 2013 |  NYC | LGA    | 4         |
+
+:  Flight data
+:::
+
+::: {.column}
+
+| *faa* | lat | lon | 
+|-------|-----|-----|
+| EWR | 40.69 | -74.16
+| LGA | 40.77 | -73.87 |
+| IAH | 29.98 | -95.34 |
+
+:  Airport data
+:::
+
+::::
+
+## Join strategies
+
+inner
+:   keep only rows that match in both dataframes
+
+left
+:   keep all rows from the left dataframe
+
+right
+:   keep all rows from the right dataframe
+
+outer
+:   keep all rows from both dataframes
+
+---
+
+Find out more about top destinations:
+
+```{python}
+flights_airports = (
+    flights
+    .join(airports, left_on="dest", right_on="faa", how="inner")
+)
+```
+
+---
+
+```{python}
+top_airports =(top_dest
+    .join(airports, left_on="dest", right_on="faa")
+    .select(["dest", "name", "alt","n_flights"])
+    .sort("n_flights", descending=True)
+    .head(3)
+)
+top_airports
+```
+
+## More complex query
+
+```{python}
+small_df = (flights
+    .filter(pl.col("dest").is_in(['ATL','LAX']))
+    .filter(pl.col("month").is_in([1,2]))
+)
+```
+---
+```{python}
+(small_df
+    .group_by("dest", "month")
+    .agg(pl.col("arr_delay").max())
+    .sort("dest","month","arr_delay")
+)
+```
+
+## Data export
+
+```{python}
+top_airports.write_csv("data/top_airports.csv")
+```
+
+. . .
+
+```{python}
+! head data/top_airports.csv
+```
+
+## Visualizing data
+
+```{python}
+import plotly.express as px
+
+px.bar(top_airports, x="name", y="n_flights", title="Top destinations")
+```
+
+--- 
+
+```{python}
+#| output-location: slide
+
+fl_ap = (flights
+.join(airports, left_on="dest", right_on="faa")
+.group_by("dest")
+.agg(
+        pl.col("lon").first(),
+        pl.col("lat").first(),
+        pl.col("name").first(),
+        pl.count("dest").alias("n")
+    )
+)
+
+fig = px.scatter_mapbox(fl_ap, lat="lat", lon="lon", size="n",
+                        hover_name="name", zoom=3)
+fig.update_layout(mapbox_style="open-street-map")
+fig.show()
+```
+
+
+## Time series data
+
+```{python}
+danube = pl.read_csv("data/danube.csv", try_parse_dates=True)
+```
+
+---
+
+Using **parquet** would be better:
+
+* smaller file size
+* faster read/write
+* no need to parse dates
+
+```python
+danube = pl.read_parquet("data/danube.parquet")
+```
+
+## Filter by date
+
+
+```{python}
+import datetime
+
+(danube
+    .filter(pl.col("date") >= datetime.date(2007, 1, 1))
+    .filter(pl.col("date") <= datetime.date(2007, 1, 7))
+)
+```
+
+## Temporal aggregation
+
+Yearly max Q:
+
+```{python}
+#| output-location: slide
+(danube
+    .set_sorted("date") # data is sorted, otherwise use .sort("date")
+    .group_by_dynamic("date", every="1y")
+    .agg(pl.col("discharge").max())
+)
+```
+
+---
+
+
+```{python}
+(danube
+    .set_sorted("date")
+    .group_by_dynamic("date", every="1y")
+    .agg(pl.col("discharge").max())
+    .pipe(px.bar, x="date", y="discharge", title="Yearly max discharge")
+)
+```
+
+
+---
+
+ 
+```{python}
+(danube
+    .set_sorted("date")
+    .group_by_dynamic("date", every="1y", offset="1mo", period="3mo")
+    .agg(pl.col("discharge").max())
+    .pipe(px.bar, x="date", y="discharge", title="Spring max discharge")
+)
+```
+
+## Lagged & rolling operations
+
+```{python}
+#| output-location: slide
+(danube.
+    select(
+        pl.col("date"),
+        pl.col("discharge"),
+        pl.col("discharge").shift(1).alias("discharge_m1"),
+        pl.col("precipitation"),
+        pl.col("precipitation").rolling_median("1w", by="date").alias("prec_rm")
+    )
+    .drop_nulls() # more on this later
+    .head()
+)
+```
+
+## Derived variables
+
+Setting a constant value:
+
+```{python}
+#| error: true
+    danube["continent"] = "Europe" # 💥
+```
+
+---
+
+Use `with_columns`:
+
+```{python}
+(danube.
+    with_columns(
+        pl.lit("Europe").alias("continent"),
+    )
+).head()
+```
+
+---
+
+Categorize discharge in low, medium & high:
+
+```{python}
+#| output-location: slide
+(danube.
+    with_columns(
+        pl.col("discharge").cut(breaks=[1000, 10000], 
+        labels=["low", "medium", "high"]).alias("Qcat")
+    )
+).sample(10)
+```
+
+
+---
+
+Create category "hot&dry" or normal
+
+```{python}
+#| output-location: slide
+(danube
+    .with_columns(
+        pl.when(
+            (pl.col("temperature") > 20) & 
+            (pl.col("discharge") < 1000)
+        )
+        .then(pl.lit("hot&dry"))
+        .otherwise(pl.lit("normal"))
+        .alias("weather")
+    )
+)
+```
+
+
+
+## Lazy
+
+```python
+lazy_flights = pl.scan_csv("data/flights.csv.zip") # 😒
+```
+
+---
+```{python}
+pl.read_csv("data/flights.csv.zip").write_parquet("data/flights.parquet")
+```
+
+**Parquet**
+
+* *columnar* storage format
+* binary format
+* much faster than csv
+* smaller file size
+* mathces the polars data model
+* data types are preserved (date, int, float, etc.)
+
+---
+
+```{python}
+lazy_flights = pl.scan_parquet("data/flights.parquet")
+type(lazy_flights)
+```
+
+
+---
+
+```{python}
+(lazy_flights
+    .select("dest","arr_delay")
+    .group_by("dest")
+    .agg(pl.col("arr_delay").max())
+    .filter(pl.col("arr_delay") > 1000)
+    .sort("arr_delay", descending=True)
+    .collect()
+)
+```   
+
+
+## Missing data
+
+```{python}
+from datetime import date
+df = pl.DataFrame({
+    "date": [date(2022, 1, 1), None, date(2022, 1, 3), date(2022, 1, 4)],
+    "a": [1, 2, None, 4],
+    "b": [None, 2.0, 3.0, None],
+    "d": [True, False, None, True],
+    "e": ["and", "so", "on", None]
+
+})
+df
+```
+
+---
+
+Overview of missing data per columns is cheap and easy
+
+```{python}
+df.null_count()
+```
+
+---
+
+We can get rid of rows with missing data:
+
+```{python}
+df.drop_nulls("a")
+```
+
+## Is Polars supported by other libraries?
+
+```{python}
+#| output-location: slide
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.pipeline import make_pipeline
+
+pipe = make_pipeline(StandardScaler(), KMeans(n_clusters=3))
+cl = pipe.fit_predict(danube)
+
+plt.scatter(danube['temperature'], danube['discharge'], c=cl, cmap='viridis')
+plt.xlabel('Temperature')
+plt.ylabel('Discharge');
+```
+
+---
+
+```{python}
+import mikeio
+
+ts = mikeio.read("data/danube.dfs0")
+pd_df = ts.to_dataframe().reset_index(names="observed_at") # 🐼
+df = pl.from_pandas(pd_df) # 🐻‍❄️
+df.head()
+```
+
+## Conclusions
+
+* Support for all database-like operations
+* Simple Input/output
+* Visualization & formatted tables not part of polars (use dedicated libraries)
+* Group by operations returns a regular dataframe (no multi-index)
+* Lazy evaluation for efficient data processing 
