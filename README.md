@@ -3,6 +3,8 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 
 ## Overview
 
+* Data Talk 30: Data Science with Polars (JAN)
+* Data Talk 29: MIKE IO 1D (RYWM, GEKI)
 * Data Talk 28: Model validation with ModelSkill (JEM)
 * Data Talk 27: Manipulate text files with command-line tools (BJB)
 * Data Talk 26: Digital Elevation Models (NISI,PACO)
