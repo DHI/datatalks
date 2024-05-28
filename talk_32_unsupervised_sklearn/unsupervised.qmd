@@ -77,53 +77,157 @@ plt.ylabel('Feature 2')
 plt.legend()
 ```
 
-## PCA with MIKE data
+## PCA Wine data
 
 ```{python}
-import mikeio
-da = mikeio.read("data/tide12.dfs1")[0]
-da.isel(time=0).plot();
+from sklearn.datasets import load_wine
+X= load_wine(as_frame=True)['data']
+X.head()
+```
+
+```{python}
+# correlation plot
+#| echo: false
+
+import seaborn as sns
+from matplotlib.colors import LinearSegmentedColormap
+
+sns.heatmap(X.corr(), cmap='coolwarm', vmin=-1, vmax=1)
 ```
 
 ---
 
 ```{python}
-pca = PCA(n_components=10)
+from sklearn.preprocessing import StandardScaler
+Xsc = StandardScaler().fit_transform(X)
+pca = PCA()
+pca.fit(Xsc)
+
+loadings = pca.components_.T * np.sqrt(pca.explained_variance_)
+
+fig,ax = plt.subplots()
+
+# plt.bar(range(1, 14), loadings[:,0])
+# plt.ylim(-1,1)
+# plt.xticks(range(1,14))
+# plt.xticklabels(X.columns, rotation=45)
+ax.bar(range(1, 14), loadings[:,0])
+ax.set_ylim(-1,1)
+ax.set_xticks(range(1,14))
+ax.set_xticklabels(X.columns,rotation=90)
+ax.set_ylabel('Loadings for PC1')
+```
+
+## 'Pipelines is all you need'
+
+* ML workflows consist of multiple steps
+* Scikit-learn pipelines simplify the process
+* Ensures consistent preprocessing and modeling in training and testing
+
+Example: 
+```{python}
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+
+pipe = make_pipeline(StandardScaler(),
+                     PCA(n_components=2),
+                     KMeans(n_clusters=3))
+
+pipe
+```
+
+
+
+## PCA with MIKE data
+
+```{python}
+import mikeio
+da = mikeio.read("data/ns_hs.dfsu")[0]
+da.isel(time=-1).plot();
+```
+
+---
+
+```{python}
+from sklearn.preprocessing import StandardScaler
+
+da.values[np.isnan(da.values)] = 0
+
+n_components = 50
+
+pipe = make_pipeline(
+                     StandardScaler(),
+                     PCA(n_components=n_components))
 X = da.values
 
-Xtr = pca.fit_transform(X)
-
-np.round(pca.explained_variance_ratio_,3)
+Xtr = pipe.fit_transform(X)
 ```
 
 ```{python}
+# plot explained variance
 #| echo: false
-plt.bar(range(1,11), pca.explained_variance_ratio_)
+
+plt.bar(range(1,n_components+1), pipe.named_steps['pca'].explained_variance_ratio_)
 plt.yscale('log')
 plt.ylabel('Explained variance ratio')
 plt.xlabel('Principal component');
 ```
 
+
 ---
 
 ```{python}
-pca = PCA(n_components=2)
-X = da.values
-
-Xtr = pca.fit_transform(X)
-
-Xrec = pca.inverse_transform(Xtr)
+Xrec = pipe.inverse_transform(Xtr)
+darec = mikeio.DataArray(Xrec, time=da.time, item=da.item, geometry=da.geometry)
 ```
 
 ```{python}
-#| echo: false
-plt.plot(da.values[0,:], label='Original')
-plt.plot(Xrec[0,:], label='Reconstructed')
-plt.ylabel('Water level [m]')
-plt.xlabel('Node along boundary')
-plt.legend()
+# | echo: false
+fig, ax = plt.subplots(ncols=2)
+
+da.isel(time=-1).plot(ax=ax[0], title="Original", add_colorbar=False, vmin=0,vmax=0.9);
+# remove axis labels and ticks to make a clean plot
+ax[0].set_xlabel('')
+ax[0].set_ylabel('')
+ax[0].set_xticks([])
+ax[0].set_yticks([])
+darec.isel(time=-1).plot(ax=ax[1], title="Reconstructed", add_colorbar=False, vmin=0,vmax=0.9);
+ax[1].set_xlabel('')
+ax[1].set_ylabel('')
+ax[1].set_xticks([])
+ax[1].set_yticks([])
 ```
 
+---
+```{python}
+# | echo: false
+timestep = -1
+ax = ((da - darec)*100 / da).isel(time=timestep).plot(title="Relative reconstruction error (%)", cmap='coolwarm', vmin=-2, vmax=2, label="", levels=9);
+ax.set_xticks([])
+ax.set_yticks([])
+ax.set_xlabel('')
+ax.set_ylabel('');
+```
+
+```{python}
+# | echo: false
+
+loadings = pipe.named_steps['pca'].components_.T * np.sqrt(pipe.named_steps['pca'].explained_variance_)
+
+n_components = 6
+
+fig, ax = plt.subplots(ncols=6, figsize=(15,4))
+
+for i in range(n_components):
+    daloading = mikeio.DataArray(loadings[:,i], geometry=da.geometry)
+    daloading.plot(ax=ax[i], title=f"PC{i+1}", add_colorbar=False, vmin=-1, vmax=1,cmap='coolwarm')
+    ax[i].set_xticks([])
+    ax[i].set_yticks([])
+    ax[i].set_xlabel('')
+    ax[i].set_ylabel('')
+```
 
 
 ## t-Distributed Stochastic Neighbor Embedding (t-SNE)
