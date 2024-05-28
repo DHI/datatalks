@@ -1,0 +1,283 @@
+---
+title: 'Unsupervised Learning with scikit-learn'
+author: 'Henrik Andersson'
+date: 2024-05-30
+format: revealjs
+slide-number: true
+echo: true
+code-annotations: hover
+---
+
+
+## Introduction to Machine Learning
+
+   ![](images/ml_map.svg)
+
+## Unsupervised Learning Overview
+*Find patterns in data without explicit labels*
+
+* Dimensionality Reduction
+* Clustering
+* Anomaly Detection
+
+
+##  Scikit-learn Unsupervised API
+
+::: {.incremental}
+* `fit(X)`: Learn from the data
+* `transform(X)`: Apply the transformation
+* `fit_transform(X)`: Learn and apply in one step
+* `inverse_transform(X)`: Reverse the transformation
+* `predict(X)`: Predict labels or values
+* `fit_predict(X)`: Learn and predict in one step
+:::
+
+## Introduction to Dimensionality Reduction
+
+*Reducing the number of features (columns) while keeping most of the information*
+
+
+* Neighboring pixels in an image
+* Animal species co-occurring in the same habitats
+* Customers with similar purchasing behavior
+* High-resolution model data with smooth variations
+* ...
+
+## Principal Component Analysis (PCA)
+* A linear transformation
+* Finds the directions of maximum variance in the data
+* Very fast and efficient
+
+## PCA Example with scikit-learn
+
+
+```{python}
+#| echo: false
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+np.random.seed(0)
+X = np.random.multivariate_normal(mean=[0, 0], cov=[[1, 0.9], [0.9, 1]], size=100)
+```
+
+```{python}
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+```
+
+```{python}
+#| echo: false
+plt.scatter(X[:, 0], X[:, 1], label='Original Data')
+plt.scatter(X_pca[:, 0], X_pca[:, 1], label='Transformed Data')
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.legend()
+```
+
+## PCA with MIKE data
+
+```{python}
+import mikeio
+da = mikeio.read("data/tide12.dfs1")[0]
+da.isel(time=0).plot();
+```
+
+---
+
+```{python}
+pca = PCA(n_components=10)
+X = da.values
+
+Xtr = pca.fit_transform(X)
+
+np.round(pca.explained_variance_ratio_,3)
+```
+
+```{python}
+#| echo: false
+plt.bar(range(1,11), pca.explained_variance_ratio_)
+plt.yscale('log')
+plt.ylabel('Explained variance ratio')
+plt.xlabel('Principal component');
+```
+
+---
+
+```{python}
+pca = PCA(n_components=2)
+X = da.values
+
+Xtr = pca.fit_transform(X)
+
+Xrec = pca.inverse_transform(Xtr)
+```
+
+```{python}
+#| echo: false
+plt.plot(da.values[0,:], label='Original')
+plt.plot(Xrec[0,:], label='Reconstructed')
+plt.ylabel('Water level [m]')
+plt.xlabel('Node along boundary')
+plt.legend()
+```
+
+
+
+## t-Distributed Stochastic Neighbor Embedding (t-SNE)
+- Explanation and intuition
+- Example with scikit-learn
+
+   **Example**: Given a high-dimensional dataset of images, t-SNE can be used to visualize the data in a two-dimensional space, preserving local structures and revealing clusters of similar images.
+
+## Introduction to Clustering
+- What is clustering?
+- Importance and applications
+
+   **Example**: Clustering can be used in customer segmentation, where similar customers are grouped together based on their purchasing behavior, allowing businesses to tailor marketing strategies more effectively.
+
+## K-Means Clustering
+
+
+1. Initialize cluster centroids randomly
+2. Assign each data point to the nearest centroid
+3. Update the centroids based on the mean of the assigned data points
+4. Repeat steps 2 and 3 until convergence
+
+. . .
+
+*Remember to scale the data before applying K-Means*
+
+## K-Means example wine data
+
+```{python}
+from sklearn.datasets import load_wine
+
+data_dict = load_wine(as_frame=True)
+X = data_dict['data']
+y = data_dict['target']
+X.head()
+```
+
+```{python}
+#| echo: false
+import plotly.express as px
+
+fig = px.scatter(X, x='flavanoids', y='color_intensity')
+fig.show()
+```
+
+---
+
+```{python}
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+kmeans = KMeans(n_clusters=3, random_state=0)
+labels = kmeans.fit_predict(X_scaled)
+```
+
+```{python}
+#| echo: false
+plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=labels, cmap='viridis')
+plt.xlabel(X.columns[0])
+plt.ylabel(X.columns[1])
+plt.title('K-Means Clustering of Wine Data')
+plt.show()
+```
+
+---
+
+```{python}
+pd.crosstab(y, labels, rownames=['True'], colnames=['Cluster'])
+```
+
+
+
+## DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
+- Explanation and intuition
+- Example with scikit-learn
+
+   **Example**: DBSCAN is effective for identifying clusters of varying shapes and sizes in spatial data. For instance, it can be used to cluster GPS coordinates to identify regions with high or low density of points.
+
+## Introduction to Anomaly Detection
+- What is anomaly detection?
+- Importance and applications
+
+   **Example**: Anomaly detection can be used in fraud detection, where abnormal transactions or behaviors deviating from the norm are flagged for further investigation.
+
+## Star Wars characters data
+
+```{python}
+df = pd.read_csv("data/starwars.csv").dropna(subset=['mass', 'height'])
+df.head()
+```
+
+```{python}
+px.scatter(df, x='height', y='mass', hover_name='name')
+```
+
+
+## Isolation Forest
+- Explanation and intuition
+- Example with scikit-learn
+
+   **Example**: Isolation Forest isolates anomalies by randomly selecting a feature and then randomly selecting a split value between the maximum and minimum values of the selected feature. This process is repeated recursively, forming an isolation tree.
+
+## Isolation Forest example
+
+```{python}
+from sklearn.ensemble import IsolationForest
+
+X = df[['height', 'mass']]
+
+clf = IsolationForest(contamination=0.01)
+
+y_pred = clf.fit_predict(X)
+y_pred
+```
+
+---
+
+```{python}
+#| echo: false
+df['anomaly'] = y_pred
+px.scatter(df, x='height', y='mass', color='anomaly', hover_name='name')
+```
+. . .
+
+```{python}
+#| echo: false
+df[df['anomaly']==-1][['name', 'height', 'mass', 'anomaly']]
+```
+
+## Local Outlier Factor (LOF)
+- Explanation and intuition
+- Example with scikit-learn
+
+   **Example**: LOF measures the local density deviation of a given data point with respect to its neighbors. A data point with significantly lower density than its neighbors is likely to be an outlier.
+
+## Comparison and Use Cases
+- When to use which technique
+- Practical examples and scenarios
+
+   **Example**: Comparing K-means and DBSCAN for customer segmentation, highlighting scenarios where one may be more suitable than the other based on the dataset's characteristics and the desired outcome.
+
+## Hands-On Demonstration
+- Brief demo of one or two techniques in scikit-learn
+
+   **Example**: Live demonstration of applying PCA to a dataset to reduce its dimensionality and then visualizing the clusters using K-means or DBSCAN.
+
+## Summary and Key Takeaways
+- Recap of key points
+
+   **Example**: Summarizing the main concepts covered in the presentation and emphasizing the importance of understanding these techniques for effective data analysis and decision-making.
+
+## Q&A
+- Open floor for questions
+
+   **Example**: Inviting the audience to ask any questions they may have about the topics covered or any related concepts they are curious about.
