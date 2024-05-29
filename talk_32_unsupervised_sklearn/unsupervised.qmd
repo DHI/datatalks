@@ -70,14 +70,24 @@ X_pca = pca.fit_transform(X)
 
 ```{python}
 #| echo: false
-plt.scatter(X[:, 0], X[:, 1], label='Original Data')
-plt.scatter(X_pca[:, 0], X_pca[:, 1], label='Transformed Data')
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
-plt.legend()
+
+fig, ax = plt.subplots(ncols=2, figsize=(10, 4))
+ax[0].scatter(X[:, 0], X[:, 1], label='Original Data')
+ax[0].scatter(X_pca[:, 0], X_pca[:, 1], label='Transformed Data')
+ax[0].set_xlabel('Feature 1')
+ax[0].set_ylabel('Feature 2')
+ax[0].legend()
+
+ovar = np.var(X, axis=0)
+pvar = np.var(X_pca, axis=0)
+
+# make a bar chart with the variance of each feature in the original and transformed data
+ax[1].bar(['Feature 1', 'Feature 2'], ovar, label='Original Data')
+ax[1].bar(['PC1', 'PC2'], pvar, label='Transformed Data')
+ax[1].set_ylabel('Variance');
 ```
 
-## PCA Wine data
+## PCA Wine data {.smaller}
 
 ```{python}
 from sklearn.datasets import load_wine
@@ -85,12 +95,12 @@ X= load_wine(as_frame=True)['data']
 X.head()
 ```
 
+---
+
 ```{python}
-# correlation plot
 #| echo: false
 
 import seaborn as sns
-from matplotlib.colors import LinearSegmentedColormap
 
 sns.heatmap(X.corr(), cmap='coolwarm', vmin=-1, vmax=1)
 ```
@@ -101,30 +111,32 @@ sns.heatmap(X.corr(), cmap='coolwarm', vmin=-1, vmax=1)
 from sklearn.preprocessing import StandardScaler
 Xsc = StandardScaler().fit_transform(X)
 pca = PCA()
-pca.fit(Xsc)
+pca.fit(Xsc);
 
+plt.bar(range(1, pca.n_components_+1), pca.explained_variance_)
+plt.ylabel('Explained variance')
+plt.xlabel('Principal component');
+```
+
+---
+
+```{python}
 loadings = pca.components_.T * np.sqrt(pca.explained_variance_)
+```
 
+```{python}
+#| echo: false
 fig,ax = plt.subplots()
 
-# plt.bar(range(1, 14), loadings[:,0])
-# plt.ylim(-1,1)
-# plt.xticks(range(1,14))
-# plt.xticklabels(X.columns, rotation=45)
 ax.bar(range(1, 14), loadings[:,0])
 ax.set_ylim(-1,1)
 ax.set_xticks(range(1,14))
 ax.set_xticklabels(X.columns,rotation=90)
-ax.set_ylabel('Loadings for PC1')
+ax.set_ylabel('Loadings for PC1');
 ```
 
-## 'Pipelines is all you need'
+## 'Pipelines is all you need' {.smaller}
 
-* ML workflows consist of multiple steps
-* Scikit-learn pipelines simplify the process
-* Ensures consistent preprocessing and modeling in training and testing
-
-Example: 
 ```{python}
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -139,6 +151,11 @@ pipe
 ```
 
 
+::: {.notes}
+* ML workflows consist of multiple steps
+* Scikit-learn pipelines simplify the process
+* Ensures consistent preprocessing and modeling in training and testing
+:::
 
 ## PCA with MIKE data
 
@@ -155,20 +172,16 @@ from sklearn.preprocessing import StandardScaler
 
 da.values[np.isnan(da.values)] = 0
 
-n_components = 50
-
 pipe = make_pipeline(
                      StandardScaler(),
-                     PCA(n_components=n_components))
-X = da.values
+                     PCA(n_components=50))
 
-Xtr = pipe.fit_transform(X)
+Xtr = pipe.fit_transform(da.to_numpy())
 ```
 
 ```{python}
-# plot explained variance
 #| echo: false
-
+n_components = pipe.named_steps['pca'].n_components_
 plt.bar(range(1,n_components+1), pipe.named_steps['pca'].explained_variance_ratio_)
 plt.yscale('log')
 plt.ylabel('Explained variance ratio')
@@ -180,7 +193,10 @@ plt.xlabel('Principal component');
 
 ```{python}
 Xrec = pipe.inverse_transform(Xtr)
-darec = mikeio.DataArray(Xrec, time=da.time, item=da.item, geometry=da.geometry)
+darec = mikeio.DataArray(Xrec,
+                         time=da.time, 
+                         item=da.item,
+                         geometry=da.geometry)
 ```
 
 ```{python}
@@ -201,15 +217,26 @@ ax[1].set_yticks([])
 ```
 
 ---
+
+```{python}
+rel_err = (da - darec)*100 / da
+rel_err 
+```
+
 ```{python}
 # | echo: false
 timestep = -1
-ax = ((da - darec)*100 / da).isel(time=timestep).plot(title="Relative reconstruction error (%)", cmap='coolwarm', vmin=-2, vmax=2, label="", levels=9);
+ax = (rel_err.isel(time=timestep)
+                             .plot(title="Relative reconstruction error (%)",
+                                  cmap='coolwarm', vmin=-2, vmax=2,
+                                  label="", levels=9));
 ax.set_xticks([])
 ax.set_yticks([])
 ax.set_xlabel('')
 ax.set_ylabel('');
 ```
+
+## PCA with MIKE data - Loadings
 
 ```{python}
 # | echo: false
@@ -230,19 +257,72 @@ for i in range(n_components):
 ```
 
 
-## t-Distributed Stochastic Neighbor Embedding (t-SNE)
-- Explanation and intuition
-- Example with scikit-learn
+## T-Distributed Stochastic Neighbor Embedding (t-SNE)
 
-   **Example**: Given a high-dimensional dataset of images, t-SNE can be used to visualize the data in a two-dimensional space, preserving local structures and revealing clusters of similar images.
+::: {.incremental}
+* Non-linear dimensionality reduction
+* Preserves local structure in the data
+* Useful for visualization
+* Does **not** support inverse transformation
+:::
+
+## Digits data
+
+```{python}
+from sklearn.datasets import load_digits
+
+X, y= load_digits(return_X_y=True)
+X.shape
+```
+
+```{python}
+#| echo: false
+
+# visualize the first 10 digits
+fig, axes = plt.subplots(1, 10, figsize=(10, 1))
+for i in range(10):
+    axes[i].imshow(X[i].reshape(8, 8), cmap='gray')
+    axes[i].axis('off')
+```
+
+---
+
+```{python}
+from sklearn.manifold import TSNE
+
+tsne = TSNE(n_components=2, init='pca')
+X_ts = tsne.fit_transform(X)
+```
+
+
+```{python}
+#| echo: false
+plt.scatter(X_ts[:, 0], X_ts[:, 1], c=y, cmap='viridis')
+```
+
+
+
 
 ## Introduction to Clustering
-- What is clustering?
-- Importance and applications
 
-   **Example**: Clustering can be used in customer segmentation, where similar customers are grouped together based on their purchasing behavior, allowing businesses to tailor marketing strategies more effectively.
+*Grouping similar data points together*
+
+```{python}
+#| echo: false
+from sklearn.datasets import make_blobs
+from sklearn.cluster import KMeans
+
+X, y = make_blobs(n_samples=300, centers=4, cluster_std=0.60, random_state=0)
+kmeans = KMeans(n_clusters=4)
+pred = kmeans.fit_predict(X)
+plt.scatter(X[:, 0], X[:, 1], s=50, c=pred, cmap='viridis')
+```
 
 ## K-Means Clustering
+
+*Identify **K** clusters in the data*
+
+. . .
 
 
 1. Initialize cluster centroids randomly
@@ -254,9 +334,10 @@ for i in range(n_components):
 
 *Remember to scale the data before applying K-Means*
 
-## K-Means example wine data
+## K-Means example wine data {.smaller}
 
 ```{python}
+#| echo: false
 from sklearn.datasets import load_wine
 
 data_dict = load_wine(as_frame=True)
@@ -264,13 +345,24 @@ X = data_dict['data']
 y = data_dict['target']
 X.head()
 ```
+ 
+---
 
 ```{python}
-#| echo: false
 import plotly.express as px
 
-fig = px.scatter(X, x='flavanoids', y='color_intensity')
-fig.show()
+px.scatter_3d(X, x='flavanoids', y='color_intensity', z='alcohol')
+```
+
+---
+
+```{python}
+pipe = make_pipeline(StandardScaler(),
+                     TSNE(n_components=2, init='pca'))
+
+Xtr = pipe.fit_transform(X)
+
+plt.scatter(Xtr[:, 0], Xtr[:, 1])
 ```
 
 ---
@@ -281,7 +373,7 @@ from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 X_scaled = scaler.fit_transform(X)
 
-kmeans = KMeans(n_clusters=3, random_state=0)
+kmeans = KMeans(n_clusters=3)
 labels = kmeans.fit_predict(X_scaled)
 ```
 
@@ -301,18 +393,29 @@ pd.crosstab(y, labels, rownames=['True'], colnames=['Cluster'])
 ```
 
 
-
-## DBSCAN (Density-Based Spatial Clustering of Applications with Noise)
-- Explanation and intuition
-- Example with scikit-learn
-
-   **Example**: DBSCAN is effective for identifying clusters of varying shapes and sizes in spatial data. For instance, it can be used to cluster GPS coordinates to identify regions with high or low density of points.
-
 ## Introduction to Anomaly Detection
-- What is anomaly detection?
-- Importance and applications
 
-   **Example**: Anomaly detection can be used in fraud detection, where abnormal transactions or behaviors deviating from the norm are flagged for further investigation.
+*Identify outliers in the data*
+
+```{python}
+#| echo: false
+
+from sklearn.datasets import make_blobs
+
+X, y = make_blobs(n_samples=300, centers=2, cluster_std=0.20, random_state=0)
+X[0] = [1.5, 2.0]
+X[1] = [2.5, 3.2]
+X[2] = [0.5, 1.0]
+
+#plt.scatter(X[:, 0], X[:, 1], s=50)
+
+from sklearn.ensemble import IsolationForest
+model = IsolationForest(contamination=0.01)
+y_pred = model.fit_predict(X)
+plt.scatter(X[:, 0], X[:, 1], s=50, c=y_pred, cmap='viridis')
+```
+
+
 
 ## Star Wars characters data
 
@@ -327,10 +430,11 @@ px.scatter(df, x='height', y='mass', hover_name='name')
 
 
 ## Isolation Forest
-- Explanation and intuition
-- Example with scikit-learn
 
-   **Example**: Isolation Forest isolates anomalies by randomly selecting a feature and then randomly selecting a split value between the maximum and minimum values of the selected feature. This process is repeated recursively, forming an isolation tree.
+* Based on decision trees
+* Randomly select a feature and split value
+* Anomalies are isolated in few splits
+
 
 ## Isolation Forest example
 
@@ -359,29 +463,13 @@ px.scatter(df, x='height', y='mass', color='anomaly', hover_name='name')
 df[df['anomaly']==-1][['name', 'height', 'mass', 'anomaly']]
 ```
 
-## Local Outlier Factor (LOF)
-- Explanation and intuition
-- Example with scikit-learn
 
-   **Example**: LOF measures the local density deviation of a given data point with respect to its neighbors. A data point with significantly lower density than its neighbors is likely to be an outlier.
+## Summary
 
-## Comparison and Use Cases
-- When to use which technique
-- Practical examples and scenarios
 
-   **Example**: Comparing K-means and DBSCAN for customer segmentation, highlighting scenarios where one may be more suitable than the other based on the dataset's characteristics and the desired outcome.
-
-## Hands-On Demonstration
-- Brief demo of one or two techniques in scikit-learn
-
-   **Example**: Live demonstration of applying PCA to a dataset to reduce its dimensionality and then visualizing the clusters using K-means or DBSCAN.
-
-## Summary and Key Takeaways
-- Recap of key points
-
-   **Example**: Summarizing the main concepts covered in the presentation and emphasizing the importance of understanding these techniques for effective data analysis and decision-making.
-
-## Q&A
-- Open floor for questions
-
-   **Example**: Inviting the audience to ask any questions they may have about the topics covered or any related concepts they are curious about.
+::: {.incremental}
+* `scikit-learn` provides a wide range of unsupervised learning algorithms
+* **Dimensionality reduction** : Extract important features from data, efficency and visualization
+* **Clustering** : Group similar data points together, semi-supervised learning
+* **Anomaly detection** : Identify outliers in data
+:::
