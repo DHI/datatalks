@@ -2,7 +2,10 @@
 title: 'Unsupervised Learning with scikit-learn'
 author: 'Henrik Andersson'
 date: 2024-05-30
-format: revealjs
+format: 
+    revealjs:
+       embed-resources: true
+
 slide-number: true
 echo: true
 code-annotations: hover
@@ -23,6 +26,8 @@ code-annotations: hover
 
 ##  Scikit-learn Unsupervised API
 
+`X` : Data matrix (n_samples, n_features)
+
 ::: {.incremental}
 * `fit(X)`: Learn from the data
 * `transform(X)`: Apply the transformation
@@ -36,12 +41,9 @@ code-annotations: hover
 
 *Reducing the number of features (columns) while keeping most of the information*
 
+. . .
 
-* Neighboring pixels in an image
-* Animal species co-occurring in the same habitats
-* Customers with similar purchasing behavior
-* High-resolution model data with smooth variations
-* ...
+`X` (n_samples, n_features) $\rightarrow$  `X'`  (n_samples, n_components)
 
 ## Principal Component Analysis (PCA)
 * A linear transformation
@@ -135,7 +137,7 @@ ax.set_xticklabels(X.columns,rotation=90)
 ax.set_ylabel('Loadings for PC1');
 ```
 
-## 'Pipelines is all you need' {.smaller}
+## Pipelines {.smaller}
 
 ```{python}
 from sklearn.pipeline import make_pipeline
@@ -182,14 +184,15 @@ Xtr = pipe.fit_transform(da.to_numpy())
 ```{python}
 #| echo: false
 n_components = pipe.named_steps['pca'].n_components_
-plt.bar(range(1,n_components+1), pipe.named_steps['pca'].explained_variance_ratio_)
+plt.bar(range(1,n_components+1), pipe.named_steps['pca'].explained_variance_)
 plt.yscale('log')
-plt.ylabel('Explained variance ratio')
+plt.ylabel('Explained variance')
 plt.xlabel('Principal component');
 ```
 
 
 ---
+
 
 ```{python}
 Xrec = pipe.inverse_transform(Xtr)
@@ -321,9 +324,7 @@ plt.scatter(X[:, 0], X[:, 1], s=50, c=pred, cmap='viridis')
 ## K-Means Clustering
 
 *Identify **K** clusters in the data*
-
 . . .
-
 
 1. Initialize cluster centroids randomly
 2. Assign each data point to the nearest centroid
@@ -357,8 +358,10 @@ px.scatter_3d(X, x='flavanoids', y='color_intensity', z='alcohol')
 ---
 
 ```{python}
-pipe = make_pipeline(StandardScaler(),
-                     TSNE(n_components=2, init='pca'))
+pipe = make_pipeline(
+    StandardScaler(),
+    TSNE(n_components=2, init='pca')
+    )
 
 Xtr = pipe.fit_transform(X)
 
@@ -379,10 +382,7 @@ labels = kmeans.fit_predict(X_scaled)
 
 ```{python}
 #| echo: false
-plt.scatter(X_scaled[:, 0], X_scaled[:, 1], c=labels, cmap='viridis')
-plt.xlabel(X.columns[0])
-plt.ylabel(X.columns[1])
-plt.title('K-Means Clustering of Wine Data')
+plt.scatter(Xtr[:, 0], Xtr[:, 1], c=labels, cmap='viridis')
 plt.show()
 ```
 
@@ -407,8 +407,6 @@ X[0] = [1.5, 2.0]
 X[1] = [2.5, 3.2]
 X[2] = [0.5, 1.0]
 
-#plt.scatter(X[:, 0], X[:, 1], s=50)
-
 from sklearn.ensemble import IsolationForest
 model = IsolationForest(contamination=0.01)
 y_pred = model.fit_predict(X)
@@ -432,9 +430,9 @@ px.scatter(df, x='height', y='mass', hover_name='name')
 ## Isolation Forest
 
 * Based on decision trees
-* Randomly select a feature and split value
+* Randomly select features, splits data
 * Anomalies are isolated in few splits
-
+* Combines results from multiple trees (forest)
 
 ## Isolation Forest example
 
@@ -469,7 +467,7 @@ df[df['anomaly']==-1][['name', 'height', 'mass', 'anomaly']]
 
 ::: {.incremental}
 * `scikit-learn` provides a wide range of unsupervised learning algorithms
-* **Dimensionality reduction** : Extract important features from data, efficency and visualization
+* **Dimensionality reduction** : Extract important features from data, efficiency, compression and visualization
 * **Clustering** : Group similar data points together, semi-supervised learning
 * **Anomaly detection** : Identify outliers in data
 :::
