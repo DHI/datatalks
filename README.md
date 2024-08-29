@@ -3,6 +3,7 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 
 ## Overview
 
+* Data Talk 33: Python environments (JAN)
 * Data Talk 32: Unsupervised learning with scikit-learn (JAN)
 * Data Talk 31: Introduction to SQL (JHOP)
 * Data Talk 30: Data Science with Polars (JAN)
