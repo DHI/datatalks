@@ -1,11 +1,11 @@
 import marimo
 
-__generated_with = "0.9.14"
+__generated_with = "0.10.15"
 app = marimo.App(width="medium")
 
 
 @app.cell(hide_code=True)
-def __(mo):
+def _(mo):
     mo.md(
         """
         ## Model skill evaluation
@@ -17,14 +17,14 @@ def __(mo):
 
 
 @app.cell
-def __(mo):
+def _(mo):
     tiles = mo.ui.dropdown(["cartodb positron","openstreetmap","Stadia.StamenWatercolor"], value="cartodb positron")
-    mo.md(f"Tiles: {tiles}")    
+    mo.md(f"Tiles: {tiles}")
     return (tiles,)
 
 
 @app.cell
-def __(folium, locs, tiles):
+def _(folium, locs, tiles):
     m = folium.Map(location=[52, 3], zoom_start=6, tiles=tiles.value)
     folium.Polygon(locs, fill_color='black', tooltip="Model domain").add_to(m)
     folium.Marker(location= [52, 3.28], tooltip="EuroPlatform").add_to(m)
@@ -34,31 +34,31 @@ def __(folium, locs, tiles):
 
 
 @app.cell
-def __(c):
+def _(c):
     c.plot.timeseries(backend="plotly");
     return
 
 
 @app.cell
-def __(c):
+def _(c):
     c.skill(metrics=["bias", "rmse","r2", "si"]).style(decimals=2)
     return
 
 
 @app.cell
-def __(c):
-    c.scatter(backend="plotly")
+def _(c):
+    c.plot.scatter(backend="plotly")
     return
 
 
 @app.cell
-def __(c):
+def _(c):
     c.plot.taylor(normalize_std=True, title="", figsize=(4,4))
     return
 
 
 @app.cell
-def __(mikeio):
+def _(mikeio):
     dfs = mikeio.open("data/HKZN_local_2017_DutchCoast.dfsu")
     dfs.geometry.boundary_polylines.exteriors[0].xy.shape
 
@@ -67,7 +67,7 @@ def __(mikeio):
 
 
 @app.cell
-def __(mikeio, modelskill):
+def _(mikeio, modelskill):
     fn_mod = 'data/ts_storm_4.dfs0'
     fn_obs = 'data/eur_Hm0.dfs0'
     df_mod = mikeio.read(fn_mod, items=0).to_dataframe()
@@ -77,13 +77,13 @@ def __(mikeio, modelskill):
 
 
 @app.cell
-def __():
+def _():
     import marimo as mo
     return (mo,)
 
 
 @app.cell
-def __():
+def _():
     import mikeio 
     import modelskill
     import folium
