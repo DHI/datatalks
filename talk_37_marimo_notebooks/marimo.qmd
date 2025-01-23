@@ -46,6 +46,16 @@ JuPyTeR
 
 ::::
 
+# Notebooks excel 🛠️
+
+*Notebooks are like hammers: they can be misused, and aren`t appropriate for every application. But for data exploration and communication, notebooks excel.*
+
+-- Jake VanderPlas, a software engineer at 
+Google in Seattle, Washington, and a member 
+of the Colaboratory team,
+
+[BY JUPYTER, IT ALL MAKES SENSE](https://www.nature.com/articles/d41586-018-07196-1)
+
 ## Challenges with jupyter notebooks
 
 * Untitled25.ipynb
@@ -140,11 +150,17 @@ table --> r
 ## Interactive widgets
 
 * marimo.ui
-* Any jupyter widgets
+  * slider
+  * chat
+  * date
+  * ...
+* Existing jupyter widgets
+  * 
+    ```python
+      mo.ui.anywidget(my_widget)
+    ```
 
 ## Run as script
-
-
 
 ```python
 import marimo
@@ -172,9 +188,25 @@ $ python notebook.py
 
 ## Run as app
 
+![](images/app.png)
+
+. . .
+
+An alternative to Streamlit.
+
 ## Demonstration
 
 * `marimo edit notebook.py`
 * `marimo run notebook.py`
 
 ## Summary
+
+* Jupyter notebooks are great for exploratory work
+* Notebooks have some problems, e.g. hidden state
+* Marimo is a new type of computational notebook
+* Marimo notebooks can be interactive web applications
+
+#
+
+{{< video https://www.youtube.com/watch?v=yXGCKqo5cEY&t=509s width="800" height="400">}}
+
