@@ -1,0 +1,212 @@
+---
+title: "Rethinking Jupyter: Challenges and Better Practices"
+author: Henrik Andersson
+date: 2025-01-23
+date-format: long
+format: 
+  revealjs:
+    embed-resources: true
+    margin: 0.1
+    slide-number: true
+    theme: [default]
+    footer: "Rethinking Jupyter: Challenges and Better Practices"
+    incremental: true
+
+jupyter: python3
+execute: 
+  echo: true
+  freeze: auto
+---
+
+## Jupyter notebook
+
+A computational environment mixing text, code and outputs.
+
+:::: {.columns}
+
+::: {.column}
+
+![](images/jupyter.png)
+
+:::
+
+::: {.column}
+
+::: {.nonincremental}
+
+JuPyTeR
+
+* Julia
+* Python
+* R
+
+:::
+
+:::
+
+::::
+
+# Notebooks excel 🛠️
+
+*Notebooks are like hammers: they can be misused, and aren`t appropriate for every application. But for data exploration and communication, notebooks excel.*
+
+-- Jake VanderPlas, a software engineer at 
+Google in Seattle, Washington, and a member 
+of the Colaboratory team,
+
+[BY JUPYTER, IT ALL MAKES SENSE](https://www.nature.com/articles/d41586-018-07196-1)
+
+## Challenges with jupyter notebooks
+
+* Untitled25.ipynb
+* Arbitrary order of execution of code
+* Version control can be problematic
+
+## Hidden state
+
+![](images/hidden.png)
+
+
+## Out of order execution
+
+![](images/out_of_order.png)
+
+Using Jupyter as a scratch pad, can cause confusing results.
+
+## Version control
+
+```bash
+$ git merge feature
+Auto-merging .ipynb_checkpoints/Untitled-checkpoint.ipynb
+CONFLICT (content): Merge conflict in .ipynb_checkpoints/Untitled-checkpoint.ipynb
+Auto-merging Untitled.ipynb
+CONFLICT (content): Merge conflict in Untitled.ipynb
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+![](images/git2.png)
+
+
+
+## Alternatives
+
+Visual Studio code cells
+
+![](images/vs_code_cell.png)
+
+## Alternatives (2)
+
+Quarto
+
+![](images/quarto.png)
+
+
+## Marimo notebooks
+
+* 🚀 batteries-included: replaces jupyter, streamlit
+* ⚡️ reactive: run a cell, and marimo runs all dependent cells
+* 🖐️ interactive: sliders, tables, plots
+* 🔬 reproducible: no hidden state
+* 🏃 executable: execute as a Python script
+* 🐍 git-friendly: notebooks are stored as .py files
+* ...
+
+## Reactive execution
+
+![](images/reactive.webm)
+
+. . . 
+
+All dependent cells are automatically updated. Like Excel!
+
+## Directed acyclic graph 😳
+
+```{mermaid}
+%%| echo: false
+flowchart LR
+csv(csv) --> df
+df --> slider{slider}
+slider --> table
+df --> dropdown{dropdown}
+dropdown --> plot
+plot --> r(report)
+table --> r
+```
+
+. . . 
+
+* Computations are defined by their dependencies.
+* Re-use of variable names e.g. `df` is not possible.
+
+# No ♻️of variables
+
+![](images/variable.png)
+
+. . .
+
+![](images/variable2.png)
+
+
+## Interactive widgets
+
+* marimo.ui
+  * slider
+  * chat
+  * date
+  * ...
+* Existing jupyter widgets
+  * 
+    ```python
+      mo.ui.anywidget(my_widget)
+    ```
+
+## Run as script
+
+```python
+import marimo
+
+app = marimo.App(width="medium")
+
+@app.cell
+def __(mikeio, modelskill):
+    fn_mod = 'data/ts_storm_4.dfs0'
+    fn_obs = 'data/eur_Hm0.dfs0'
+    df_mod = mikeio.read(fn_mod, items=0).to_dataframe()
+    c = modelskill.match(fn_obs, fn_mod, mod_item=0, gtype='point')
+    c
+    return c, df_mod, fn_mod, fn_obs
+
+if __name__ == "__main__":
+    app.run()
+```
+
+A marimo notebook can be run as regular python script
+
+```bash
+$ python notebook.py
+```
+
+## Run as app
+
+![](images/app.png)
+
+. . .
+
+An alternative to Streamlit.
+
+## Demonstration
+
+* `marimo edit notebook.py`
+* `marimo run notebook.py`
+
+## Summary
+
+* Jupyter notebooks are great for exploratory work
+* Notebooks have some problems, e.g. hidden state
+* Marimo is a new type of computational notebook
+* Marimo notebooks can be interactive web applications
+
+#
+
+{{< video https://www.youtube.com/watch?v=yXGCKqo5cEY&t=509s width="800" height="400">}}
+
