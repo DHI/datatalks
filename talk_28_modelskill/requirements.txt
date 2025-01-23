@@ -8,7 +8,7 @@ click-plugins==1.1.1
 cligj==0.7.2
 contourpy==1.2.0
 cycler==0.12.1
-fiona==1.9.5
+fiona==1.10.0
 folium==0.15.1
 fonttools==4.47.0
 geopandas==0.14.1
