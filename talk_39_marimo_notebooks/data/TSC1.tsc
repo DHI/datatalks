@@ -1,0 +1,44 @@
+// Created     : 2025-01-23 9:52:44
+// DLL         : C:\Program Files (x86)\DHI\MIKE Zero\2024\bin\x64\pfs2004.dll
+// Version     : 22.0.3.17309
+
+[TimeSeriesComparator]
+   [Observation]
+      filename = |.\eur_Hm0.dfs0|
+      itemnumber = 1
+   EndSect  // Observation
+
+   [Simulation]
+      filename = |.\ts_storm_4.dfs0|
+      itemnumber = 1
+   EndSect  // Simulation
+
+   [Combinations]
+      count = 1
+      [Combination_1]
+         ObsItem = 'Hm0 [m]'
+         ObsItemNo = 1
+         SimItem = 'Europlatform: Sign. Wave Height [m]'
+         SimItemNo = 1
+         IsUsed = true
+      EndSect  // Combination_1
+
+   EndSect  // Combinations
+
+   [TimeInterval]
+      starttime = '2017 10 27 00:00:00'
+      endtime = '2017 10 29 18:00:00'
+   EndSect  // TimeInterval
+
+   [AdditionalSettings]
+      ubg = false
+   EndSect  // AdditionalSettings
+
+   [Output]
+      GenerateOutput = false
+      title = ''
+      filename = ||
+   EndSect  // Output
+
+EndSect  // TimeSeriesComparator
+
