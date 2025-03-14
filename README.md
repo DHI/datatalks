@@ -3,10 +3,11 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 
 ## Overview
 
-| Data Talk # | Title                                                              | Presenter(s)         |
-|-------------|--------------------------------------------------------------------|----------------------|
-| 39          | Rethinking Jupyter: Challenges and Better Practices               | JAN                  |
-| 38          | MIKE+Py: A Python Interface for MIKE+                             | RYWM                 |
+| Data Talk # | Title                                                            | Presenter(s)         |
+|-------------|------------------------------------------------------------------|----------------------|
+| 40          | Jupyter widgets                                                  | JAPR                 |
+| 39          | Rethinking Jupyter: Challenges and Better Practices              | JAN                  |
+| 38          | MIKE+Py: A Python Interface for MIKE+                            | RYWM                 |
 | 37          | Lightning AI                                                     | CLCR, FSCH           |
 | 36          | Linux in Windows, WSL                                            | JAN                  |
 | 35          | Timeseries with Darts                                            | JAPR                 |
