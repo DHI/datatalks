@@ -45,16 +45,3 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 | 3           | Satellite-derived bathymetry                                     | MLRA                 |
 | 2           | MIKE IO 1.0                                                      | JAN, JEM             |
 | 1           | Introducing Data Talks                                           | JEM, JOSL            |
-
-
-## Resources 
-
-* [MIKE IO](https://github.com/DHI/mikeio)
-* [MIKE IO 1D](https://github.com/DHI/mikeio1d)
-* [ModelSkill](https://github.com/DHI/modelskill)
-* [Time series outlier detection (TSOD)](https://github.com/DHI/tsod)
-* [WatObs](https://github.com/DHI/watobs)
-* [altimetry.dhigroup.com](https://altimetry.dhigroup.com)
-* Book: [getting-started-with-mikeio](https://dhi.github.io/getting-started-with-mikeio/intro.html)
-* Book: [book-learn-mikeio-fmskill](https://dhi.github.io/book-learn-mikeio-fmskill/intro.html)
-
