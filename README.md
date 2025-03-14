@@ -1,5 +1,5 @@
 # Data Talks
-Notebooks and scripts associated with Data Talks. Recordings can be found on [sharepoint (internal)](https://dhigroup.sharepoint.com/sites/TechnologyandInnovation/SitePages/DnA-Datatalks.aspx).
+Notebooks and scripts associated with Data Talks. Recordings can be found on [sharepoint (internal)](https://dhigroup.sharepoint.com/sites/TechnologyandInnovation/SitePages/Datatalks.aspx).
 
 ## Overview
 
