@@ -1,0 +1,106 @@
+---
+title: "*uv* for Python scripts"
+author: "Ryan Murray"
+date: "2025-03-27"
+format: 
+  revealjs:
+    incremental: true
+---
+
+<!--
+Share your Python scripts with ease by leveraging uv's script features
+
+Python is a great scripting language, and certainly holds a lot of value in terms of reproducibility and automation. That value is compounded when we can easily share scripts, building a knowledge sharing community. One friction in that regard has been getting scripts to seamlessly run on a coworker's computer. Join us for this Data Talk where we cover uv's script functionality, which enables self-contained, bootstrapped scripts that vastly improve this experience.
+-->
+
+## Outline
+- Challenge of sharing Python scripts
+- Features available in *uv* (and how they help)
+- A few small demos
+- Discussion
+
+# Today's challenge
+
+## Why share Python scripts?
+- Scripts encapsulate knowledge and time
+- If we can easily share them, we can:
+  + Learn from each other
+  + Document and automate more tasks
+  + Improve our workflows
+  + Build a knowledge sharing community
+
+## Basics of sharing Python scripts
+- If you share a script with a colleague (e.g. example.py):
+  1. They need to have Python installed (e.g. Python 3.13)
+  2. With the right packages to run your script (e.g. mikeio)
+
+- If you're lucky, they just run:
+  + `pip install mikeio` then `python example.py`
+- But what if:
+  + they only have Python 3.8 installed
+  + or a conflicting version of mikeio?
+
+
+## How is it handled today?
+- From the previous example, they may:
+  1. Install Python 3.13
+  2. Install mikeio (`pip install mikeio==1.2.3`)
+  3. Run the script (`python example.py`)
+- But, how well does that scale to multiple scripts?
+- Eventually they'll need something like *virtual environments*
+
+## Issues with the current approach
+- Managine multiple virtual environments is cumbersome
+- Imposes a high learning curve on the recipient
+- Imposes a high maintenance burden on the script author
+- Small scripts are not worth the effort of proper packaging
+
+# How *uv* can help
+*(reminder: uv is available on Software Center)*
+
+## Relevant features of *uv*
+- *uv* can install and manage Python
+- *uv* can install and manage Python packages
+- *uv* can create and manage virtual environments
+- *uv* leverages *PEP 723* to simplify script sharing
+
+## What is PEP 723?
+- A standard for inline metadata of package and Python version depedency
+- Intended for standalone scripts that never become full-fledged projects
+- Not a tool (like *uv*), just a standard format
+- Example:
+  ```python
+  # /// script
+  # requires-python = ">=3.13"
+  # dependencies = [
+  #   "mikeio",
+  # ]
+  # ///
+  ```
+
+## *uv*'s implementation of PEP 723
+- Downloads and installs the right Python version
+- Creates a temporary environment for the script
+- Installs the right Python packages
+- Runs the scripts (from path, or even URLs)
+- Makes the process quite streamlined
+- Does all of this super fast (thanks to caching)
+
+## Useful *uv* script commands
+- `uv init --script example.py`: initialize a new script
+- `uv add --script example.py mikeio`: add dependencies to a script
+- `uv remove --script example.py mikeio`: remove dependencies from a script
+- `uv run example.py`: run a script with managed dependencies
+- `uv lock --script example.py`: lock the script to archive exact package versions
+
+## Potential use cases at DHI
+- Archiving project scripts with dependencies
+- Sharing one-off scripts on Viva Engage, GitHub, etc.
+- Simple deployment of mini-apps for meetings
+- Repository of scripts as 'candidates' for packages
+- Probably more? (let's discuss later)
+
+# Small demos
+
+# Discussion
+How can we use *uv* scripts at DHI?

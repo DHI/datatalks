@@ -1,0 +1,9 @@
+[project]
+name = "talk-41-uv-scripts"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mikeio1d>=1.0.3",
+]
