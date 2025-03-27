@@ -5,6 +5,7 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 
 | Data Talk # | Title                                                            | Presenter(s)         |
 |-------------|------------------------------------------------------------------|----------------------|
+| 41          | uv for Python scripts                                            | RYWM                 |
 | 40          | Jupyter widgets                                                  | JAPR                 |
 | 39          | Rethinking Jupyter: Challenges and Better Practices              | JAN                  |
 | 38          | MIKE+Py: A Python Interface for MIKE+                            | RYWM                 |
