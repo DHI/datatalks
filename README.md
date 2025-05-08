@@ -5,6 +5,7 @@ Notebooks and scripts associated with Data Talks. Recordings can be found on [sh
 
 | Data Talk # | Title                                                            | Presenter(s)         |
 |-------------|------------------------------------------------------------------|----------------------|
+| 42          | Lessons from PyconDE/PyData 2025                                 | JAN, JEM, JAPR, FSCH |
 | 41          | uv for Python scripts                                            | RYWM                 |
 | 40          | Jupyter widgets                                                  | JAPR                 |
 | 39          | Rethinking Jupyter: Challenges and Better Practices              | JAN                  |
